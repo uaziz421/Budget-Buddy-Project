@@ -17,8 +17,8 @@ This page will be updated more throughout the semester
 > **git add {filename/pathways}** - *adds modified files to be staged and ready to commit remotely*
 > **git commit** - *commits changes to remote branch*
 > **git commit -m "*message*"** - *commits changes with message. See below*
-
-> git commit -m "Example commit message. Good practice is to include what changes were done from the previous commit"
+> **git push** - *pushes committed changes to remote server*
+> **git commit -m "*Example commit message. Good practice is to include what changes were done from the previous commit*"**
 
 ***I plan to populate this file with more tips an tricks as the progress progresses. Feel free to add anything else***
 
