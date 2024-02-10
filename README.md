@@ -21,6 +21,8 @@ This page will be updated more throughout the semester
 
 ***I plan to populate this file with more tips an tricks as the progress progresses. Feel free to add anything else***  
 
+***I will also go over how to merge branches and do Pull Requests***
+
 ### Project Tools
 
 ### Other Tips 
