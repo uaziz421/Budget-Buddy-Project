@@ -10,8 +10,10 @@ This page will be updated more throughout the semester
 ### Basic git commands
 **git checkout {branch name}** - *checkout to specified branch*  
 **git checkout -b {branch name}** - *create new remote branch from current branch. See below*  
-> git checkout -b Umer-Budget-Buddy-Project  
- **git status** - *view list of all new or modified files that have not been committed*  
+
+git checkout -b Umer-Budget-Buddy-Project  
+
+**git status** - *view list of all new or modified files that have not been committed*  
 **git add {filename/pathways}** - *adds modified files to be staged and ready to commit remotely*  
 **git commit** - *commits changes to remote branch*  
 **git diff** - *look at file changes between commits*  
