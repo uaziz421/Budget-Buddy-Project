@@ -8,7 +8,7 @@
 
 <body>
 <header id="header"><h1>Budget Buddy</h1></header>
-<div id="enterDetails">
+<div id="input">
 	<label>First Name:</label>
 		<input type="text" name="First Name" id="firstName">
 	
@@ -145,10 +145,33 @@
 		.catch((error)=>{
 			alert(error)
 		})
+		
+			var templateParams = {
+      from_name: 'Sender',
+      firstName: firstName.value,
+	  lastName: lastName.value,
+	  Email: signupEmail.value
+  };
+
+  emailjs.send('service_psxifkt', 'template_eqvppz5', templateParams)
+    .then(function (response) {
+      console.log('SUCCESS!', response.status, response.text);
+    }, function (error) {
+      console.log('FAILED...', error);
+    });
 	}
 	
 	signup.addEventListener("click", SignUp);
+</script>
 	
+
+<script type="text/javascript"
+       src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+</script>
+<script type="text/javascript">
+  (function (SendEmail) {
+     emailjs.init("fw5Rt0t2jdkj4iyKi");
+  })();
 </script>
 
 </body>
