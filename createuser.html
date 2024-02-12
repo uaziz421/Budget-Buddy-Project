@@ -9,46 +9,30 @@
 <body>
 	<header id="header"><h1>Budget Buddy</h1></header>
 <div id="enterDetails">
-	<label>First Name:</label>
-		<input type="text" id="firstName">
-	
-	<label>Last Name:</label>
-		<input type="text" id="lastName">
-		<br><br>
-	
-	<label>Street Address:</label>
-		<input type="text" id="streetAddress">
-	
-	<label>City:</label>
-		<input type="text" id="cityState">
-	
-	<label>Zip Code:</label>
-		<input type="text" id="zip">
-		<br><br>
-	
-	<label>Date of Birth</label>
-		<input type="date" id="dob">
-		<br><br>
-
-	<label>Email Address:</label>
-  <input type="email" id="signupEmail">
-		<br><br>
-	
 	<label>Username:</label>
-  <input type="text" id="signupUsername">
-	&nbsp;&nbsp;&nbsp;&nbsp;
-		
-  <label>Password:</label>
-		<input type="password" id="signupPassword">
+		<input type="text" id="userName">
 		<br><br>
+		<br><br>
+	<h3 id="findName" type="text"></h3>
+	<h3 id="findAddress" type="text"></h3>
+	<h3 id="findDOB" type="text"></h3>
+	<h3 id="findEmail" type="text"></h3>
+	<h3 id="findUserName" type="text"></h3>
+	<h3 id="findRole" type="text"></h3>
+		
+<input type="submit" name="getInfo" id="getInfo" value="Get Info">
+	<br><br>
 
-<input type="submit" name="signup" id="signup" value="Sign Up">
+	<input type="submit" name="setPassword" id="setPassword" value="Approve">
+	<input type="submit" name="rejectRequest" id="rejectRequest" value="Reject">
+		<br><br>
 	</div>
 	
-<script type="module">
+
+	<script type="module">
   // Import the functions you need from the SDKs you need
-	import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-	import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+  		import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -57,6 +41,7 @@
   const firebaseConfig = {
     apiKey: "AIzaSyBymv-Dhd-LEPYuqN87keTOngySucUkjSQ",
     authDomain: "budget-buddy-4b61a.firebaseapp.com",
+    databaseURL: "https://budget-buddy-4b61a-default-rtdb.firebaseio.com",
     projectId: "budget-buddy-4b61a",
     storageBucket: "budget-buddy-4b61a.appspot.com",
     messagingSenderId: "188748354368",
@@ -65,30 +50,74 @@
   };
 
   // Initialize Firebase
-	const app = initializeApp(firebaseConfig);
-	const auth = getAuth();	
+  	const app = initializeApp(firebaseConfig);
 	
-	signup.addEventListener("click", (e) => {
-		var email = document.getElementById("signupUsername").value
-		var password = document.getElementById("signupPassword").value
+	import { getDatabase, set, get, update, remove, ref, child} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+	import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+	
+	const db = getDatabase();
+	
 		
-		createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+	var findName = document.querySelector("#findName");
+	var findAddress = document.querySelector("#findAddress");
+	var findDOB = document.querySelector("#findDOB");
+	var findEmail = document.querySelector("#findEmail");
+	var findUserName = document.querySelector("#findUserName");
+	var findRole = document.querySelector("#findRole");
+		
+	getInfo.addEventListener("click", GetInfo);
+	setPassword.addEventListener("click", SetPassword);
+
+	function GetInfo() {
+		const dbref = ref(db);
+		get(child(dbref, "People/" + userName.value))
+		.then((snapshot)=>{
+			if(snapshot.exists()) {
+				findName.innerHTML = "Name: " + snapshot.val().FirstName + " " + snapshot.val().LastName;
+				findAddress.innerHTML = "Address: " + snapshot.val().StreetAddress + ", " + snapshot.val().City + ", " + snapshot.val().State + ", " + snapshot.val().ZipCode;
+				findDOB.innerHTML = "Date of Birth: " + snapshot.val().DOB;
+				findEmail.innerHTML = "Email: " + snapshot.val().Email;
+				findUserName.innerHTML = "Requested Username: " + snapshot.val().Username;
+				findRole.innerHTML = "Requested Role: " + snapshot.val().Role;
+			} else {
+				alert("No info found");
+			}
+		})
+		.catch((error)=>{
+			alert(error)
+		})
+	}
+		
+	function SetPassword() {
+		const dbref = ref(db);
+		const auth = getAuth();
+
+		get(child(dbref, "People/"+userName.value))
+		.then((snapshot)=>{
+			let email = snapshot.val().Email;
+			let password = snapshot.val().Password;
+			
+			createUserWithEmailAndPassword(auth, email, password)
+				.then((userCredential) => {
     		// Signed up 
-   			const user = userCredential.user;
-    		// ...
-			alert("User created successfully");
-  		})
-  		.catch((error) => {
+    		const user = userCredential.user;
+			// ...
+			alert("User login authorized");
+			})
+  			.catch((error) => {
     		const errorCode = error.code;
     		const errorMessage = error.message;
     		// ..
-			alert(errorMessage);
-  		});
-		
-		
-	})
-
+  			});
+		})
+    	.catch((error) => {
+   		alert(error);
+		});
+	}
+	
+	signup.addEventListener("click", SignUp);
 </script>
-
+	
+	
 </body>
 </html>

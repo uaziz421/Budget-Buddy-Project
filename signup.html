@@ -14,6 +14,9 @@
 	
 	<label>Last Name:</label>
 		<input type="text" name="Last Name" id="lastName">
+	
+	<label>Date of Birth</label>
+		<input type="date" name="Date of Birth" id="dob">
 		<br><br>
 	
 	<label>Street Address:</label>
@@ -80,15 +83,25 @@
 	<label>Zip Code:</label>
 		<input type="text" name="Zip Code" id="zip">
 		<br><br>
+
+	<label>Email Address:</label>			
+  		<input type="email" name="Email Address" id="signupEmail">
+		<br><br>
+
+	<label>Username:</label>
+		<input type="text" name="Username" id="userName">
 	
-	<label>Date of Birth</label>
-		<input type="date" name="Date of Birth" id="dob">
+	<label>Password:</label>
+		<input type="password" name="Password" id="password">
+	
+	<label>Desired Role:</label>
+		<select name="Role" id="role">
+			<option value="Administrator">Administrator</option>
+			<option value="Manager">Manager</option>
+			<option value="User">User</option>
+		</select>
 		<br><br>
-
-	<label>Email Address:</label>
-  	<input type="email" name="Email Address" id="signupEmail">
-		<br><br>
-
+	
 	<input type="submit" name="signup" id="signup" value="Sign Up">
 	</div>	
 	
@@ -127,9 +140,12 @@
 	var zip = document.querySelector("#zip");
 	var dob = document.querySelector("#dob");
 	var signupEmail = document.querySelector("#signupEmail");
-
+	var userName = document.querySelector("#userName");
+	var password = document.querySelector("#password");
+	var role = document.querySelector("#role");
+	
 	function SignUp() {
-		set(ref(db, "People/" + firstName.value + lastName.value), {
+		set(ref(db, "People/" + userName.value), {
 			FirstName: firstName.value,
 			LastName: lastName.value,
 			StreetAddress: streetAddress.value,
@@ -137,20 +153,24 @@
 			State: state.value,
 			ZipCode: zip.value,
 			DOB: dob.value,
-			Email: signupEmail.value
+			Email: signupEmail.value,
+			Username: userName.value,
+			Password: password.value,
+			Role: role.value		
 		})
 		.then(()=>{
-			alert("User information submitted")
+			alert("User information submitted. Please wait for an email from the administrator before attempting to log in.");
 		})
 		.catch((error)=>{
 			alert(error)
 		})
 		
-			var templateParams = {
+	
+	var templateParams = {
       from_name: 'Sender',
       firstName: firstName.value,
 	  lastName: lastName.value,
-	  Email: signupEmail.value
+	  userName: userName.value
   };
 
   emailjs.send('service_psxifkt', 'template_eqvppz5', templateParams)
