@@ -25,7 +25,7 @@
   text-align: left;
 }
 
-/* The flexbox used in this class centers the labels, inputs and button in its container */
+/* The flexbox used in displays the html elements in colomn form */
 /* also the "width" is fixed for the labels, inputs and button  */
 .form {
   display: flex;
