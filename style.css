@@ -29,6 +29,11 @@
   flex-direction: column;
   width: 400px;
 }
+#img {
+    display: block;
+    margin: auto;
+    width: 20%;
+}
 #link {
 }
 #header {
