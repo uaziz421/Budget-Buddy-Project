@@ -24,14 +24,13 @@
   font-weight: 300;
   text-align: left;
 }
-#input {
+
+/* The flexbox used in this class centers the labels, inputs and button in its container */
+/* also the "width" is fixed for the labels, inputs and button  */
+.form {
   display: flex;
   flex-direction: column;
   width: 400px;
-}
-#link {
-}
-#header {
 }
 
 #signin {
@@ -43,6 +42,8 @@
   font-size: 14px;
   border: none;
 }
+
+/* flexbox is used here to center the whole form in the page */
 .signin-container {
   display: flex;
   justify-content: center;
@@ -51,7 +52,7 @@
 .forgot-password {
   text-align: center;
   text-decoration: none;
-  margin-top: 0px;
+  margin-top: 10px;
   margin-bottom: 20px;
 }
 
@@ -73,12 +74,12 @@
   color: rgb(71, 137, 208);
 }
 
-#input label {
+.form label {
   margin-top: 10px;
   margin-bottom: 6px;
 }
 
-#input input {
+.form input {
   margin-bottom: 15px;
   padding: 6px;
 }
