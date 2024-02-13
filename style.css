@@ -2,34 +2,91 @@
 #header {
 }
 #header h1 {
-    font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    text-align: center;
-    border-bottom-width: thick;
-    border-bottom-style: double;
+  font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-align: center;
+  border-bottom-width: thick;
+  border-bottom-style: double;
 }
 #subheaderh2 {
-    font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    text-align: center;
-    font-weight: 400;
+  font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-align: center;
+  font-weight: 400;
 }
 #subheaderh3 {
-    text-align: center;
-    font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: 200;
-    padding-bottom: 250px;
+  margin-top: 100px;
+  text-align: center;
+  font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 200;
+  font-size: 28px;
 }
 #label {
-    font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: 300;
-    text-align: left;
+  font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  text-align: left;
 }
 #input {
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 400px;
 }
 #link {
-    font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: lighter;
-    line-height: 22.px;
 }
 #header {
+}
+
+#signin {
+  background-color: rgb(45, 87, 45);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  border: none;
+}
+.signin-container {
+  display: flex;
+  justify-content: center;
+}
+
+.forgot-password {
+  text-align: center;
+  text-decoration: none;
+  margin-top: 0px;
+  margin-bottom: 20px;
+}
+
+.create-new-user-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.forgot-password a {
+  text-decoration: none;
+  color: rgb(71, 137, 208);
+}
+
+#create-user-btn {
+  border: none;
+  background-color: white;
+  text-decoration: underline;
+  color: rgb(71, 137, 208);
+}
+
+#input label {
+  margin-top: 10px;
+  margin-bottom: 6px;
+}
+
+#input input {
+  margin-bottom: 15px;
+  padding: 6px;
+}
+
+#signinPassword {
+  margin: 0;
+}
+
+label {
+  font-weight: bold;
 }
