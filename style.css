@@ -1,4 +1,12 @@
 @charset "UTF-8";
+#header {
+  border-bottom-width: thick;
+  border-bottom-style: double;
+}
+
+#budget-buddy-header {
+}
+
 #header h1 {
   font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-align: center;
@@ -37,4 +45,65 @@
     width: 20%;
 }
 #link {
+}
+#header {
+}
 
+#signin {
+  background-color: rgb(45, 87, 45);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  border: none;
+}
+
+/* flexbox is used here to center the whole form in the page */
+.signin-container {
+  display: flex;
+  justify-content: center;
+}
+
+.forgot-password {
+  text-align: center;
+  text-decoration: none;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.create-new-user-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.forgot-password a {
+  text-decoration: none;
+  color: rgb(71, 137, 208);
+}
+
+#create-user-btn {
+  border: none;
+  background-color: white;
+  text-decoration: underline;
+  color: rgb(71, 137, 208);
+}
+
+.form label {
+  margin-top: 10px;
+  margin-bottom: 6px;
+}
+
+.form input {
+  margin-bottom: 15px;
+  padding: 6px;
+}
+
+#signinPassword {
+  margin: 0;
+}
+
+label {
+  font-weight: bold;
+}
