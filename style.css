@@ -1,31 +1,40 @@
 @charset "UTF-8";
 #header h1 {
-    font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    text-align: center;
-    border-bottom-width: thick;
-    border-bottom-style: double;
+  font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-align: center;
+  margin-bottom: 8px;
+  text-decoration: none;
 }
 #subheaderh2 {
-    font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    text-align: center;
-    font-weight: 400;
+  font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-align: center;
+  font-weight: 400;
 }
 #subheaderh3 {
-    text-align: center;
-    font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: 200;
-    padding-bottom: 250px;
+  margin-top: 100px;
+  text-align: center;
+  font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 200;
+  font-size: 28px;
 }
 #label {
-    font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: 300;
-    text-align: left;
+  font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  text-align: left;
 }
-#input {
-    text-align: center;
+
+/* The flexbox used in displays the html elements in colomn form */
+/* also the "width" is fixed for the labels, inputs and button  */
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+}
+/* block for logo */
+#img {
+    display: block;
+    margin: auto;
+    width: 20%;
 }
 #link {
-    font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: lighter;
-    line-height: 22.px;
-}
+
