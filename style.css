@@ -81,6 +81,15 @@ h3 {
   border: none;
 }
 
+#reset-password-btn {
+  background-color: rgb(57, 109, 164);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  border: none;
+}
 /* flexbox is used here to center the whole form in the page */
 .signin-container {
   display: flex;
