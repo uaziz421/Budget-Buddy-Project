@@ -2,8 +2,8 @@
 #header h1 {
   font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-align: center;
-  border-bottom-width: thick;
-  border-bottom-style: double;
+  margin-bottom: 8px;
+  text-decoration: none;
 }
 #subheaderh2 {
   font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -22,10 +22,19 @@
   font-weight: 300;
   text-align: left;
 }
-#input {
+
+/* The flexbox used in displays the html elements in colomn form */
+/* also the "width" is fixed for the labels, inputs and button  */
+.form {
   display: flex;
   flex-direction: column;
   width: 400px;
 }
-#link {
+/* block for logo */
+#img {
+    display: block;
+    margin: auto;
+    width: 20%;
 }
+#link {
+
