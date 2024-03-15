@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Administrator Login</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+	<div style="text-align: center">
+		<img width="300" src="/Logos/Logo1.jpeg" alt="Logo1" />
+	  </div>
+	  <div class="subheader-container">
+		<h2 id="subheaderh2">
+		  Welcome to Budget Buddy, your favorite accounting web application.
+		</h2>
+	  </div>
+		  <div class="signin-container">
+			<h3 id="subheaderh3">Administrator Login</h3>
+	  
+			<div class="signin-form">
+			  <label>Administrator Username:</label>
+			  <input type="text" id="signinUsername" />
+			  <label>Administrator Password:</label>
+			  <input type="password" id="signinPassword" />
+			  <div class="forgot-password">
+				<a href="forgotpassword.html" id="link">Forgot password?</a>
+			  </div>
+			  <input type="submit" id="signin" value="Sign In" onclick="checkCredentials();" />
+			</div>
+
+			  <script type ="text/javascript">
+				function checkCredentials() {
+					var username = "admin";
+					var password = "admin";
+					var inputUsername = document.getElementById("signinUsername").value;
+					var inputPassword = document.getElementById("signinPassword").value;
+					if (inputUsername == username && inputPassword == password) {
+						window.location="admin_dashboard.html";
+					}
+					else {
+						alert("Incorrect credentials. Please try again.")
+					}
+				}
+			  </script>
+	</body>
+</html>
