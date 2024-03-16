@@ -2,33 +2,33 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Untitled Document</title>
+    <title>Budget Buddy</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
 
   <body>
-    <header id="header">
-      <h1><a href="index.html" id="budget-buddy-header">Budget Buddy</a></h1>
-    </header>
-    <div style="text-align: center;">
-    <img width = "300" src ="Logos/Logo1.jpeg" alt="Logo1" />
+    <div style="text-align: center">
+      <img width="300" src="Logos/Logo1.jpeg" alt="Logo1" />
     </div>
-    <h2 id="subheaderh2">
-      Welcome to Budget Buddy, your favorite accounting web application.
-    </h2>
-    <h3 id="subheaderh3">Sign in below</h3>
+    <div class="subheader-container">
+      <h2 id="subheaderh2">
+        Welcome to Budget Buddy, your favorite accounting web application.
+      </h2>
+    </div>
 
     <!-- signin container here is used to center the whole form in the page -->
     <div class="signin-container">
       <!-- the styles for the form class are being applied the label, input and button -->
-      <div class="form">
+      <h3 id="subheaderh3">Sign in below</h3>
+
+      <div class="signin-form">
         <label>Username:</label>
         <input type="text" id="signinUsername" />
 
         <label>Password:</label>
         <input type="password" id="signinPassword" />
         <div class="forgot-password">
-          <a href="#" id="link">Forgot password?</a>
+          <a href="forgotpassword.html" id="link">Forgot password?</a>
         </div>
         <input type="submit" id="signin" value="Sign In" />
 
@@ -40,6 +40,17 @@
         </div>
       </div>
     </div>
+
+    <!-- admin login container-->
+    <div class="adminloginbutton-container">
+      <div>Are you an administrator? 
+        <a href="administrator_login.html">
+          <button id="adminlogincontainer-button">Sign in here</button>
+        </a>
+      </div>
+    </div>
+	  
+	  
 
     <script type="module">
       // Import the functions you need from the SDKs you need
@@ -63,18 +74,17 @@
       // TODO: Add SDKs for Firebase products that you want to use
       // https://firebase.google.com/docs/web/setup#available-libraries
 
-      // Your web app's Firebase configuration
-      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-      const firebaseConfig = {
-        apiKey: "AIzaSyBymv-Dhd-LEPYuqN87keTOngySucUkjSQ",
-        authDomain: "budget-buddy-4b61a.firebaseapp.com",
-        projectId: "budget-buddy-4b61a",
-        storageBucket: "budget-buddy-4b61a.appspot.com",
-        messagingSenderId: "188748354368",
-        appId: "1:188748354368:web:92d47eb0b171ea6f77e0a5",
-        measurementId: "G-B81WY7GQTG",
-      };
-
+		const firebaseConfig = {
+		  apiKey: "AIzaSyD4skGGVxtzlP_0k_jrXmaeFY3etw3YJvU",
+		  authDomain: "swe4317-project.firebaseapp.com",
+		  databaseURL: "https://swe4317-project-default-rtdb.firebaseio.com",
+		  projectId: "swe4317-project",
+		  storageBucket: "swe4317-project.appspot.com",
+		  messagingSenderId: "689769398130",
+		  appId: "1:689769398130:web:f02cee9af8ffa89ee9e7eb"
+		};
+		
+		
       // Initialize Firebase
       const app = initializeApp(firebaseConfig);
       const auth = getAuth();
@@ -82,7 +92,6 @@
 
       var username = document.querySelector("#signinUsername");
       var password = document.querySelector("#signinPassword");
-
       signin.addEventListener("click", SignIn);
 
       function SignIn() {
@@ -101,7 +110,6 @@
                 return signInWithEmailAndPassword(auth, email, password);
               })
               .catch((error) => {
-                // Handle Errors here.
                 const errorCode = error.code;
                 const errorMessage = error.message;
               });
@@ -110,21 +118,7 @@
               .then((userCredential) => {
                 // Signed in
                 const user = userCredential.user;
-
-                updateProfile(auth.currentUser, {
-                  displayName: username.value,
-                })
-                  .then(() => {
-                    // Profile updated!
-                    // ...
-                    window.location.replace("dashboard.html");
-                  })
-                  .catch((error) => {
-                    // An error occurred
-                    // ...
-                  });
-
-                // ...
+				window.location.assign("dashboard.html");
               })
               .catch((error) => {
                 const errorCode = error.code;

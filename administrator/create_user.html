@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Create User</title>
+<link href="../createuser.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+	<div style="text-align: center">
+		<a href="../dashboard.html"><img width="300" src="../Logos/Logo1.jpeg" alt="Logo1" /></a>
+	  </div>
+	  <div class="subheader-container">
+		<h2 id="subheaderh2" style="text-align: center;" >
+		  Welcome to Budget Buddy, your favorite accounting web application.
+		</h2>
+	  </div>
+<div id="enterDetails">
+	<label>Username:</label>
+		<input type="text" id="userName">
+		<br><br>
+		<br><br>
+	<h3 id="findName" type="text"></h3>
+	<h3 id="findAddress" type="text"></h3>
+	<h3 id="findDOB" type="text"></h3>
+	<h3 id="findEmail" type="text"></h3>
+	<h3 id="findUserName" type="text"></h3>
+	<h3 id="findRole" type="text"></h3>
+		
+<input type="submit" name="getInfo" id="getInfo" value="Get Info">
+	<br><br>
+
+	<input type="submit" name="setPassword" id="setPassword" value="Approve">
+	<input type="submit" name="rejectRequest" id="rejectRequest" value="Reject">
+		<br><br>
+	</div>
+	
+
+	<script type="module">
+  // Import the functions you need from the SDKs you need
+  		import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+	const firebaseConfig = {
+	  apiKey: "AIzaSyD4skGGVxtzlP_0k_jrXmaeFY3etw3YJvU",
+	  authDomain: "swe4317-project.firebaseapp.com",
+	  databaseURL: "https://swe4317-project-default-rtdb.firebaseio.com",
+	  projectId: "swe4317-project",
+	  storageBucket: "swe4317-project.appspot.com",
+	  messagingSenderId: "689769398130",
+	  appId: "1:689769398130:web:f02cee9af8ffa89ee9e7eb"
+	};
+
+  // Initialize Firebase
+  	const app = initializeApp(firebaseConfig);
+	
+	import { getDatabase, set, get, update, remove, ref, child} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+	import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+	
+	const db = getDatabase();
+	
+		
+	var findName = document.querySelector("#findName");
+	var findAddress = document.querySelector("#findAddress");
+	var findDOB = document.querySelector("#findDOB");
+	var findEmail = document.querySelector("#findEmail");
+	var findUserName = document.querySelector("#findUserName");
+	var findRole = document.querySelector("#findRole");
+		
+	getInfo.addEventListener("click", GetInfo);
+	setPassword.addEventListener("click", SetPassword);
+
+	function GetInfo() {
+		const dbref = ref(db);
+		get(child(dbref, "People/" + userName.value))
+		.then((snapshot)=>{
+			if(snapshot.exists()) {
+				findName.innerHTML = "Name: " + snapshot.val().FirstName + " " + snapshot.val().LastName;
+				findAddress.innerHTML = "Address: " + snapshot.val().StreetAddress + ", " + snapshot.val().City + ", " + snapshot.val().State + ", " + snapshot.val().ZipCode;
+				findDOB.innerHTML = "Date of Birth: " + snapshot.val().DOB;
+				findEmail.innerHTML = "Email: " + snapshot.val().Email;
+				findUserName.innerHTML = "Requested Username: " + snapshot.val().Username;
+				findRole.innerHTML = "Requested Role: " + snapshot.val().Role;
+			} else {
+				alert("No info found");
+			}
+		})
+		.catch((error)=>{
+			alert(error)
+		})
+	}
+		
+	function SetPassword() {
+		const dbref = ref(db);
+		const auth = getAuth();
+
+		get(child(dbref, "People/"+userName.value))
+		.then((snapshot)=>{
+			let email = snapshot.val().Email;
+			let password = snapshot.val().Password;
+			let displayName = snapshot.val().Username;
+			
+			createUserWithEmailAndPassword(auth, email, password)
+				.then((userCredential) => {
+    		// Signed up 
+    		const user = userCredential.user;
+			// ...
+				alert("User login authorized");
+
+			})
+  			.catch((error) => {
+    		const errorCode = error.code;
+    		const errorMessage = error.message;
+    		// ..
+  			});
+		})
+    	.catch((error) => {
+   		alert(error);
+		});
+		
+	}
+	
+	getInfo.addEventListener("click", GetInfo);
+	setPassword.addEventListener("click", SetPassword);
+
+</script>
+	
+	
+</body>
+</html>
