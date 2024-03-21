@@ -259,33 +259,33 @@
           })
         );
 
-        // setTimeout(function () {
-        //   set(ref(db, "Accounts/" + accountName.value), {
-        //     AccountBalance: accountBalance,
-        //     AccountCategory: accountCategory.value,
-        //     AccountDesc: accountDesc.value,
-        //     AccountName: accountName.value,
-        //     AccountNumber: accountNumber.value,
-        //     AccountOrder: accountOrder.value,
-        //     ActiveStatus: activeStatus.value,
-        //     AddedBy: addedBy,
-        //     AccountSubcategory: accountSubcategory.value,
-        //     Comment: comment.value,
-        //     CreditAmount: creditAmount.value,
-        //     DateTimeAdded: dateTimeAdded,
-        //     DebitAmount: debitAmount.value,
-        //     InitialBalance: initialBalance.value,
-        //     NormalSide: normalSide.value,
-        //     Statement: statement.value,
-        //   })
-        //     .then(() => {
-        //         alert("Account added");
-        //         window.location.assign("administrator/add_account.html");
-        //     })
-        //     .catch((error) => {
-        //       alert(error);
-        //     });
-        // }, 1000);
+         setTimeout(function () {
+           set(ref(db, "Accounts/" + accountName.value), {
+                AccountBalance: accountBalance,
+                AccountCategory: accountCategory.value,
+                AccountDesc: accountDesc.value,
+                AccountName: accountName.value,
+                AccountNumber: accountNumber.value,
+                AccountOrder: accountOrder.value,
+                ActiveStatus: activeStatus.value,
+                AddedBy: addedBy,
+                AccountSubcategory: accountSubcategory.value,
+                Comment: comment.value,
+                CreditAmount: creditAmount.value,
+                DateTimeAdded: dateTimeAdded,
+                DebitAmount: debitAmount.value,
+                InitialBalance: initialBalance.value,
+                NormalSide: normalSide.value,
+                Statement: statement.value,
+           })
+             .then(() => {
+                 alert("Account added");
+                 window.location.assign("administrator/add_account.html");
+             })
+             .catch((error) => {
+               alert(error);
+             });
+         }, 1000);
       }
 
       addAccount.addEventListener("click", CreateAccount);
