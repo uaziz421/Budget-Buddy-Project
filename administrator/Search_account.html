@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+        }
+        .search-section, .accounts-section {
+            margin-bottom: 20px;
+        }
+        .search-input {
+            width: calc(100% - 100px);
+            padding: 10px;
+            margin-right: 10px;
+            display: inline-block;
+        }
+        .search-button {
+            width: 90px;
+            padding: 10px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align: center">
+		<img width="300" src="../Logos/Logo1.jpeg" alt="Logo1" />
+	  </div>
+    <div class="container">
+        <div class="search-section">
+            <h2>Search Account</h2>
+            <input type="text" id="searchInput" class="search-input" placeholder="Enter account number or name">
+            <button id="searchButton" class="search-button">Search</button>
+        </div>
+        <div class="accounts-section">
+            <h2>Accounts</h2>
+            <p>View individual accounts and their details or a report of all accounts found in the chart of accounts.</p>
+            <!-- Placeholder for account details or account report -->
+            <div id="accountsReport">
+                <!-- Account details or report will be dynamically inserted here -->
+                <p>No accounts to display. Use the search feature to find accounts.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
