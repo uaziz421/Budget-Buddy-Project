@@ -94,9 +94,9 @@
 
         <label>Email Address:</label>
         <input type="email" name="Email Address" id="signupEmail" />
-		  
-		<label>Username:</label>
-		<input type="text" name="Username" id="userName">
+
+        <label>Username:</label>
+        <input type="text" name="Username" id="userName" />
 
         <label>Password:</label>
         <input type="password" name="Password" id="password" />
@@ -122,15 +122,15 @@
 
       // Your web app's Firebase configuration
       // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-	const firebaseConfig = {
-	  apiKey: "AIzaSyD4skGGVxtzlP_0k_jrXmaeFY3etw3YJvU",
-	  authDomain: "swe4317-project.firebaseapp.com",
-	  databaseURL: "https://swe4317-project-default-rtdb.firebaseio.com",
-	  projectId: "swe4317-project",
-	  storageBucket: "swe4317-project.appspot.com",
-	  messagingSenderId: "689769398130",
-	  appId: "1:689769398130:web:f02cee9af8ffa89ee9e7eb"
-	};
+const firebaseConfig = {
+        apiKey: "AIzaSyA3C8jafXUUD2s--XEzzfJfVybXs0ZBJyo",
+        authDomain: "budget-buddy-65565.firebaseapp.com",
+        projectId: "budget-buddy-65565",
+        storageBucket: "budget-buddy-65565.appspot.com",
+        messagingSenderId: "416172669900",
+        appId: "1:416172669900:web:49618f6822c7d660f5fb69",
+        measurementId: "G-W4MRFFH4JV",
+      };
 
       // Initialize Firebase
       const app = initializeApp(firebaseConfig);
@@ -145,22 +145,22 @@
         child,
       } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-const db = getDatabase();
-	
-	var firstName = document.querySelector("#firstName");
-	var lastName = document.querySelector("#lastName");
-	var streetAddress = document.querySelector("#streetAddress");
-	var city = document.querySelector("#city");
-	var state = document.querySelector("#state");
-	var zip = document.querySelector("#zip");
-	var dob = document.querySelector("#dob");
-	var signupEmail = document.querySelector("#signupEmail");
-	var userName = document.querySelector("#userName");
-	var password = document.querySelector("#password");
-	var role = document.querySelector("#role");
-	
-	function SignUp() {
-		set(ref(db, "People/" + userName.value), {
+      const db = getDatabase();
+
+      var firstName = document.querySelector("#firstName");
+      var lastName = document.querySelector("#lastName");
+      var streetAddress = document.querySelector("#streetAddress");
+      var city = document.querySelector("#city");
+      var state = document.querySelector("#state");
+      var zip = document.querySelector("#zip");
+      var dob = document.querySelector("#dob");
+      var signupEmail = document.querySelector("#signupEmail");
+      var userName = document.querySelector("#userName");
+      var password = document.querySelector("#password");
+      var role = document.querySelector("#role");
+
+      function SignUp() {
+        set(ref(db, "People/" + userName.value), {
 			FirstName: firstName.value,
 			LastName: lastName.value,
 			StreetAddress: streetAddress.value,
@@ -173,43 +173,47 @@ const db = getDatabase();
 			Password: password.value,
 			Role: role.value,
 			PicLocation: "UserPhotos/"+userName.value+".jpg"
-		})
-		.then(()=>{
-			alert("User information submitted. Please wait for an email from the administrator before attempting to log in.");
-			window.location.assign("index.html");
-		})
-		.catch((error)=>{
-			alert(error)
-		})
-	
-	var templateParams = {
-      from_name: 'Sender',
-      firstName: firstName.value,
-	  lastName: lastName.value,
-	  userName: userName.value
-  };
+        })
+          .then(() => {
+            alert(
+              "User information submitted. Please wait for an email from the administrator before attempting to log in."
+            );
+            window.location.assign("index.html");
+          })
+          .catch((error) => {
+            alert(error);
+          });
 
-  emailjs.send('service_psxifkt', 'template_eqvppz5', templateParams)
-    .then(function (response) {
-      console.log('SUCCESS!', response.status, response.text);
-    }, function (error) {
-      console.log('FAILED...', error);
-    });
-	}
+        var templateParams = {
+          from_name: "Sender",
+          firstName: firstName.value,
+          lastName: lastName.value,
+          userName: userName.value,
+        };
 
-	
-	signup.addEventListener("click", SignUp);
-</script>
-	
+        emailjs
+          .send("service_psxifkt", "template_eqvppz5", templateParams)
+          .then(
+            function (response) {
+              console.log("SUCCESS!", response.status, response.text);
+            },
+            function (error) {
+              console.log("FAILED...", error);
+            }
+          );
+      }
 
-<script type="text/javascript"
-       src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
-</script>
-<script type="text/javascript">
-  (function (SendEmail) {
-     emailjs.init("fw5Rt0t2jdkj4iyKi");
-  })();
-</script>
+      signup.addEventListener("click", SignUp);
+    </script>
 
-</body>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+    ></script>
+    <script type="text/javascript">
+      (function (SendEmail) {
+        emailjs.init("fw5Rt0t2jdkj4iyKi");
+      })();
+    </script>
+  </body>
 </html>

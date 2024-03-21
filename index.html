@@ -49,8 +49,6 @@
         </a>
       </div>
     </div>
-	  
-	  
 
     <script type="module">
       // Import the functions you need from the SDKs you need
@@ -74,17 +72,17 @@
       // TODO: Add SDKs for Firebase products that you want to use
       // https://firebase.google.com/docs/web/setup#available-libraries
 
-		const firebaseConfig = {
-		  apiKey: "AIzaSyD4skGGVxtzlP_0k_jrXmaeFY3etw3YJvU",
-		  authDomain: "swe4317-project.firebaseapp.com",
-		  databaseURL: "https://swe4317-project-default-rtdb.firebaseio.com",
-		  projectId: "swe4317-project",
-		  storageBucket: "swe4317-project.appspot.com",
-		  messagingSenderId: "689769398130",
-		  appId: "1:689769398130:web:f02cee9af8ffa89ee9e7eb"
-		};
-		
-		
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+        apiKey: "AIzaSyA3C8jafXUUD2s--XEzzfJfVybXs0ZBJyo",
+        authDomain: "budget-buddy-65565.firebaseapp.com",
+        projectId: "budget-buddy-65565",
+        storageBucket: "budget-buddy-65565.appspot.com",
+        messagingSenderId: "416172669900",
+        appId: "1:416172669900:web:49618f6822c7d660f5fb69",
+        measurementId: "G-W4MRFFH4JV",
+      };
       // Initialize Firebase
       const app = initializeApp(firebaseConfig);
       const auth = getAuth();
@@ -92,6 +90,7 @@
 
       var username = document.querySelector("#signinUsername");
       var password = document.querySelector("#signinPassword");
+
       signin.addEventListener("click", SignIn);
 
       function SignIn() {
@@ -110,6 +109,7 @@
                 return signInWithEmailAndPassword(auth, email, password);
               })
               .catch((error) => {
+                // Handle Errors here.
                 const errorCode = error.code;
                 const errorMessage = error.message;
               });
@@ -118,7 +118,21 @@
               .then((userCredential) => {
                 // Signed in
                 const user = userCredential.user;
-				window.location.assign("dashboard.html");
+
+                updateProfile(auth.currentUser, {
+                  displayName: username.value,
+                })
+                  .then(() => {
+                    // Profile updated!
+                    // ...
+                    window.location.replace("dashboard.html");
+                  })
+                  .catch((error) => {
+                    // An error occurred
+                    // ...
+                  });
+
+                // ...
               })
               .catch((error) => {
                 const errorCode = error.code;
