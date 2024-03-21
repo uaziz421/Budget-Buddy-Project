@@ -8,7 +8,7 @@
 
 <body>
 	<div style="text-align: center">
-		<a href="../dashboard.html"><img width="300" src="../Logos/Logo1.jpeg" alt="Logo1" /></a>
+		<img width="300" src="../Logos/Logo1.jpeg" alt="Logo1" />
 	  </div>
 	  <div class="subheader-container">
 		<h2 id="subheaderh2" style="text-align: center;" >
@@ -46,15 +46,15 @@
   // Your web app's Firebase configuration
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 	const firebaseConfig = {
-	  apiKey: "AIzaSyD4skGGVxtzlP_0k_jrXmaeFY3etw3YJvU",
-	  authDomain: "swe4317-project.firebaseapp.com",
-	  databaseURL: "https://swe4317-project-default-rtdb.firebaseio.com",
-	  projectId: "swe4317-project",
-	  storageBucket: "swe4317-project.appspot.com",
-	  messagingSenderId: "689769398130",
-	  appId: "1:689769398130:web:f02cee9af8ffa89ee9e7eb"
+		apiKey: "AIzaSyD4skGGVxtzlP_0k_jrXmaeFY3etw3YJvU",
+		authDomain: "swe4317-project.firebaseapp.com",
+		databaseURL: "https://swe4317-project-default-rtdb.firebaseio.com",
+	  	projectId: "swe4317-project",
+	  	storageBucket: "swe4317-project.appspot.com",
+	  	messagingSenderId: "689769398130",
+	  	appId: "1:689769398130:web:f02cee9af8ffa89ee9e7eb"
 	};
-
+		
   // Initialize Firebase
   	const app = initializeApp(firebaseConfig);
 	
@@ -102,15 +102,13 @@
 		.then((snapshot)=>{
 			let email = snapshot.val().Email;
 			let password = snapshot.val().Password;
-			let displayName = snapshot.val().Username;
 			
 			createUserWithEmailAndPassword(auth, email, password)
 				.then((userCredential) => {
     		// Signed up 
     		const user = userCredential.user;
 			// ...
-				alert("User login authorized");
-
+			alert("User login authorized");
 			})
   			.catch((error) => {
     		const errorCode = error.code;
