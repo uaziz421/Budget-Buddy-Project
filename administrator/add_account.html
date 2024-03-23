@@ -7,46 +7,37 @@
   </head>
 
   <body>
-    <div style="text-align: center">
-      <img width="300" src="../Logos/Logo1.jpeg" alt="Logo1" />
-    </div>
-
-    <div>
+  <header>
+	  <!-- This code displays logo, username -->
+		<a href="dashboard.html"><img src="../Logos/Logo1.jpeg" alt="Logo1" width="150" align="right"></a>
+		<h3 id="displayName" type="text" align="left"></h3>
+		<h3 id="displayUsername" type="text" align="left"></h3>
+		<input type="date" id="showCal" align="left">
+  </header>
       
 <div class="add-account-container">
 
-
-	  <div class="label-add-account">
-      <label >Account Name:</label>
-	  </div>
+	<div class="label-add-account"><label>Account Name:</label></div>
       <input type="text" name="Account Name" id="accountName" />
-	  
+	        
+	<div class="label-add-account"><label>Account Number:</label></div>
+      <input type="number" name="Account Number" id="accountNumber" />    
       
-<div class="label-add-account">
-<label>Account Number:</label>
-</div>
-      <input type="number" name="Account Number" id="accountNumber" />
-
-      
-      
-<div class="label-add-account"><label>Account Description</label>
-	</div>
+	<div class="label-add-account"><label>Account Description</label></div>
       <input type="text" name="Account Description" id="accountDesc" />
-<div class="label-add-account"><label>Normal side:</label>
-	</div>
+	
+	<div class="label-add-account"><label>Normal side:</label></div>
       <select name="Normal Side" id="normalSide">
         <option value="Credit">Credit</option>
-        <option value="Debit">Debit</option></select
-      >
-<div class="label-add-account"><label>Account Category:</label>
-	</div>
+        <option value="Debit">Debit</option></select>
+	
+	<div class="label-add-account"><label>Account Category:</label></div>
       <select name="Account Category" id="accountCategory">
         <option value="Assets">Assets</option>
         <option value="Liabilities">Liabilities</option>
-        <option value="Equity">Equity</option></select
-      >
-<div class="label-add-account"> <label>Account Subcategory:</label>
-	</div>
+        <option value="Equity">Equity</option></select>
+	
+	<div class="label-add-account"> <label>Account Subcategory:</label></div>
       <select name="Account Subcategory" id="accountSubcategory">
         <option value="Assets: Current Assets">Assets: Current Assets</option>
         <option value="Assets: Long-Term Assets">
@@ -64,231 +55,191 @@
         <option value="Equity: Owners' Capital">Equity: Owners' Capital</option>
         <option value="Equity: Withdrawals">Equity: Withdrawals</option>
         <option value="Equity: Revenue">Equity: Revenue</option>
-        <option value="Equity: Expenses">Equity: Expenses</option></select
-      >
-<div class="label-add-account"> <label>Initial Balance:</label>
-	</div>
+        <option value="Equity: Expenses">Equity: Expenses</option></select>
+	
+	<div class="label-add-account"> <label>Initial Balance:</label></div>
       <input type="number" name="Initial Balance" id="initialBalance" />
 	
-<div class="label-add-account"><label>Debit Amount:</label>
-	</div>
+	<div class="label-add-account"><label>Debit Amount:</label></div>
       <input type="number" name="Debit" id="debitAmount" />
 	
-<div class="label-add-account"> <label>Credit Amount:</label>
-	</div>
+	<div class="label-add-account"> <label>Credit Amount:</label></div>
       <input type="number" name="Credit" id="creditAmount" />
 	
-<div class="label-add-account"><label>Account Balance:</label>
-	</div>
+	<div class="label-add-account"><label>Account Balance:</label></div>
       <input type="number" name="Balance" id="accountBalance" />
 	
-<div class="label-add-account"> <label>Date and Time Account Added:</label>
-	</div>
-      <input type="text" name="Date and Time Added" id="dateTimeAdded" />
-	
-<div class="label-add-account"><label>Added by User:</label>
-	</div>
-      <input type="text" name="User Name" id="userName" />
-	
-<div class="label-add-account">
-      <label>Account Order:</label>
-	  </div>
+	<div class="label-add-account"><label>Account Order:</label></div>
       <input type="number" name="Account Order" id="accountOrder" />
 	
-<div class="label-add-account"> <label>Statement:</label>
-	</div>
+	<div class="label-add-account"> <label>Statement:</label></div>
       <select name="Statement" id="statement">
         <option value="IS">Income Statement</option>
         <option value="BS">Balance Sheet</option>
-        <option value="RE">Retained Earnings Statement</option></select
-      >
+        <option value="RE">Retained Earnings Statement</option></select>
 	
-<div class="label-add-account"> <label>Active:</label>
-	</div>
+	<div class="label-add-account"> <label>Active:</label></div>
       <select name="Active" id="activeStatus">
         <option value="Y">Yes</option>
-        <option value="N">No</option></select
-      >
+        <option value="N">No</option></select>
 	
-<div class="label-add-account">
-      <label>Comment:</label>
-	  </div>
+	<div class="label-add-account"><label>Comment:</label></div>
       <input type="text" name="Comment" id="comment" />
+<br/>
+<br/>
+
+	<input type="submit" name="Add Account" id="addAccount" value="Add Account"/>
+	<h4><a href="../admin_dashboard.html">Return to Administrator Dashboard</a></h4>
+
+</div>
 	
 
+<script type="module">
+	// Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getDatabase, set, get, update, remove, ref, child, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-<br />
-<br />
-      <input
-        type="submit"
-        name="Add Account"
-        id="addAccount"
-        value="Add Account"
-      />
-    </div>
-	
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
 
-    <script type="module">
-      // Import the functions you need from the SDKs you need
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-      import {
-        getDatabase,
-        set,
-        get,
-        update,
-        remove,
-        ref,
-        child,
-      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-      import {
-        getAuth,
-        createUserWithEmailAndPassword,
-      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-      import { serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+        apiKey: "AIzaSyA3C8jafXUUD2s--XEzzfJfVybXs0ZBJyo",
+        authDomain: "budget-buddy-65565.firebaseapp.com",
+        projectId: "budget-buddy-65565",
+        storageBucket: "budget-buddy-65565.appspot.com",
+        messagingSenderId: "416172669900",
+        appId: "1:416172669900:web:49618f6822c7d660f5fb69",
+        measurementId: "G-W4MRFFH4JV",
+      };
 
-      // TODO: Add SDKs for Firebase products that you want to use
-      // https://firebase.google.com/docs/web/setup#available-libraries
 
-      // Your web app's Firebase configuration
-      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-    const firebaseConfig = {
-     apiKey: "AIzaSyA3C8jafXUUD2s--XEzzfJfVybXs0ZBJyo",
-    authDomain: "budget-buddy-65565.firebaseapp.com",
-    projectId: "budget-buddy-65565",
-    storageBucket: "budget-buddy-65565.appspot.com",
-    messagingSenderId: "416172669900",
-    appId: "1:416172669900:web:49618f6822c7d660f5fb69",
-    measurementId: "G-W4MRFFH4JV"
-    };
+	// Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase();
+    const dbref = ref(db);
+    const auth = getAuth();
+    const user = auth.currentUser;
 
-      // Initialize Firebase
-      const app = initializeApp(firebaseConfig);
-      const db = getDatabase();
-      const dbref = ref(db);
-      const auth = getAuth();
-      const user = auth.currentUser;
+    var accountName = document.querySelector("#accountName");
+    var accountNumber = document.querySelector("#accountNumber");
+    var accountDesc = document.querySelector("#accountDesc");
+    var normalSide = document.querySelector("#normalSide");
+    var accountCategory = document.querySelector("#accountCategory");
+    var accountSubcategory = document.querySelector("#accountSubcategory");
+    var initialBalance = document.querySelector("#initialBalance");
+    var debitAmount = document.querySelector("#debitAmount");
+    var creditAmount = document.querySelector("#creditAmount");
+    var accountOrder = document.querySelector("#accountOrder");
+    var statement = document.querySelector("#statement");
+    var comment = document.querySelector("#comment");
+    var activeStatus = document.querySelector("#activeStatus");
+    var addedBy = "";
+    var dateTimeAdded = serverTimestamp();
+		
 
-      var accountName = document.querySelector("#accountName");
-      var accountNumber = document.querySelector("#accountNumber");
-      var accountDesc = document.querySelector("#accountDesc");
-      var normalSide = document.querySelector("#normalSide");
-      var accountCategory = document.querySelector("#accountCategory");
-      var accountSubcategory = document.querySelector("#accountSubcategory");
-      var initialBalance = document.querySelector("#initialBalance");
-      var debitAmount = document.querySelector("#debitAmount");
-      var creditAmount = document.querySelector("#creditAmount");
-      var accountOrder = document.querySelector("#accountOrder");
-      var statement = document.querySelector("#statement");
-      var comment = document.querySelector("#comment");
-      var activeStatus = document.querySelector("#activeStatus");
-      var addedBy = "";
-      var dateTimeAdded = serverTimestamp();
-
-      function CreateAccount() {
-        const dbref = ref(db);
+	//function to add new account
+	function CreateAccount() {
+    	const dbref = ref(db);
         const auth = getAuth();
         const user = auth.currentUser;
+		var addAccount = true;
 
-        get(child(dbref, "People/" + user.displayName))
-          .then((snapshot) => {
-            addedBy = snapshot.val().Username;
-          })
-          .catch((error) => {
-            alert(error);
-          });
+        //This code gets the current username to document who edited the account
+		get(child(dbref, "People/" + user.displayName))
+        .then((snapshot) => {
+        	addedBy = snapshot.val().Username;
+       	})
+        .catch((error) => {
+        	alert(error);
+        });
 
-        if (normalSide.value == "Debit") {
-          var accountBalance =
-            Number(initialBalance.value) +
-            Number(debitAmount.value) -
-            Number(creditAmount.value);
-        } else {
-          var accountBalance =
-            Number(initialBalance.value) +
-            Number(creditAmount.value) -
-            Number(debitAmount.value);
-        }
+		//This code loops through all database records and makes addAccount false is an account already exists  
+		const dbrefAccounts = ref(db, 'Accounts/');
+		onValue(dbrefAccounts, (snapshot) => {
+			snapshot.forEach((childSnapshot) => {
+				var nameAlreadyExists = false;
+				var numAlreadyExists = false;
 
-        // Code I started for task 2. It checks for duplicate account name or duplicate account number
-
-        get(
-          ref(db, "Accounts/" + accountName.value).then((snapshot) => {
-            let nameAlreadyExists = false;
-            let numAlreadyExists = false;
-            snapshot.forEach((childSnapshot) => {
-              const userAccountData = childSnapshot.val();
-              if (userAccountData.Name === accountName.value) {
-                nameAlreadyExists = true;
-              } else if (
-                userAccountData.accountNumber === accountNumber.value
-              ) {
-                numAlreadyExists = true;
-              }
-            });
-
-            if (nameAlreadyExists === true || numAlreadyExists === true) {
-              alert("already exists");
-              return;
-            } else {
-              set(ref(db, "Accounts/" + accountName.value), {
-                AccountBalance: accountBalance,
-                AccountCategory: accountCategory.value,
-                AccountDesc: accountDesc.value,
-                AccountName: accountName.value,
-                AccountNumber: accountNumber.value,
-                AccountOrder: accountOrder.value,
-                ActiveStatus: activeStatus.value,
-                AddedBy: addedBy,
-                AccountSubcategory: accountSubcategory.value,
-                Comment: comment.value,
-                CreditAmount: creditAmount.value,
-                DateTimeAdded: dateTimeAdded,
-                DebitAmount: debitAmount.value,
-                InitialBalance: initialBalance.value,
-                NormalSide: normalSide.value,
-                Statement: statement.value,
-              })
-                .then(() => {
-                  alert("Account added");
-                  window.location.assign("administrator/add_account.html");
-                })
-                .catch((error) => {
-                  alert(error);
-                });
-            }
-          })
-        );
-
-         setTimeout(function () {
-           set(ref(db, "Accounts/" + accountName.value), {
-                AccountBalance: accountBalance,
-                AccountCategory: accountCategory.value,
-                AccountDesc: accountDesc.value,
-                AccountName: accountName.value,
-                AccountNumber: accountNumber.value,
-                AccountOrder: accountOrder.value,
-                ActiveStatus: activeStatus.value,
-                AddedBy: addedBy,
-                AccountSubcategory: accountSubcategory.value,
-                Comment: comment.value,
-                CreditAmount: creditAmount.value,
-                DateTimeAdded: dateTimeAdded,
-                DebitAmount: debitAmount.value,
-                InitialBalance: initialBalance.value,
-                NormalSide: normalSide.value,
-                Statement: statement.value,
-           })
-             .then(() => {
-                 alert("Account added");
-                 window.location.assign("administrator/add_account.html");
-             })
-             .catch((error) => {
-               alert(error);
-             });
-         }, 1000);
-      }
-
-      addAccount.addEventListener("click", CreateAccount);
-    </script>
-  </body>
+				if(accountName.value == childSnapshot.val().AccountName) {
+					nameAlreadyExists = true;
+				} else if (accountNumber.value == childSnapshot.val().AccountNumber) {
+					numAlreadyExists = true;
+				} 
+				if (nameAlreadyExists == true || numAlreadyExists == true) {
+					addAccount = false
+					return;
+				}
+			})
+		})
+		
+		//This code adds the new account if the account does not already exist
+		setTimeout(function() {
+			if(addAccount == true) {
+			
+				//This portion of code calculates accountBalance based on debit and credit amounts
+				if (normalSide.value == "Debit") {
+					var accountBalance = Number(initialBalance.value) + Number(debitAmount.value) + Number(creditAmount.value);
+        		} else {
+          			var accountBalance = Number(initialBalance.value) + Number(creditAmount.value) -       Number(debitAmount.value);
+        		}
+			
+				//Adds information to database
+       			set(ref(db, "Accounts/" + accountNumber.value), {
+               		AccountBalance: accountBalance,
+					AccountCategory: accountCategory.value,
+               		AccountDesc: accountDesc.value,
+               		AccountName: accountName.value,
+               		AccountNumber: accountNumber.value,
+               		AccountOrder: accountOrder.value,
+               		ActiveStatus: activeStatus.value,
+               		AddedBy: addedBy,
+               		AccountSubcategory: accountSubcategory.value,
+               		Comment: comment.value,
+               		CreditAmount: creditAmount.value,
+               		DateTimeAdded: dateTimeAdded,
+					DateTimeEdited: "",
+					EditBy: "",
+               		DebitAmount: debitAmount.value,
+               		InitialBalance: initialBalance.value,
+               		NormalSide: normalSide.value,
+               		Statement: statement.value,
+       			})
+           		.then(() => {
+               		alert("Account added");
+               		window.location.assign("administrator/add_account.html");
+           		})
+           		.catch((error) => {
+           			alert(error);
+           		});
+			} else {
+				alert ("Account name or number already exists");
+			}
+		},250);
+	}
+		
+	
+	//Displays current user username and photo
+	setTimeout(function(){
+        const user = auth.currentUser;
+		const dbref = ref(db);
+		
+		get(child(dbref, "People/" + user.displayName))
+		.then((snapshot)=>{
+			if(snapshot.exists()) {
+				displayName.innerHTML = snapshot.val().FirstName + " " + snapshot.val().LastName; //get current user first and last name
+				displayUsername.innerHTML = snapshot.val().Username;
+			}
+		})
+		.catch((error)=>{
+			alert(error)
+		})
+   	},250); //delay is in milliseconds; delay needed to load page then display name.
+	
+	addAccount.addEventListener("click", CreateAccount);
+</script>
+</body>
 </html>

@@ -7,13 +7,17 @@
 </head>
 
 <body>
-	<header id="header"><h1><a href="index.html">Budget Buddy</a></h1></header>
+	<!-- This code displays logo, username, and user photo -->
+	<header id="header">
+		<h3 id="displayUsername" type="text" align="right"></h3>
+		<img src="path" id="userPhoto" alt="UserPhoto" align="right" height="75px" width="75px">
+		<a href="dashboard.html"><img src="Logos/Logo1.jpeg" alt="Logo1" width="300"></a>
+	</header>
 	
 	<div>
 		<input type="submit" name="adminstrators" id="administrators" value="Administrators">
 		<input type="submit" name="managers" id="managers" value="Managers">
 	</div>
-	
 	
 	
 <script type="module">
@@ -28,26 +32,41 @@
 
   // Your web app's Firebase configuration
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-		apiKey: "AIzaSyA3C8jafXUUD2s--XEzzfJfVybXs0ZBJyo",
-		authDomain: "budget-buddy-65565.firebaseapp.com",
-		projectId: "budget-buddy-65565",
-		storageBucket: "budget-buddy-65565.appspot.com",
-		messagingSenderId: "416172669900",
-		appId: "1:416172669900:web:49618f6822c7d660f5fb69",
-		measurementId: "G-W4MRFFH4JV"
-  };
+const firebaseConfig = {
+        apiKey: "AIzaSyA3C8jafXUUD2s--XEzzfJfVybXs0ZBJyo",
+        authDomain: "budget-buddy-65565.firebaseapp.com",
+        projectId: "budget-buddy-65565",
+        storageBucket: "budget-buddy-65565.appspot.com",
+        messagingSenderId: "416172669900",
+        appId: "1:416172669900:web:49618f6822c7d660f5fb69",
+        measurementId: "G-W4MRFFH4JV",
+      };
 
-  // Initialize Firebase
+  	// Initialize Firebase
   	const app = initializeApp(firebaseConfig);
 	const db = getDatabase();
 	const auth = getAuth();
 	
+	//Displays current user username and photo
+	setTimeout(function(){
+        const user = auth.currentUser;
+		const dbref = ref(db);
+		
+		get(child(dbref, "People/" + user.displayName))
+		.then((snapshot)=>{
+			if(snapshot.exists()) {
+				displayUsername.innerHTML = "Current User: " + snapshot.val().Username; //get current user username
+				const retUserPhoto = document.getElementById("userPhoto"); //get photo data to update
+				retUserPhoto.src = snapshot.val().PicLocation; //update photo src information
+			}
+		})
+		.catch((error)=>{
+			alert(error)
+		})
+   	},150); //delay is in milliseconds; delay needed to load page then display name.
 	
-	administrators.addEventListener("click", CheckRoleAdmin);
-	managers.addEventListener("click", CheckRoleMan);
 	
-
+	//Checks if the current user is an administrator; if administrator go to administrator page
 	function CheckRoleAdmin() {
 		const user = auth.currentUser;
 		var username = user.displayName;
@@ -56,13 +75,11 @@
 		get(child(dbref, "People/" + user.displayName))
 		.then((snapshot)=>{
 			if(snapshot.exists()) {
-				let userRole = snapshot.val().Role;
-				if(userRole == "Administrator") {
-					window.location.replace("administrator.html");
+				if(snapshot.val().Role == "Administrator") {
+					window.location.assign("admin_dashboard.html");
 				} else {
 					alert("You do not have access");
-					 }
-				
+				}
 			} else {
 				alert("No info found");
 			}
@@ -72,6 +89,8 @@
 		})
 	}
 	
+	
+	//Checks if the current user is a manager; if manager go to manager page
 	function CheckRoleMan() {
 		const user = auth.currentUser;
 		var username = user.displayName;
@@ -80,13 +99,11 @@
 		get(child(dbref, "People/" + user.displayName))
 		.then((snapshot)=>{
 			if(snapshot.exists()) {
-				let userRole = snapshot.val().Role;
-				if(userRole == "Manager") {
-					window.location.replace("manager.html");
+				if(snapshot.val().Role == "Manager") {
+					window.location.assign("manager.html");
 				} else {
 					alert("You do not have access");
 					 }
-				
 			} else {
 				alert("No info found");
 			}
@@ -96,9 +113,9 @@
 		})
 	}
 	
-
+	administrators.addEventListener("click", CheckRoleAdmin);
+	managers.addEventListener("click", CheckRoleMan);
 </script>
-	
 	
 </body>
 </html>
