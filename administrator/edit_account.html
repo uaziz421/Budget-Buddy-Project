@@ -1,0 +1,418 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Edit Account</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+
+<body>
+	<header>
+	<!-- This code displays logo, username -->
+		<a href="dashboard.html"><img src="../Logos/Logo1.jpeg" alt="Logo1" width="150" align="right"></a>
+		<h3 id="displayName" type="text" align="left"></h3>
+		<h3 id="displayUsername" type="text" align="left"></h3>
+		<input type="date" id="showCal" align="left">
+  </header>
+	<br><br>
+	<label>Enter Account Number to Edit:</label>
+    <input type="number" name="Account Number Search" id="accountNumberSearchField" />        
+	<input type="submit" name="Get Account" id="getAccount" value="Get Account Info" />
+	<br>
+	
+	
+    <div>
+      <br>
+		<h3>Edit Account</h3>
+        <label>Account Name:</label>
+        <input type="text" name="Account Name" id="accountNameField" />
+		<br>
+
+        <label>Account Number:</label>
+        <input type="number" name="Account Number" id="accountNumberField" />
+		<br>
+
+        <label>Account Description</label>
+        <input type="text" name="Account Description" id="accountDescField" />
+		<br>
+
+        <label>Normal side:</label>
+        <select name="Normal Side" id="normalSideField">
+          <option value="Credit">Credit</option>
+          <option value="Debit">Debit</option>
+        </select><br>
+		
+        <label>Account Category:</label>
+        <select name="Account Category" id="accountCategoryField">
+          	<option value="Assets">Assets</option>
+          	<option value="Liabilities">Liabilities</option>
+		  	<option value="Equity">Equity</option>
+        </select><br>
+		
+        <label>Account Subcategory:</label>
+        <select name="Account Subcategory" id="accountSubcategoryField">
+          	<option value="Assets: Current Assets">Assets: Current Assets</option>
+		  	<option value="Assets: Long-Term Assets">Assets: Long-Term Assets</option>
+          	<option value="Assets: Other Long-Term Assets">Assets: Long-Term Assets (Intangible)</option>
+		  	<option value="Liabilities: Current Liabilities">Liabilities: Current Liabilities</option>
+          	<option value="Liabilities: Long-Term Liabilities">Liabilities: Long-Term Liabilities</option>
+			<option value="Equity: Owners' Capital">Equity: Owners' Capital</option>
+          	<option value="Equity: Withdrawals">Equity: Withdrawals</option>
+		  	<option value="Equity: Revenue">Equity: Revenue</option>
+          	<option value="Equity: Expenses">Equity: Expenses</option>
+        </select><br>
+		
+		<label>Initial Balance:</label>
+        <input type="number" name="Initial Balance" id="initialBalanceField" />
+		<br>
+		
+		<label>Debit Amount:</label>
+        <input type="number" name="Debit" id="debitAmountField" />
+		<br>
+		
+		<label>Credit Amount:</label>
+        <input type="number" name="Credit" id="creditAmountField" />
+		<br>
+		
+		<label>Account Balance:</label>
+        <input type="number" name="Balance" id="accountBalanceField" />
+		<br>
+		
+        <label>Date and Time Account Added:</label>
+        <input type="text" name="Date and Time Added" id="dateTimeAcctAddedField" />
+		<br>
+		
+		<label>Added by User:</label>
+        <input type="text" name="User Name" id="userNameField" />
+		<br>
+		  
+		<label>Date and Time Account Last Edited:</label>
+        <input type="text" name="Date and Time Added" id="dateTimeAcctEditedField" />
+		<br>
+		
+		<label>Account Last Edited By:</label>
+        <input type="text" name="Date and Time Added" id="editedByField" />
+		<br>
+		
+		<label>Account Order:</label>
+		<input type="number" name="Account Order" id="accountOrderField">
+		<br>
+		
+		<label>Statement:</label>
+        <select name="Statement" id="statementField">
+          	<option value="IS">Income Statement</option>
+          	<option value="BS">Balance Sheet</option>
+		  	<option value="RE">Retained Earnings Statement</option>
+        </select><br>
+
+        <label>Active:</label>
+        <select name="Active" id="activeStatusField">
+          	<option value="Y">Yes</option>
+          	<option value="N">No</option>
+        </select><br>
+		
+		<label>Comment:</label>
+        <input type="text" name="Comment" id="commentField" />
+			
+		<br>
+		<br>
+		<br>
+		
+		<input type="submit" name="Edit Account" id="editAccount" value="Edit Account" />
+		<h4><a href="../admin_dashboard.html">Return to Administrator Dashboard</a></h4>
+    </div>
+	
+
+<script type="module">
+  // Import the functions you need from the SDKs you need
+	import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+	import { getDatabase, set, get, update, remove, ref, child} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+	import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+	import { serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+	const firebaseConfig = {
+		apiKey: "AIzaSyD4skGGVxtzlP_0k_jrXmaeFY3etw3YJvU",
+		authDomain: "swe4317-project.firebaseapp.com",
+		databaseURL: "https://swe4317-project-default-rtdb.firebaseio.com",
+	  	projectId: "swe4317-project",
+	  	storageBucket: "swe4317-project.appspot.com",
+	  	messagingSenderId: "689769398130",
+	  	appId: "1:689769398130:web:f02cee9af8ffa89ee9e7eb"
+	};
+
+  	// Initialize Firebase
+	const app = initializeApp(firebaseConfig);
+	const db = getDatabase();
+	const dbref = ref(db);
+	const auth = getAuth();
+	const user = auth.currentUser;
+			
+	var accountNumberSearch = document.querySelector("#accountNumberSearchField"); //gets account info to edit
+	
+	
+	//This function gets and displays the account info to edit
+	function GetAccount() {
+		const dbref = ref(db);
+		
+		get(child(dbref, "Accounts/" + accountNumberSearch.value))
+		.then ((snapshot)=>{
+			if(snapshot.exists()) {
+				accountNameField.value = snapshot.val().AccountName;
+				accountNumberField.value = snapshot.val().AccountNumber;
+				accountDescField.value = snapshot.val().AccountDesc;
+				normalSideField.value = snapshot.val().NormalSide;
+				accountCategoryField.value = snapshot.val().AccountCategory;
+				accountSubcategoryField.value = snapshot.val().AccountSubcategory;
+				initialBalanceField.value = snapshot.val().InitialBalance;
+				debitAmountField.value = snapshot.val().DebitAmount;
+				creditAmountField.value = snapshot.val().CreditAmount;
+				accountBalanceField.value = snapshot.val().AccountBalance;
+				dateTimeAcctAddedField.value = snapshot.val().DateTimeAdded;
+				dateTimeAcctEditedField.value = snapshot.val().DateTimeEdited;
+				userNameField.value = snapshot.val().AddedBy;
+				accountOrderField.value = snapshot.val().AccountOrder;
+				statementField.value = snapshot.val().Statement;
+				commentField.value = snapshot.val().Comment;
+			}
+		})
+	}
+	
+	//This function updates the database with the updated information entered by the user
+	function EditAccount() {
+		const app = initializeApp(firebaseConfig);
+		const db = getDatabase();
+		const dbref = ref(db);
+		const auth = getAuth();
+		const user = auth.currentUser;
+		
+		//initialize variables to be used
+		var accountName = document.querySelector("#accountNameField");
+		var accountNumber = document.querySelector("#accountNumberField");
+		var accountDesc = document.querySelector("#accountDescField");
+		var normalSide = document.querySelector("#normalSideField");
+		var accountCategory = document.querySelector("#accountCategoryField");
+		var accountSubcategory = document.querySelector("#accountSubcategoryField");
+		var initialBalance = document.querySelector("#initialBalanceField");
+		var debitAmount = document.querySelector("#debitAmountField");
+		var creditAmount = document.querySelector("#creditAmountField");
+		var accountBalance = document.querySelector("#accountBalanceField");
+		var accountOrder = document.querySelector("#accountOrderField");
+		var statement = document.querySelector("#statementField");
+		var comment = document.querySelector("#commentField");
+		var activeStatus = document.querySelector("#activeStatusField");
+		var addedBy = "";
+		var editedBy = "";
+		var dateTimeEdited = serverTimestamp();
+		var saveAccountBalance = "";
+		var saveAccountCategory = "";
+		var saveAccountDesc = "";
+		var saveAccountName = "";
+		var saveAccountNumber = "";
+		var saveAccountOrder = "";
+		var saveAccountSubcategory = "";
+		var saveActiveStatus = "";
+		var saveAddedBy = "";
+		var saveComment = "";
+		var saveCreditAmount = "";
+		var saveDebitAmount = "";
+		var saveDateTimeAdded = "";
+		var saveDateTimeEdited = "";
+		var saveEditedBy = "";
+		var saveInitialBalance = "";
+		var saveNormalSide = "";
+		var saveStatement = "";
+		var afterAccountBalance = "";
+		var afterAccountCategory= "";
+		var afterAccountDesc = "";
+		var	afterAccountName = "";
+		var	afterAccountNumber = "";
+		var afterAccountOrder = "";
+		var afterAccountSubcategory = "";
+		var afterActiveStatus = "";
+		var afterAddedBy = "";
+		var	afterComment = "";
+		var	afterCreditAmount = "";
+		var	afterDebitAmount = "";
+		var afterDateTimeAdded = "";
+		var	afterDateTimeEdited = "";
+		var	afterEditedBy = "";
+		var	afterInitialBalance = "";
+		var afterNormalSide = "";
+		var afterStatement = "";
+		
+		//This code saves the state of the account before editing the account
+		get(child(dbref, "Accounts/" + accountNumber.value))
+		.then ((snapshot)=> {
+			saveAccountBalance = snapshot.val().AccountBalance;
+			saveAccountCategory = snapshot.val().AccountCategory;
+			saveAccountDesc = snapshot.val().AccountDesc;
+			saveAccountName = snapshot.val().AccountName;
+			saveAccountNumber = snapshot.val().AccountNumber;
+			saveAccountOrder = snapshot.val().AccountOrder;
+			saveAccountSubcategory = snapshot.val().AccountSubcategory;
+			saveActiveStatus = snapshot.val().ActiveStatus;
+			saveAddedBy = snapshot.val().AddedBy;
+			saveComment = snapshot.val().Comment;
+			saveCreditAmount = creditAmount.value;
+			saveDebitAmount = debitAmount.value;
+			saveDateTimeAdded = snapshot.val().DateTimeAdded;
+			saveDateTimeEdited = snapshot.val().DateTimeEdited;
+			saveEditedBy = snapshot.val().EditedBy;
+			saveInitialBalance = snapshot.val().InitialBalance;
+			saveNormalSide = snapshot.val().NormalSide;
+			saveStatement = snapshot.val().Statement;
+		})
+		.catch((error) => {
+   			alert(error);
+		});
+		
+		//This code gets the current username to document who edited the account
+		get(child(dbref, "People/"+user.displayName))
+		.then((snapshot)=>{
+			editedBy = snapshot.val().Username;
+		})
+    	.catch((error) => {
+   		alert(error);
+		});
+		
+		//This code determines the account balance based on debit and credit amounts.
+		if(normalSide.value == "Debit") {
+			var temp = accountBalance;
+			var accountBalance = Number(temp.value) + Number(debitAmount.value) - Number(creditAmount.value);
+		} 
+		if(normalSide.value == "Credit") {
+			var temp = accountBalance;
+			var accountBalance = Number(temp.value) + Number(debitAmount.value) - Number(creditAmount.value);
+		}
+		
+		//This code updates the database
+		setTimeout(function(){			
+			update(ref(db, "Accounts/" + accountNumber.value), {
+				AccountBalance: accountBalance,
+				AccountCategory: accountCategory.value,
+				AccountDesc: accountDesc.value,
+				AccountName: accountName.value,
+				AccountNumber: accountNumber.value,
+				AccountOrder: accountOrder.value,
+				ActiveStatus: activeStatus.value,
+				AccountSubcategory: accountSubcategory.value,
+				Comment: comment.value,
+				CreditAmount: creditAmount.value,
+				DebitAmount: debitAmount.value,
+				DateTimeEdited: dateTimeEdited,
+				EditedBy: editedBy,
+				InitialBalance: initialBalance.value,
+				NormalSide: normalSide.value,
+				Statement: statement.value
+			})
+			.then(()=>{
+				alert("Account edited");
+		
+				//The following code updates displayed fields and saves the edit event and uses serverTimestamp as unique id
+				get(child(dbref, "Accounts/" + accountNumberSearch.value))
+				.then ((snapshot)=>{
+					if(snapshot.exists()) {
+						//this code portion shows the updated fields
+						accountBalanceField.value = snapshot.val().AccountBalance;
+						dateTimeAcctAddedField.value = snapshot.val().DateTimeAdded;
+						dateTimeAcctEditedField.value = snapshot.val().DateTimeEdited;
+						editedByField.value = snapshot.val().EditedBy;
+						
+						//this portion of the code gets the edited account
+						afterAccountBalance = snapshot.val().AccountBalance;
+						afterAccountCategory = snapshot.val().AccountCategory;
+						afterAccountDesc = snapshot.val().AccountDesc;
+						afterAccountName = snapshot.val().AccountName;
+						afterAccountNumber = snapshot.val().AccountNumber;
+						afterAccountOrder = snapshot.val().AccountOrder;
+						afterAccountSubcategory = snapshot.val().AccountSubcategory;
+						afterActiveStatus = snapshot.val().ActiveStatus;
+						afterAddedBy = snapshot.val().AddedBy;
+						afterComment = snapshot.val().Comment;
+						afterCreditAmount = creditAmount.value;
+						afterDebitAmount = debitAmount.value;
+						afterDateTimeAdded = snapshot.val().DateTimeAdded;
+						afterDateTimeEdited = snapshot.val().DateTimeEdited;
+						afterEditedBy = snapshot.val().EditedBy;
+						afterInitialBalance = snapshot.val().InitialBalance;
+						afterNormalSide = snapshot.val().NormalSide;
+						afterStatement = snapshot.val().Statement;		
+						
+						//This portion of the code saves the before and after account state
+						set(ref(db, "AcctEdits/" + saveDateTimeEdited), {
+							BeforeAccountBalance: saveAccountBalance,
+							BeforeAccountCategory: saveAccountCategory,
+							BeforeAccountDesc: saveAccountDesc,
+							BeforeAccountName: saveAccountName,
+							BeforeAccountNumber: saveAccountNumber,
+							BeforeAccountOrder: saveAccountOrder,
+							BeforeActiveStatus: saveActiveStatus,
+							BeforeAccountSubcategory: saveAccountSubcategory,
+							BeforeComment: saveComment,
+							BeforeCreditAmount: saveCreditAmount,
+							BeforeDebitAmount: saveDebitAmount,
+							BeforeAddedBy: saveAddedBy,
+							BeforeDateTimeAdded: saveDateTimeAdded,
+							BeforeDateTimeEdited: saveDateTimeEdited,
+							BeforeEditedBy: saveEditedBy,
+							BeforeInitialBalance: saveInitialBalance,
+							BeforeNormalSide: saveNormalSide,
+							BeforeStatement: saveStatement,
+							AfterAccountBalance: afterAccountBalance,
+							AfterAccountCategory: afterAccountCategory,
+							AfterAccountDesc: afterAccountDesc,
+							AfterAccountName: afterAccountName,
+							AfterAccountNumber: afterAccountNumber,
+							AfterAccountOrder: afterAccountOrder,
+							AfterActiveStatus: afterActiveStatus,
+							AfterAccountSubcategory: afterAccountSubcategory,
+							AfterComment: afterComment,
+							AfterCreditAmount: afterCreditAmount,
+							AfterDebitAmount: afterDebitAmount,
+							AfterAddedBy: afterAddedBy,
+							AfterDateTimeAdded: afterDateTimeAdded,
+							AfterDateTimeEdited: afterDateTimeEdited,
+							AfterEditedBy: afterEditedBy,
+							AfterInitialBalance: afterInitialBalance,
+							AfterNormalSide: afterNormalSide,
+							AfterStatement: afterStatement
+						})
+					}
+				})
+		
+			})
+			.catch((error)=>{
+				alert(error)
+			})
+		},150) 
+	}
+
+	
+	//Displays current user username and photo
+	setTimeout(function(){
+        const user = auth.currentUser;
+		const dbref = ref(db);
+		
+		get(child(dbref, "People/" + user.displayName))
+		.then((snapshot)=>{
+			if(snapshot.exists()) {
+				displayName.innerHTML = snapshot.val().FirstName + " " + snapshot.val().LastName; //get current user first and last name
+				displayUsername.innerHTML = snapshot.val().Username;
+
+			}
+		})
+		.catch((error)=>{
+			alert(error)
+		})
+   	},250); //delay is in milliseconds; delay needed to load page then display name.
+		
+	getAccount.addEventListener("click", GetAccount);
+	editAccount.addEventListener("click", EditAccount);	
+</script>	
+</body>
+</html>

@@ -36,33 +36,31 @@
 	</div>
 	
 
-	<script type="module">
+<script type="module">
   // Import the functions you need from the SDKs you need
-  		import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  	import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
   // Your web app's Firebase configuration
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-		apiKey: "AIzaSyA3C8jafXUUD2s--XEzzfJfVybXs0ZBJyo",
-		authDomain: "budget-buddy-65565.firebaseapp.com",
-		projectId: "budget-buddy-65565",
-		storageBucket: "budget-buddy-65565.appspot.com",
-		messagingSenderId: "416172669900",
-		appId: "1:416172669900:web:49618f6822c7d660f5fb69",
-		measurementId: "G-W4MRFFH4JV"
-  };
+	const firebaseConfig = {
+		apiKey: "AIzaSyD4skGGVxtzlP_0k_jrXmaeFY3etw3YJvU",
+		authDomain: "swe4317-project.firebaseapp.com",
+		databaseURL: "https://swe4317-project-default-rtdb.firebaseio.com",
+	  	projectId: "swe4317-project",
+	  	storageBucket: "swe4317-project.appspot.com",
+	  	messagingSenderId: "689769398130",
+	  	appId: "1:689769398130:web:f02cee9af8ffa89ee9e7eb"
+	};
 
-  // Initialize Firebase
-  	const app = initializeApp(firebaseConfig);
-	
-	import { getDatabase, set, get, update, remove, ref, child} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+  	// Initialize Firebase
+ 	import { getDatabase, set, get, update, remove, ref, child} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 	import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 	
+	const app = initializeApp(firebaseConfig);
 	const db = getDatabase();
-	
 		
 	var findName = document.querySelector("#findName");
 	var findAddress = document.querySelector("#findAddress");
@@ -70,10 +68,8 @@
 	var findEmail = document.querySelector("#findEmail");
 	var findUserName = document.querySelector("#findUserName");
 	var findRole = document.querySelector("#findRole");
-		
-	getInfo.addEventListener("click", GetInfo);
-	setPassword.addEventListener("click", SetPassword);
 
+	//function to retrieve information entered by requestor.
 	function GetInfo() {
 		const dbref = ref(db);
 		get(child(dbref, "People/" + userName.value))
@@ -94,6 +90,7 @@
 		})
 	}
 		
+	//adds user to authentication database
 	function SetPassword() {
 		const dbref = ref(db);
 		const auth = getAuth();
@@ -119,14 +116,10 @@
     	.catch((error) => {
    		alert(error);
 		});
-		
 	}
 	
 	getInfo.addEventListener("click", GetInfo);
 	setPassword.addEventListener("click", SetPassword);
-
 </script>
-	
-	
 </body>
 </html>
