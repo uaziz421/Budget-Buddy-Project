@@ -19,43 +19,39 @@
 
 	<div class="label-add-account"><label>Account Name:</label></div>
       <input type="text" name="Account Name" id="accountName" />
-	        
-	<div class="label-add-account"><label>Account Number:</label></div>
-      <input type="number" name="Account Number" id="accountNumber" />    
-      
+		
 	<div class="label-add-account"><label>Account Description</label></div>
       <input type="text" name="Account Description" id="accountDesc" />
-	
-	<div class="label-add-account"><label>Normal side:</label></div>
-      <select name="Normal Side" id="normalSide">
-        <option value="Credit">Credit</option>
-        <option value="Debit">Debit</option></select>
-	
+      
 	<div class="label-add-account"><label>Account Category:</label></div>
       <select name="Account Category" id="accountCategory">
-        <option value="Assets">Assets</option>
-        <option value="Liabilities">Liabilities</option>
-        <option value="Equity">Equity</option></select>
+        <option value="Assets">1-Assets</option>
+        <option value="Liabilities">2-Liabilities</option>
+        <option value="Equity">3-Equity</option>
+		<option value="Revenue">4-Revenue</option>
+		<option value="Expenses">5-Expenses</option></select>
 	
 	<div class="label-add-account"> <label>Account Subcategory:</label></div>
       <select name="Account Subcategory" id="accountSubcategory">
         <option value="Assets: Current Assets">Assets: Current Assets</option>
-        <option value="Assets: Long-Term Assets">
-          Assets: Long-Term Assets
-        </option>
-        <option value="Assets: Other Long-Term Assets">
-          Assets: Long-Term Assets (Intangible)
-        </option>
-        <option value="Liabilities: Current Liabilities">
-          Liabilities: Current Liabilities
-        </option>
-        <option value="Liabilities: Long-Term Liabilities">
-          Liabilities: Long-Term Liabilities
-        </option>
+        <option value="Assets: Long-Term Assets">Assets: Long-Term Assets</option>
+        <option value="Assets: Other Long-Term Assets">Assets: Long-Term Assets (Intangible)</option>
+        <option value="Liabilities: Current Liabilities">Liabilities: Current Liabilities</option>
+        <option value="Liabilities: Long-Term Liabilities">Liabilities: Long-Term Liabilities</option>
         <option value="Equity: Owners' Capital">Equity: Owners' Capital</option>
         <option value="Equity: Withdrawals">Equity: Withdrawals</option>
-        <option value="Equity: Revenue">Equity: Revenue</option>
-        <option value="Equity: Expenses">Equity: Expenses</option></select>
+        <option value="Revenue: Services Revenue">Revenue: Services Revenue</option>
+        <option value="Expenses: Salaries">Expenses: Salaries</option>
+		<option value="Expenses: Supplies">Expenses: Supplies</option>
+		<option value="Expenses: Utilities">Expenses: Utilities</option></select>
+	
+	<div class="label-add-account"><label>Account Order:</label></div>
+      <input type="text" name="Account Order" id="accountOrder" />
+
+	<div class="label-add-account"><label>Normal side:</label></div>
+      <select name="Normal Side" id="normalSide">
+        <option value="Credit">Credit</option>
+        <option value="Debit">Debit</option></select>
 	
 	<div class="label-add-account"> <label>Initial Balance:</label></div>
       <input type="number" name="Initial Balance" id="initialBalance" />
@@ -68,9 +64,6 @@
 	
 	<div class="label-add-account"><label>Account Balance:</label></div>
       <input type="number" name="Balance" id="accountBalance" />
-	
-	<div class="label-add-account"><label>Account Order:</label></div>
-      <input type="number" name="Account Order" id="accountOrder" />
 	
 	<div class="label-add-account"> <label>Statement:</label></div>
       <select name="Statement" id="statement">
@@ -116,7 +109,6 @@ const firebaseConfig = {
         measurementId: "G-W4MRFFH4JV",
       };
 
-
 	// Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getDatabase();
@@ -125,7 +117,6 @@ const firebaseConfig = {
     const user = auth.currentUser;
 
     var accountName = document.querySelector("#accountName");
-    var accountNumber = document.querySelector("#accountNumber");
     var accountDesc = document.querySelector("#accountDesc");
     var normalSide = document.querySelector("#normalSide");
     var accountCategory = document.querySelector("#accountCategory");
@@ -140,13 +131,14 @@ const firebaseConfig = {
     var addedBy = "";
     var dateTimeAdded = serverTimestamp();
 		
-
 	//function to add new account
 	function CreateAccount() {
     	const dbref = ref(db);
         const auth = getAuth();
         const user = auth.currentUser;
 		var addAccount = true;
+		var accountNumStart = "";
+		var accountNumber;
 
         //This code gets the current username to document who edited the account
 		get(child(dbref, "People/" + user.displayName))
@@ -157,16 +149,37 @@ const firebaseConfig = {
         	alert(error);
         });
 
+		//This code constructs the account number based on Account Category and order number entered.	
+		if(accountCategory.value == "Assets") {
+			accountNumStart = "1";
+			accountNumber = accountNumStart + accountOrder.value;
+		} else if (accountCategory.value == "Liabilities") {
+			accountNumStart = "2";
+			accountNumber = accountNumStart + accountOrder.value;
+		} else if (accountCategory.value == "Equity") {
+			accountNumStart = "3";
+			accountNumber = accountNumStart + accountOrder.value;
+		} else if (accountCategory.value == "Revenue") {
+			accountNumStart = "4";
+			accountNumber = accountNumStart + accountOrder.value;
+		} else if (accountCategory.value == "Expenses") {
+			accountNumStart = "5";
+			accountNumber = accountNumStart + accountOrder.value;
+		}
+
 		//This code loops through all database records and makes addAccount false is an account already exists  
 		const dbrefAccounts = ref(db, 'Accounts/');
 		onValue(dbrefAccounts, (snapshot) => {
 			snapshot.forEach((childSnapshot) => {
 				var nameAlreadyExists = false;
 				var numAlreadyExists = false;
+				
+
 
 				if(accountName.value == childSnapshot.val().AccountName) {
 					nameAlreadyExists = true;
-				} else if (accountNumber.value == childSnapshot.val().AccountNumber) {
+				} 
+				if (accountNumber == childSnapshot.val().AccountNumber) {
 					numAlreadyExists = true;
 				} 
 				if (nameAlreadyExists == true || numAlreadyExists == true) {
@@ -175,7 +188,7 @@ const firebaseConfig = {
 				}
 			})
 		})
-		
+	
 		//This code adds the new account if the account does not already exist
 		setTimeout(function() {
 			if(addAccount == true) {
@@ -188,12 +201,12 @@ const firebaseConfig = {
         		}
 			
 				//Adds information to database
-       			set(ref(db, "Accounts/" + accountNumber.value), {
+       			set(ref(db, "Accounts/" + accountName.value), {
                		AccountBalance: accountBalance,
 					AccountCategory: accountCategory.value,
                		AccountDesc: accountDesc.value,
                		AccountName: accountName.value,
-               		AccountNumber: accountNumber.value,
+               		AccountNumber: accountNumber,
                		AccountOrder: accountOrder.value,
                		ActiveStatus: activeStatus.value,
                		AddedBy: addedBy,
@@ -201,12 +214,12 @@ const firebaseConfig = {
                		Comment: comment.value,
                		CreditAmount: creditAmount.value,
                		DateTimeAdded: dateTimeAdded,
-					DateTimeEdited: "",
-					EditBy: "",
+					DateTimeEdited: dateTimeAdded,
+					EditedBy: addedBy,
                		DebitAmount: debitAmount.value,
                		InitialBalance: initialBalance.value,
                		NormalSide: normalSide.value,
-               		Statement: statement.value,
+               		Statement: statement.value
        			})
            		.then(() => {
                		alert("Account added");
@@ -221,7 +234,6 @@ const firebaseConfig = {
 		},250);
 	}
 		
-	
 	//Displays current user username and photo
 	setTimeout(function(){
         const user = auth.currentUser;
