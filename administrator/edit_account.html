@@ -15,11 +15,13 @@
 		<input type="date" id="showCal" align="left">
   </header>
 	<br><br>
-	<label>Enter Account Number to Edit:</label>
-    <input type="number" name="Account Number Search" id="accountNumberSearchField" />        
-	<input type="submit" name="Get Account" id="getAccount" value="Get Account Info" />
-	<br>
-	
+	<label>Enter Account NAME to View/Edit:</label>
+    <input type="text" name="Account Name Search" id="accountNameSearchField" />        
+	<input type="submit" name="Get Account" id="getAccountName" value="Get Account Info" />
+	<h4> ------OR------</h4>
+	<label>Enter Account NUMBER to View/Edit:</label>
+    <input type="text" name="Account Number Search" id="accountNumSearchField" />        
+	<input type="submit" name="Get Account" id="getAccountNumber" value="Get Account Info" />
 	
     <div>
       <br>
@@ -31,12 +33,16 @@
         <label>Account Number:</label>
         <input type="number" name="Account Number" id="accountNumberField" />
 		<br>
-
+		
+		<label>Account Order:</label>
+		<input type="number" name="Account Order" id="accountOrderField">
+		<br>
+		
         <label>Account Description</label>
         <input type="text" name="Account Description" id="accountDescField" />
 		<br>
 
-        <label>Normal side:</label>
+        <label>Normal Side:</label>
         <select name="Normal Side" id="normalSideField">
           <option value="Credit">Credit</option>
           <option value="Debit">Debit</option>
@@ -83,7 +89,7 @@
 		<br>
 		
 		<label>Added by User:</label>
-        <input type="text" name="User Name" id="userNameField" />
+        <input type="text" name="User Name" id="addedByField" />
 		<br>
 		  
 		<label>Date and Time Account Last Edited:</label>
@@ -92,10 +98,6 @@
 		
 		<label>Account Last Edited By:</label>
         <input type="text" name="Date and Time Added" id="editedByField" />
-		<br>
-		
-		<label>Account Order:</label>
-		<input type="number" name="Account Order" id="accountOrderField">
 		<br>
 		
 		<label>Statement:</label>
@@ -126,7 +128,7 @@
 <script type="module">
   // Import the functions you need from the SDKs you need
 	import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-	import { getDatabase, set, get, update, remove, ref, child} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+	import { getDatabase, set, get, update, remove, ref, child, onValue} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 	import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 	import { serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
@@ -152,14 +154,15 @@ const firebaseConfig = {
 	const auth = getAuth();
 	const user = auth.currentUser;
 			
-	var accountNumberSearch = document.querySelector("#accountNumberSearchField"); //gets account info to edit
+	var accountNameSearch = document.querySelector("#accountNameSearchField"); //gets account info to edit
 	
 	
-	//This function gets and displays the account info to edit
-	function GetAccount() {
+	//This function gets and displays the account info to edit (Search by Account Name)
+	function GetAccountName() {
 		const dbref = ref(db);
 		
-		get(child(dbref, "Accounts/" + accountNumberSearch.value))
+		//This portion of code displays the account information
+		get(child(dbref, "Accounts/" + accountNameSearch.value))
 		.then ((snapshot)=>{
 			if(snapshot.exists()) {
 				accountNameField.value = snapshot.val().AccountName;
@@ -173,13 +176,59 @@ const firebaseConfig = {
 				creditAmountField.value = snapshot.val().CreditAmount;
 				accountBalanceField.value = snapshot.val().AccountBalance;
 				dateTimeAcctAddedField.value = snapshot.val().DateTimeAdded;
+				addedByField.value = snapshot.val().AddedBy;
 				dateTimeAcctEditedField.value = snapshot.val().DateTimeEdited;
-				userNameField.value = snapshot.val().AddedBy;
+				editedByField.value = snapshot.val().EditedBy;
 				accountOrderField.value = snapshot.val().AccountOrder;
 				statementField.value = snapshot.val().Statement;
+				activeStatusField.value = snapshot.val().ActiveStatus;
 				commentField.value = snapshot.val().Comment;
 			}
 		})
+	}
+	
+	//This function gets and displays the account info to edit (Search by Account Number)
+	function GetAccountNumber() {
+		const dbref = ref(db);
+		const dbrefAccounts = ref(db, 'Accounts/');
+		var retAccountName = "";
+		
+		//This portion searches each account record to find the desired account
+		onValue(dbrefAccounts, (snapshot) => {
+			snapshot.forEach((childSnapshot) => {
+				if(accountNumSearchField.value == childSnapshot.val().AccountNumber) {
+					retAccountName = childSnapshot.val().AccountName;
+					return;
+				}
+			})
+		})
+		
+		//This portion of code displays the account information
+		setTimeout(function(){	
+			get(child(dbref, "Accounts/" + retAccountName))
+			.then ((snapshot)=>{
+				if(snapshot.exists()) {
+					accountNameField.value = snapshot.val().AccountName;
+					accountNumberField.value = snapshot.val().AccountNumber;
+					accountDescField.value = snapshot.val().AccountDesc;
+					normalSideField.value = snapshot.val().NormalSide;
+					accountCategoryField.value = snapshot.val().AccountCategory;
+					accountSubcategoryField.value = snapshot.val().AccountSubcategory;
+					initialBalanceField.value = snapshot.val().InitialBalance;
+					debitAmountField.value = snapshot.val().DebitAmount;
+					creditAmountField.value = snapshot.val().CreditAmount;
+					accountBalanceField.value = snapshot.val().AccountBalance;
+					dateTimeAcctAddedField.value = snapshot.val().DateTimeAdded;
+					addedByField.value = snapshot.val().AddedBy;
+					dateTimeAcctEditedField.value = snapshot.val().DateTimeEdited;
+					editedByField.value = snapshot.val().EditedBy;
+					accountOrderField.value = snapshot.val().AccountOrder;
+					statementField.value = snapshot.val().Statement;
+					activeStatusField.value = snapshot.val().ActiveStatus;
+					commentField.value = snapshot.val().Comment;
+				}
+			})
+		},150)
 	}
 	
 	//This function updates the database with the updated information entered by the user
@@ -246,7 +295,7 @@ const firebaseConfig = {
 		var afterStatement = "";
 		
 		//This code saves the state of the account before editing the account
-		get(child(dbref, "Accounts/" + accountNumber.value))
+		get(child(dbref, "Accounts/" + accountName.value))
 		.then ((snapshot)=> {
 			saveAccountBalance = snapshot.val().AccountBalance;
 			saveAccountCategory = snapshot.val().AccountCategory;
@@ -292,7 +341,7 @@ const firebaseConfig = {
 		
 		//This code updates the database
 		setTimeout(function(){			
-			update(ref(db, "Accounts/" + accountNumber.value), {
+			update(ref(db, "Accounts/" + accountName.value), {
 				AccountBalance: accountBalance,
 				AccountCategory: accountCategory.value,
 				AccountDesc: accountDesc.value,
@@ -314,16 +363,30 @@ const firebaseConfig = {
 				alert("Account edited");
 		
 				//The following code updates displayed fields and saves the edit event and uses serverTimestamp as unique id
-				get(child(dbref, "Accounts/" + accountNumberSearch.value))
-				.then ((snapshot)=>{
+			get(child(dbref, "Accounts/" + accountName.value))
+			.then ((snapshot)=>{
 					if(snapshot.exists()) {
-						//this code portion shows the updated fields
+						//This code portion shows the updated fields			
+						accountNameField.value = snapshot.val().AccountName;
+						accountNumberField.value = snapshot.val().AccountNumber;
+						accountDescField.value = snapshot.val().AccountDesc;
+						normalSideField.value = snapshot.val().NormalSide;
+						accountCategoryField.value = snapshot.val().AccountCategory;
+						accountSubcategoryField.value = snapshot.val().AccountSubcategory;
+						initialBalanceField.value = snapshot.val().InitialBalance;
+						debitAmountField.value = snapshot.val().DebitAmount;
+						creditAmountField.value = snapshot.val().CreditAmount;
 						accountBalanceField.value = snapshot.val().AccountBalance;
 						dateTimeAcctAddedField.value = snapshot.val().DateTimeAdded;
+						addedByField.value = snapshot.val().AddedBy;
 						dateTimeAcctEditedField.value = snapshot.val().DateTimeEdited;
 						editedByField.value = snapshot.val().EditedBy;
+						accountOrderField.value = snapshot.val().AccountOrder;
+						statementField.value = snapshot.val().Statement;
+						activeStatusField.value = snapshot.val().ActiveStatus;
+						commentField.value = snapshot.val().Comment;
 						
-						//this portion of the code gets the edited account
+						//This portion of the code gets the edited account
 						afterAccountBalance = snapshot.val().AccountBalance;
 						afterAccountCategory = snapshot.val().AccountCategory;
 						afterAccountDesc = snapshot.val().AccountDesc;
@@ -384,6 +447,8 @@ const firebaseConfig = {
 						})
 					}
 				})
+				
+
 		
 			})
 			.catch((error)=>{
@@ -411,7 +476,8 @@ const firebaseConfig = {
 		})
    	},250); //delay is in milliseconds; delay needed to load page then display name.
 		
-	getAccount.addEventListener("click", GetAccount);
+	getAccountName.addEventListener("click", GetAccountName);
+	getAccountNumber.addEventListener("click", GetAccountNumber);
 	editAccount.addEventListener("click", EditAccount);	
 </script>	
 </body>
