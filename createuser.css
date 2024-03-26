@@ -43,7 +43,8 @@ body {
   
   #getInfo,
   #setPassword,
-  #rejectRequest {
+  #rejectRequest,
+  #updateUser{
     background-color: #4caf50;
     color: #fff;
     padding: 10px 20px;
