@@ -21,22 +21,22 @@
     
 	<div class="signup-form">
        	<label>First Name:</label>
-       	<input type="text" name="First Name" id="firstName" />
+       	<input type="text" name="First Name" id="firstNameField" />
 
     	<label>Last Name:</label>
-       	<input type="text" name="Last Name" id="lastName" />
+       	<input type="text" name="Last Name" id="lastNameField" />
 
         <label>Date of Birth</label>
-        <input type="date" name="Date of Birth" id="dob" />
+        <input type="date" name="Date of Birth" id="dobField" />
 
         <label>Street Address:</label>
-        <input type="text" name="Street Address" id="streetAddress" />
+        <input type="text" name="Street Address" id="streetAddressField" />
 
         <label>City:</label>
-        <input type="text" name="City" id="city" />
+        <input type="text" name="City" id="cityField" />
 
         <label>State:</label>
-        <select name="State" id="state">
+        <select name="State" id="stateField">
     		<option value="AL">Alabama</option>
           	<option value="AK">Alaska</option>
           	<option value="AZ">Arizona</option>
@@ -91,19 +91,19 @@
         </select>
 
         <label>Zip Code:</label>
-        <input type="text" name="Zip Code" id="zip" />
+        <input type="text" name="Zip Code" id="zipField" />
 
         <label>Email Address:</label>
-        <input type="email" name="Email Address" id="signupEmail" />
+        <input type="email" name="Email Address" id="emailField" />
 
-        <label>Username:</label>
-        <input type="text" name="Username" id="userName" />
-
-        <label>Password:</label>
-        <input type="password" name="Password" id="password" />
+        <label>Username</label>
+        <input type="text" name="Username" id="userNameField" readonly="readonly" />
+		
+		<label>Password:</label>
+        <input type="password" name="Password" id="passwordField" />
 
         <label>Desired Role:</label>
-        <select name="Role" id="role">
+        <select name="Role" id="roleField">
           <option value="Administrator">Administrator</option>
           <option value="Manager">Manager</option>
           <option value="User">User</option>
@@ -132,7 +132,6 @@ const firebaseConfig = {
         appId: "1:416172669900:web:49618f6822c7d660f5fb69",
         measurementId: "G-W4MRFFH4JV",
       };
-
 	// Initialize Firebase
    	const app = initializeApp(firebaseConfig);
 	const db = getDatabase();
@@ -147,19 +146,26 @@ const firebaseConfig = {
         child,
     } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 	
-	var firstName = document.querySelector("#firstName");
-    var lastName = document.querySelector("#lastName");
-    var streetAddress = document.querySelector("#streetAddress");
-    var city = document.querySelector("#city");
-    var state = document.querySelector("#state");
-    var zip = document.querySelector("#zip");
-    var dob = document.querySelector("#dob");
-    var signupEmail = document.querySelector("#signupEmail");
-    var userName = document.querySelector("#userName");
-    var password = document.querySelector("#password");
-    var role = document.querySelector("#role");
+	var firstName = document.querySelector("#firstNameField");
+    var lastName = document.querySelector("#lastNameField");
+    var streetAddress = document.querySelector("#streetAddressField");
+    var city = document.querySelector("#cityField");
+    var state = document.querySelector("#stateField");
+    var zip = document.querySelector("#zipField");
+    var dob = document.querySelector("#dobField");
+    var email = document.querySelector("#emailField");
+    var password = document.querySelector("#passwordField");
+    var role = document.querySelector("#roleField");
 
+	
+	function CreateUserName() {
+		var date = new Date;
+		userNameField.value = (firstName.value.slice(0,1) + lastName.value + ((date.getMonth()+1).toString().padStart(2,"0")) + (date.getFullYear()-2000)).toLowerCase();
+	}
+	
     function SignUp() {
+		var userName = document.querySelector("#userNameField");
+		
 		set(ref(db, "People/" + userName.value), {
 			FirstName: firstName.value,
           	LastName: lastName.value,
@@ -168,10 +174,12 @@ const firebaseConfig = {
           	State: state.value,
           	ZipCode: zip.value,
           	DOB: dob.value,
-          	Email: signupEmail.value,
+          	Email: email.value,
           	Username: userName.value,
           	Password: password.value,
           	Role: role.value,
+			Active: "N",
+			PicLocation: "UserPhotos/"+userName.value+".jpg"
         })
        	.then(() => {
         	alert("User information submitted. Please wait for an email from the administrator before attempting to log in.");
@@ -197,10 +205,12 @@ const firebaseConfig = {
             function (error) {
               console.log("FAILED...", error);
             }
-          );
+          ); 
       }
 
-      signup.addEventListener("click", SignUp);
+	signup.addEventListener("click", SignUp);
+	firstNameField.addEventListener("change", CreateUserName);
+	lastNameField.addEventListener("change", CreateUserName);
     </script>
 
     <script

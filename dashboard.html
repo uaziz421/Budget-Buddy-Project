@@ -100,7 +100,7 @@ const firebaseConfig = {
 		.then((snapshot)=>{
 			if(snapshot.exists()) {
 				if(snapshot.val().Role == "Manager") {
-					window.location.assign("manager.html");
+					window.location.assign("managers/manager.html");
 				} else {
 					alert("You do not have access");
 					 }

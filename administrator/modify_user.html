@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Modify User</title>
-<link href="../style.css" rel="stylesheet" type="text/css">
+<link href="../createuser.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -11,7 +11,185 @@
 		<img width="300" src="../Logos/Logo1.jpeg" alt="Logo1" />
 	  </div>
 	  <div class="subheader-container">
-		<h2 id="subheaderh2">
-		  Welcome to Budget Buddy, your favorite accounting web application.
+		<h2 id="subheaderh2" style="text-align: center;" >
+		  Modify User Info
 		</h2>
+		<h4 style="text-align: center;">Enter updates in fields as necessary</h4>
 	  </div>
+<div id="enterDetails">
+	<label>Username:</label><input type="text" id="userName">
+	<input type="submit" name="getInfo" id="getInfo" value="Get Info">
+		<br><br>
+		<br><br>
+	
+	<label>First Name:</label><input type="text" name="First Name" id="firstNameField" />
+	<label>Last Name:</label><input type="text" name="Last Name" id="lastNameField" />
+	<label>Street Address:</label><input type="text" name="Street Address" id="streetAddressField" />
+	<label>City:</label><input type="text" name="City" id="cityField" />
+	<label>State:</label>
+        <select name="State" id="stateField">
+    		<option value="AL">Alabama</option>
+          	<option value="AK">Alaska</option>
+          	<option value="AZ">Arizona</option>
+          	<option value="AR">Arkansas</option>
+          	<option value="CA">California</option>
+          	<option value="CO">Colorado</option>
+          	<option value="CT">Connecticut</option>
+          	<option value="DE">Delaware</option>
+          	<option value="DC">District Of Columbia</option>
+          	<option value="FL">Florida</option>
+          	<option value="GA">Georgia</option>
+          	<option value="HI">Hawaii</option>
+          	<option value="ID">Idaho</option>
+          	<option value="IL">Illinois</option>
+          	<option value="IN">Indiana</option>
+          	<option value="IA">Iowa</option>
+          	<option value="KS">Kansas</option>
+          	<option value="KY">Kentucky</option>
+          	<option value="LA">Louisiana</option>
+          	<option value="ME">Maine</option>
+          	<option value="MD">Maryland</option>
+          	<option value="MA">Massachusetts</option>
+          	<option value="MI">Michigan</option>
+          	<option value="MN">Minnesota</option>
+          	<option value="MS">Mississippi</option>
+          	<option value="MO">Missouri</option>
+          	<option value="MT">Montana</option>
+          	<option value="NE">Nebraska</option>
+          	<option value="NV">Nevada</option>
+          	<option value="NH">New Hampshire</option>
+          	<option value="NJ">New Jersey</option>
+          	<option value="NM">New Mexico</option>
+          	<option value="NY">New York</option>
+          	<option value="NC">North Carolina</option>
+          	<option value="ND">North Dakota</option>
+          	<option value="OH">Ohio</option>
+          	<option value="OK">Oklahoma</option>
+          	<option value="OR">Oregon</option>
+          	<option value="PA">Pennsylvania</option>
+          	<option value="RI">Rhode Island</option>
+          	<option value="SC">South Carolina</option>
+          	<option value="SD">South Dakota</option>
+          	<option value="TN">Tennessee</option>
+          	<option value="TX">Texas</option>
+          	<option value="UT">Utah</option>
+          	<option value="VT">Vermont</option>
+          	<option value="VA">Virginia</option>
+          	<option value="WA">Washington</option>
+          	<option value="WV">West Virginia</option>
+          	<option value="WI">Wisconsin</option>
+          	<option value="WY">Wyoming</option>
+        </select>
+	<br><br>
+	<label>Zip Code:</label><input type="text" name="Zip" id="zipField" />
+	<label>Date of Birth:</label><input type="date" name="DOB" id="dobField" />
+	<br><br>
+	<label>Email:</label><input type="text" name="Email" id="emailField" />
+	<label>Username:</label><input type="text" name="Username" id="userNameField" readonly="readonly"/>
+	<label>Picture Link:</label><input type="text" name="picLink" id="picField" />
+	<label>Role:</label>
+	<select name="Role" id="roleField">
+    	<option value="Administrator">Administrator</option>
+        <option value="Manager">Manager</option>
+        <option value="User">User</option>
+    </select>
+	<br><br>
+	<label>Active:</label>
+	<select name="Active" id="activeField">
+    	<option value="Y">Yes</option>
+        <option value="N">No</option>
+    </select>
+	<br><br>
+	<br><br>
+	
+	<input type="submit" name="updateUser" id="updateUser" value="Update User Info">
+		
+	</div>
+	
+
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  	import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+        apiKey: "AIzaSyA3C8jafXUUD2s--XEzzfJfVybXs0ZBJyo",
+        authDomain: "budget-buddy-65565.firebaseapp.com",
+        projectId: "budget-buddy-65565",
+        storageBucket: "budget-buddy-65565.appspot.com",
+        messagingSenderId: "416172669900",
+        appId: "1:416172669900:web:49618f6822c7d660f5fb69",
+        measurementId: "G-W4MRFFH4JV",
+      };
+
+  	// Initialize Firebase
+ 	import { getDatabase, set, get, update, remove, ref, child} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+	import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+	
+	const app = initializeApp(firebaseConfig);
+	const db = getDatabase();
+		
+	//function to retrieve user information from database.
+	function GetInfo() {
+		const dbref = ref(db);
+		
+		//This portion of code retrieves the user informaton.
+		get(child(dbref, "People/" + userName.value))
+		.then((snapshot)=>{
+			if(snapshot.exists()) {
+				activeField.value = snapshot.val().Active;
+				cityField.value = snapshot.val().City;
+				dobField.value = snapshot.val().DOB;
+				emailField.value = snapshot.val().Email;
+				firstNameField.value = snapshot.val().FirstName;
+				lastNameField.value = snapshot.val().LastName;
+				picField.value = snapshot.val().PicLocation;
+				roleField.value = snapshot.val().Role;
+				stateField.value = snapshot.val().State;
+				streetAddressField.value = snapshot.val().StreetAddress;
+				userNameField.value = snapshot.val().Username;
+				zipField.value = snapshot.val().ZipCode;
+				
+			} else {
+				alert("No info found");
+			}
+		})
+		.catch((error)=>{
+			alert(error)
+		})
+	}
+		
+	//function to update user record with changed/updated fields
+	function UpdateUser() {
+		const dbref = ref(db);
+		const auth = getAuth();
+	
+		//This portion of code sends the updated user information to database
+		update(ref(db, "People/" + userNameField.value), {
+			Active: activeField.value,
+			City: cityField.value,
+			DOB: dobField.value,
+			Email: emailField.value,
+			FirstName: firstNameField.value,
+			LastName: lastNameField.value,
+			PicLocation: picField.value,
+			Role: roleField.value,
+			State: stateField.value,
+			StreetAddress: streetAddressField.value,
+			Username: userNameField.value,
+			ZipCode: zipField.value
+		})
+		.then(()=>{
+				alert("Account edited");
+		})
+	}
+	
+	getInfo.addEventListener("click", GetInfo);
+	updateUser.addEventListener("click", UpdateUser);
+</script>
+</body>
+</html>
