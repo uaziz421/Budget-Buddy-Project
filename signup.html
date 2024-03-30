@@ -19,24 +19,34 @@
       	<h3 id="subheaderh3">Sign up for Budget Buddy</h3>
       	<br />
     
+	<form name="SignUpForm" id="SignUpForm">
 	<div class="signup-form">
        	<label>First Name:</label>
-       	<input type="text" name="First Name" id="firstNameField" />
+       	<input type="text" name="First Name" id="firstNameField" required/>
 
     	<label>Last Name:</label>
-       	<input type="text" name="Last Name" id="lastNameField" />
+       	<input type="text" name="Last Name" id="lastNameField" required/>
+		
+		<label>Desired Role:</label>
+        <select name="Role" id="roleField" required>
+		  <option value=""></option>
+          <option value="Administrator">Administrator</option>
+          <option value="Manager">Manager</option>
+          <option value="User">User</option>
+        </select>
 
         <label>Date of Birth</label>
-        <input type="date" name="Date of Birth" id="dobField" />
+        <input type="date" name="Date of Birth" id="dobField" required/>
 
         <label>Street Address:</label>
-        <input type="text" name="Street Address" id="streetAddressField" />
+        <input type="text" name="Street Address" id="streetAddressField" required/>
 
         <label>City:</label>
-        <input type="text" name="City" id="cityField" />
+        <input type="text" name="City" id="cityField" required/>
 
         <label>State:</label>
-        <select name="State" id="stateField">
+        <select name="State" id="stateField" required>
+			<option value=""></option>
     		<option value="AL">Alabama</option>
           	<option value="AK">Alaska</option>
           	<option value="AZ">Arizona</option>
@@ -91,61 +101,54 @@
         </select>
 
         <label>Zip Code:</label>
-        <input type="text" name="Zip Code" id="zipField" />
+        <input type="text" name="Zip Code" id="zipField" required/>
 
         <label>Email Address:</label>
-        <input type="email" name="Email Address" id="emailField" />
+        <input type="email" name="Email Address" id="emailField" required/>
 
         <label>Username</label>
-        <input type="text" name="Username" id="userNameField" readonly="readonly" />
+        <input type="text" name="Username" id="userNameField" readonly="readonly" required/>
 		
 		<label>Password:</label>
-        <input type="password" name="Password" id="passwordField" />
-
-        <label>Desired Role:</label>
-        <select name="Role" id="roleField">
-          <option value="Administrator">Administrator</option>
-          <option value="Manager">Manager</option>
-          <option value="User">User</option>
-        </select>
-        <br /><br />
-
+        <input type="password" name="Password" id="passwordField" pattern="^([A-Za-z]{1})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[<>!@#$%^&*]).{7,}" title="Must be 8 characters minimum, start with a letter, contain a number, and at least one of the following special characters <>!@#$%^&*" required/>
+		
+		<label>Security Question 1: What is your mother's maiden name?</label>
+		<input type = "password" id="SQ1" required />
+		
+		<label>Security Question 2: What street did you grow up on?</label>
+		<input type = "password" id="SQ2" required />
+		
+		<label>Security Question 3: What MAKE was your first car?</label>
+		<input type = "password" id="SQ3" required />
+		<br><br>
+		
         <input type="submit" name="signup" id="signup" value="Sign Up" />
       </div>
+	</form>
     </div>
 
 <script type="module">
 	// Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-
+   	import { getDatabase, set, get, update, remove, ref, child } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
       // TODO: Add SDKs for Firebase products that you want to use
       // https://firebase.google.com/docs/web/setup#available-libraries
 
       // Your web app's Firebase configuration
       // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-        apiKey: "AIzaSyA3C8jafXUUD2s--XEzzfJfVybXs0ZBJyo",
-        authDomain: "budget-buddy-65565.firebaseapp.com",
-        projectId: "budget-buddy-65565",
-        storageBucket: "budget-buddy-65565.appspot.com",
-        messagingSenderId: "416172669900",
-        appId: "1:416172669900:web:49618f6822c7d660f5fb69",
-        measurementId: "G-W4MRFFH4JV",
-      };
+  apiKey: "AIzaSyA3C8jafXUUD2s--XEzzfJfVybXs0ZBJyo",
+  authDomain: "budget-buddy-65565.firebaseapp.com",
+  projectId: "budget-buddy-65565",
+  storageBucket: "budget-buddy-65565.appspot.com",
+  messagingSenderId: "416172669900",
+  appId: "1:416172669900:web:49618f6822c7d660f5fb69",
+  measurementId: "G-W4MRFFH4JV"
+};
 	// Initialize Firebase
    	const app = initializeApp(firebaseConfig);
 	const db = getDatabase();
 
-   	import {
-    	getDatabase,
-        set,
-        get,
-        update,
-        remove,
-        ref,
-        child,
-    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-	
 	var firstName = document.querySelector("#firstNameField");
     var lastName = document.querySelector("#lastNameField");
     var streetAddress = document.querySelector("#streetAddressField");
@@ -156,59 +159,78 @@ const firebaseConfig = {
     var email = document.querySelector("#emailField");
     var password = document.querySelector("#passwordField");
     var role = document.querySelector("#roleField");
-
+	var sec1 = document.querySelector("#SQ1");
+	var sec2 = document.querySelector("#SQ2");
+	var sec3 = document.querySelector("#SQ3");
 	
+	//CreateUserName function automatically creates the correctly formatted username.
 	function CreateUserName() {
 		var date = new Date;
 		userNameField.value = (firstName.value.slice(0,1) + lastName.value + ((date.getMonth()+1).toString().padStart(2,"0")) + (date.getFullYear()-2000)).toLowerCase();
 	}
 	
-    function SignUp() {
+	//This function sends user information to the People database in an inactive status
+    SignUpForm.addEventListener("submit", function SignUp(event) { //This line and the line below stops the default form submit function prior to form data validation
+		event.preventDefault();
+		const dbref = ref(db);
 		var userName = document.querySelector("#userNameField");
-		
-		set(ref(db, "People/" + userName.value), {
-			FirstName: firstName.value,
-          	LastName: lastName.value,
-          	StreetAddress: streetAddress.value,
-          	City: city.value,
-          	State: state.value,
-          	ZipCode: zip.value,
-          	DOB: dob.value,
-          	Email: email.value,
-          	Username: userName.value,
-          	Password: password.value,
-          	Role: role.value,
-			Active: "N",
-			PicLocation: "UserPhotos/"+userName.value+".jpg"
-        })
-       	.then(() => {
-        	alert("User information submitted. Please wait for an email from the administrator before attempting to log in.");
-            window.location.assign("index.html");
-          })
-       	.catch((error) => {
-        	alert(error);
-       	});
-
-        var templateParams = {
-          from_name: "Sender",
-          firstName: firstName.value,
-          lastName: lastName.value,
-          userName: userName.value,
+			
+		get(child(dbref, "People/" + userName.value))
+		.then((snapshot)=> {
+			if(snapshot.exists()) {
+				alert("User account already exists or submitted for approval")
+			} else {
+				set(ref(db, "People/" + userName.value), {
+					FirstName: firstName.value,
+        			LastName: lastName.value,
+        			StreetAddress: streetAddress.value,
+					City: city.value,
+          			State: state.value,
+          			ZipCode: zip.value,
+          			DOB: dob.value,
+          			Email: email.value,
+          			Username: userName.value,
+          			Password: password.value,
+					OldPassword:"",
+          			Role: role.value,
+					Active: "N",
+					PicLocation: "UserPhotos/"+userName.value+".jpg",
+					SecQ1: sec1.value,
+					SecQ2: sec2.value,
+					SecQ3: sec3.value,
+					UID: ""
+        		})
+       			.then(() => {
+        			alert("User information submitted. Please wait for an email from the administrator before attempting to log in.");
+            		window.location.assign("index.html");
+          		})
+       			.catch((error) => {
+        			alert(error);
+       			});
+			}
+		})
+			
+		//This portion of code pulls information for the outgoing email	
+		var templateParams = {
+			from_name: "Sender",
+        	firstName: firstName.value,
+          	lastName: lastName.value,
+          	userName: userName.value,
         };
 
         emailjs
-          .send("service_psxifkt", "template_eqvppz5", templateParams)
-          .then(
-            function (response) {
-              console.log("SUCCESS!", response.status, response.text);
-            },
-            function (error) {
-              console.log("FAILED...", error);
-            }
-          ); 
-      }
+        .send("service_psxifkt", "template_eqvppz5", templateParams)
+        .then(
+        function(response){
+        	console.log("SUCCESS!", response.status, response.text);
+        },
+		function (error) {
+        	console.log("FAILED...", error);
+        }); 
+		
+      }, false);
 
-	signup.addEventListener("click", SignUp);
+
 	firstNameField.addEventListener("change", CreateUserName);
 	lastNameField.addEventListener("change", CreateUserName);
     </script>
