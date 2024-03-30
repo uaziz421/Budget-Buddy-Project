@@ -23,9 +23,24 @@
 		<br><br>
 	
 	<label>First Name:</label><input type="text" name="First Name" id="firstNameField" />
+	
 	<label>Last Name:</label><input type="text" name="Last Name" id="lastNameField" />
+	
+	<label>Role:</label>
+	<select name="Role" id="roleField">
+    	<option value=""></option>
+		<option value="Administrator">Administrator</option>
+        <option value="Manager">Manager</option>
+        <option value="User">User</option>
+    </select>
+	<br><br>
+	
+	<label>Username:</label><input type="text" name="Username" id="userNameField" readonly="readonly"/>
+	
 	<label>Street Address:</label><input type="text" name="Street Address" id="streetAddressField" />
+	
 	<label>City:</label><input type="text" name="City" id="cityField" />
+	
 	<label>State:</label>
         <select name="State" id="stateField">
     		<option value="AL">Alabama</option>
@@ -81,18 +96,13 @@
           	<option value="WY">Wyoming</option>
         </select>
 	<br><br>
+	
 	<label>Zip Code:</label><input type="text" name="Zip" id="zipField" />
+	
 	<label>Date of Birth:</label><input type="date" name="DOB" id="dobField" />
 	<br><br>
-	<label>Email:</label><input type="text" name="Email" id="emailField" />
-	<label>Username:</label><input type="text" name="Username" id="userNameField" readonly="readonly"/>
-	<label>Role:</label>
-	<select name="Role" id="roleField">
-    	<option value="Administrator">Administrator</option>
-        <option value="Manager">Manager</option>
-        <option value="User">User</option>
-    </select>
 	
+	<label>Email:</label><input type="text" name="Email" id="emailField" />
 	<br><br>
 
 	<input type="submit" name="setPassword" id="setPassword" value="Approve">
@@ -111,14 +121,15 @@
   // Your web app's Firebase configuration
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-        apiKey: "AIzaSyA3C8jafXUUD2s--XEzzfJfVybXs0ZBJyo",
-        authDomain: "budget-buddy-65565.firebaseapp.com",
-        projectId: "budget-buddy-65565",
-        storageBucket: "budget-buddy-65565.appspot.com",
-        messagingSenderId: "416172669900",
-        appId: "1:416172669900:web:49618f6822c7d660f5fb69",
-        measurementId: "G-W4MRFFH4JV",
-      };
+  apiKey: "AIzaSyA3C8jafXUUD2s--XEzzfJfVybXs0ZBJyo",
+  authDomain: "budget-buddy-65565.firebaseapp.com",
+  projectId: "budget-buddy-65565",
+  storageBucket: "budget-buddy-65565.appspot.com",
+  messagingSenderId: "416172669900",
+  appId: "1:416172669900:web:49618f6822c7d660f5fb69",
+  measurementId: "G-W4MRFFH4JV"
+};
+
 
   	// Initialize Firebase
  	import { getDatabase, set, get, update, remove, ref, child} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
@@ -158,6 +169,16 @@ const firebaseConfig = {
 		const dbref = ref(db);
 		const auth = getAuth();
 		
+		var firstName = document.querySelector("#firstNameField");
+    	var lastName = document.querySelector("#lastNameField");
+    	var streetAddress = document.querySelector("#streetAddressField");
+    	var city = document.querySelector("#cityField");
+    	var state = document.querySelector("#stateField");
+    	var zip = document.querySelector("#zipField");
+    	var dob = document.querySelector("#dobField");
+    	var email = document.querySelector("#emailField");
+    	var role = document.querySelector("#roleField");
+		
 		//This portion code gets teh user's email and password to pass to the authentication database
 		get(child(dbref, "People/"+userNameField.value))
 		.then((snapshot)=>{
@@ -171,10 +192,22 @@ const firebaseConfig = {
     			const user = userCredential.user;
 			// ...
 				alert("User login authorized");
-				
-				//This portion of code updates the Active field in user records to indicate the user is active.
+
+				//This portion of code updates the  user record with administrator entered user information and to make user Active.
 				update(ref(db, "People/" + userNameField.value), {
-					Active: "Y"
+					FirstName: firstName.value,
+          			LastName: lastName.value,
+          			StreetAddress: streetAddress.value,
+          			City: city.value,
+          			State: state.value,
+          			ZipCode: zip.value,
+          			DOB: dob.value,
+          			Email: email,
+          			Role: role.value,
+					Active: "Y",
+					OldPassword: "",
+					LoginAttempts: 0,
+					PicLocation: "UserPhotos/"+userName.value+".jpg"
 				})
 			})
   			.catch((error) => {
@@ -186,6 +219,10 @@ const firebaseConfig = {
     	.catch((error) => {
    		alert(error);
 		});
+		
+		
+		
+		
 	}
 	
 	
