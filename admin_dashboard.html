@@ -47,6 +47,10 @@
         <center><a href="administrator/edit_account.html">
         	<button id ="adminButton">View/Edit Account</button>
         </a></center>
+		
+		<center><a href="chartOfAccounts.html">
+        	<button id ="adminButton">View Chart of Accounts</button>
+        </a></center>
 
        	<center><a href="administrator/deactivate_account.html">
             <button id ="adminButton">Deactivate Account</button>
@@ -75,13 +79,12 @@ const firebaseConfig = {
   appId: "1:416172669900:web:49618f6822c7d660f5fb69",
   measurementId: "G-W4MRFFH4JV"
 };
-
   // Initialize Firebase
   	const app = initializeApp(firebaseConfig);
 	const db = getDatabase();
 	const auth = getAuth();
 	
-	//Displays current user username and photo
+	//Displays current user username
 	setTimeout(function(){
         const user = auth.currentUser;
 		const dbref = ref(db);
