@@ -17,6 +17,7 @@
 	<div>
 		<input type="submit" name="adminstrators" id="administrators" value="Administrators">
 		<input type="submit" name="managers" id="managers" value="Managers">
+		<input type="submit" name="accountants" id="accountants" value="Accountants">
 	</div>
 	
 	
@@ -41,7 +42,6 @@ const firebaseConfig = {
   appId: "1:416172669900:web:49618f6822c7d660f5fb69",
   measurementId: "G-W4MRFFH4JV"
 };
-
   	// Initialize Firebase
   	const app = initializeApp(firebaseConfig);
 	const db = getDatabase();
@@ -113,8 +113,33 @@ const firebaseConfig = {
 		})
 	}
 	
+	
+	//Checks if the current user is an accountant; if accountant go to accountant page
+	function CheckRoleAcct() {
+		const user = auth.currentUser;
+		var username = user.displayName;
+		const dbref = ref(db);
+		
+		get(child(dbref, "People/" + user.displayName))
+		.then((snapshot)=>{
+			if(snapshot.exists()) {
+				if(snapshot.val().Role == "User") {
+					window.location.assign("accountant_dashboard.html");
+				} else {
+					alert("You do not have access");
+					 }
+			} else {
+				alert("No info found");
+			}
+		})
+		.catch((error)=>{
+			alert(error)
+		})
+	}
+	
 	administrators.addEventListener("click", CheckRoleAdmin);
 	managers.addEventListener("click", CheckRoleMan);
+	accountants.addEventListener("click", CheckRoleAcct);
 </script>
 	
 </body>

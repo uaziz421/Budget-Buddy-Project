@@ -23,7 +23,8 @@ body {
   }
 
   #managers,
-  #administrators
+  #administrators,
+  #accountants
 {
     background-color: #4caf50;
     color: #fff;
@@ -34,7 +35,8 @@ body {
   }
   
   #managers:hover,
-  #adminstrators:hover{
+  #adminstrators:hover,
+  #accountants:hover{
     background-color: #45a049;
   }
   
