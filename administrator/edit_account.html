@@ -121,6 +121,7 @@
 		<br>
 		
 		<input type="submit" name="Edit Account" id="editAccount" value="Edit Account" />
+		<input type="submit" name="View History" id="accountHistory" value="View Account History" />
 		<h4><a href="../admin_dashboard.html">Return to Administrator Dashboard</a></h4>
     </div>
 	
@@ -146,6 +147,7 @@ const firebaseConfig = {
   appId: "1:416172669900:web:49618f6822c7d660f5fb69",
   measurementId: "G-W4MRFFH4JV"
 };
+	
   	// Initialize Firebase
 	const app = initializeApp(firebaseConfig);
 	const db = getDatabase();
@@ -361,7 +363,7 @@ const firebaseConfig = {
 			.then(()=>{
 				alert("Account edited");
 		
-				//The following code updates displayed fields and saves the edit event and uses serverTimestamp as unique id
+			//The following code updates displayed fields and saves the edit event and uses serverTimestamp as unique id
 			get(child(dbref, "Accounts/" + accountName.value))
 			.then ((snapshot)=>{
 					if(snapshot.exists()) {
@@ -471,10 +473,20 @@ const firebaseConfig = {
 			alert(error)
 		})
    	},250); //delay is in milliseconds; delay needed to load page then display name.
+	
 		
+	//This function stores the account number to be used to get the transactions from the AcctEdits database on the account_history page.
+	function ViewHistory() {
+		localStorage.setItem("storeAccount", accountNumberField.value);
+		window.location.assign("account_history.html");
+	}
+	
+	
 	getAccountName.addEventListener("click", GetAccountName);
 	getAccountNumber.addEventListener("click", GetAccountNumber);
 	editAccount.addEventListener("click", EditAccount);	
+	accountHistory.addEventListener("click", ViewHistory);	
+
 </script>	
 </body>
 </html>
