@@ -7,17 +7,31 @@
 </head>
 
 <body>
+	<input type="button" value="HELP" style="float: right;">
 	<!-- This code displays logo, username, and user photo -->
 	<header id="header">
 		<h3 id="displayUsername" type="text" align="right"></h3>
 		<img src="path" id="userPhoto" alt="UserPhoto" align="right" height="75px" width="75px">
 		<a href="dashboard.html"><img src="Logos/Logo1.jpeg" alt="Logo1" width="300"></a>
 	</header>
-	
+	<br>
+	<br>
 	<div>
-		<input type="submit" name="adminstrators" id="administrators" value="Administrators">
-		<input type="submit" name="managers" id="managers" value="Managers">
-	</div>
+		<center><a href="./admin_dashboard.html">
+            <button id ="adminButton">Administrator</button>
+        </a></center>
+		<br>
+		<br>
+
+        <center><a href="managers/manager.html">
+        <button id ="adminButton">Manager</button>
+        </a></center>
+		<br>
+		<br>
+
+       <center><a href="./accountant_dashboard.html">
+            <button id ="adminButton">Accountant</button>
+        </a></center>
 	
 	
 <script type="module">
@@ -41,7 +55,7 @@ const firebaseConfig = {
   appId: "1:416172669900:web:49618f6822c7d660f5fb69",
   measurementId: "G-W4MRFFH4JV"
 };
-
+	
   	// Initialize Firebase
   	const app = initializeApp(firebaseConfig);
 	const db = getDatabase();
@@ -76,7 +90,7 @@ const firebaseConfig = {
 		.then((snapshot)=>{
 			if(snapshot.exists()) {
 				if(snapshot.val().Role == "Administrator") {
-					window.location.assign("admin_dashboard.html");
+					window.location.assign("dashboard.html");
 				} else {
 					alert("You do not have access");
 				}
@@ -113,8 +127,33 @@ const firebaseConfig = {
 		})
 	}
 	
+	
+	//Checks if the current user is an accountant; if accountant go to accountant page
+	function CheckRoleAcct() {
+		const user = auth.currentUser;
+		var username = user.displayName;
+		const dbref = ref(db);
+		
+		get(child(dbref, "People/" + user.displayName))
+		.then((snapshot)=>{
+			if(snapshot.exists()) {
+				if(snapshot.val().Role == "User") {
+					window.location.assign("accountant_dashboard.html");
+				} else {
+					alert("You do not have access");
+					 }
+			} else {
+				alert("No info found");
+			}
+		})
+		.catch((error)=>{
+			alert(error)
+		})
+	}
+	
 	administrators.addEventListener("click", CheckRoleAdmin);
 	managers.addEventListener("click", CheckRoleMan);
+	accountants.addEventListener("click", CheckRoleAcct);
 </script>
 	
 </body>

@@ -7,7 +7,7 @@
   </head>
 
   <body>
-  <input type="button" value="HELP" style="float: right;">
+	<input type="button" value="HELP" style="float: right;">
 	 <!-- This code displays logo, username -->
 	<header>
 	<!-- This code displays logo, username -->
@@ -23,37 +23,15 @@
 		<br>
 		
     <center>
-      <h3 id ="subheaderh3">Welcome to the Administrator Dashboard</h3>
+      <h3 id ="subheaderh3">Welcome to the Accountant Dashboard</h3>
     </center>
     <br>
     <br>
     <br>
 
-       <center><a href="administrator/create_user.html">
-            <button id ="adminButton">Create/Approve New Users</button>
-        </a></center>
-
-        <center><a href="administrator/modify_user.html">
-        <button id ="adminButton">Modify User</button>
-        </a></center>
-
-       <center><a href="administrator/delete_user.html">
-            <button id ="adminButton">Delete User</button>
 		
-		<center><a href="administrator/add_account.html">
-            <button id ="adminButton">Add Account</button>
-        </a></center>
-
-        <center><a href="administrator/edit_account.html">
-        	<button id ="adminButton">View/Edit Account</button>
-        </a></center>
-		
-		<center><a href="chartOfAccounts.html">
-        	<button id ="adminButton">View Chart of Accounts</button>
-        </a></center>
-
-       	<center><a href="administrator/deactivate_account.html">
-            <button id ="adminButton">Deactivate Account</button>
+		<center><a href="accountant/view_account.html">
+            <button id ="adminButton">View Accounts</button>
         </a></center>
 	  
 	</div>
@@ -79,7 +57,6 @@ const firebaseConfig = {
   appId: "1:416172669900:web:49618f6822c7d660f5fb69",
   measurementId: "G-W4MRFFH4JV"
 };
-	
   // Initialize Firebase
   	const app = initializeApp(firebaseConfig);
 	const db = getDatabase();

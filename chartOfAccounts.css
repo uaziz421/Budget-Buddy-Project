@@ -1,0 +1,148 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+
+  .filter-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .filter-input {
+    padding: 5px;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .filter-button {
+    padding: 5px 10px;
+    background-color: #ddd;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  .table-striped tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+  }
+
+  .container {
+    padding: 10px;
+  }
+
+  h3 {
+    margin-bottom: 15px;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  header img {
+    width: 150px;
+  }
+
+  .modal-content {
+    border-radius: 5px;
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  .btn-success {
+    background-color: #28a745;
+    color: #fff;
+    border-color: #28a745;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  .btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+    border-color: #dc3545;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  .control-panel {
+    display: flex;
+    flex-direction: column; /* Added for vertical alignment */
+  }
+
+  .control-panel button {
+    margin-bottom: 10px; /* Added margin for spacing between buttons */
+  }
+
+  .modal-body {
+    display: flex; /* Create a flexbox container for the content */
+    flex-flow: column wrap; /* Align content vertically */
+    width: fit-content;
+  }
+
+  .modal-text { /* Style the text elements */
+    margin-right: 5px; /* Spacing between text and input */
+    width: 100px; /* Adjust width as needed */
+  }
+
+  .modal-input { /* Style the input elements */
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px; /* Spacing between items */
+  }
+
+  .input-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /*
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      cursor: pointer; /* Add cursor pointer for hover effect 
+    }
+    .filter-container {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .filter-input {
+      padding: 5px;
+      margin-right: 5px;
+    }
+    .filter-button {
+      padding: 5px 10px;
+      background-color: #ddd;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+  */
