@@ -6,7 +6,7 @@ body {
   }
   
   header {
-    background-color: #9ca6dc;
+    background-color: rgb(57, 109, 164);
     color: #fff;
     text-align: center;
     padding: 10px;
@@ -19,14 +19,14 @@ body {
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgb(57, 109, 164);
   }
 
   #managers,
   #administrators,
   #accountants
 {
-    background-color: #4caf50;
+    background-color: rgb(57, 109, 164);
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -37,7 +37,7 @@ body {
   #managers:hover,
   #adminstrators:hover,
   #accountants:hover{
-    background-color: #45a049;
+    background-color: rgb(57, 109, 164);
   }
   
   
