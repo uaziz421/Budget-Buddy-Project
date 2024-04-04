@@ -1,19 +1,14 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Chart Of Accounts</title>
-<!--<link href="style.css" rel="stylesheet" type="text/css">-->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<style>
-    .labs{
-        display: inline-block;
-        width: 100px;
-    }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chart of Accounts</title>
+  <link href="chartOfAccounts.css" rel="stylesheet" type="text/css" />
+
 </head>
- 
 <body>
+  <input type="button" value="HELP" style="float: right;">
 	<header>
 	<!-- This code displays logo, username -->
 		<a href="dashboard.html"><img src="Logos/Logo1.jpeg" alt="Logo1" width="150" align="right"></a>
@@ -21,12 +16,19 @@
 		<h3 id="displayUsername" type="text" align="left"></h3>
 		<input type="date" id="showCal" align="left">
   	</header>
+
+    <div class="filter-container">
+      <div>
+        <label for="filter-account-name">Search by Account Name:</label>
+        <input type="text" id="filter-account-name" class="filter-input">
+        <button class="filter-button" id="search-button">Search</button>
+      </div>
+    </div>
 	
     <div class="container">
-      <h>Search: </h>
-      <input type="text" id="myInput" onkeyup="search_table()" placeholder="Filter Any Column" title="Type in a name">
         <table class="table table-striped">
           <thead>
+            <tr>
               <th>Account Name</th>
               <th>Account Number</th>
               <th>Account Description</th>
@@ -42,7 +44,7 @@
               <th>Order</th>
               <th>Statement</th>
               <th>Comment</th>
-              <th>Control Center</th>
+            </tr>
           </thead>
           <tbody id="tbody1">
             <td><a href="ledger.html" style="display:block;">&nbsp;</a></td>
@@ -84,44 +86,45 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalCenterTitle">Control Panel</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+          <!--<h5 class="modal-title" id="exampleModalCenterTitle">Control Panel</h5>-->
+          <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+          <!--  <span aria-hidden="true">&times;</span> -->
+          <!--</button>-->
         </div>
-        <div class="modal-body">
-          <label class="labs">Account Name: </label>>
+        <fieldset>
+          <legend class="modal-title" id="exampleModalCenterTitle">Control Panel</legend>
+          <label class="labs">Account Name: </label>
           <input type="text" id="NameMod"> <br>
-          <label class="labs">Account Number: </label>>
+          <label class="labs">Account Number: </label>
           <input type="text" id="NameMod"> <br>
-          <label class="labs">Account Description: </label>>
+          <label class="labs">Account Description: </label>
           <input type="text" id="NameMod"> <br>
-          <label class="labs">Normal Side: </label>>
+          <label class="labs">Normal Side: </label>
           <input type="text" id="NameMod"> <br>
-          <label class="labs">Account Category: </label>>
+          <label class="labs">Account Category: </label>
           <input type="text" id="NameMod"> <br>
-          <label class="labs">Account Subcategory: </label>>
+          <label class="labs">Account Subcategory: </label>
           <input type="text" id="NameMod"> <br>
-          <label class="labs">Initial Balance: </label>>
+          <label class="labs">Initial Balance: </label>
           <input type="text" id="NameMod"> <br>
-          <label class="labs">Debit: </label>>
+          <label class="labs">Debit: </label>
           <input type="text" id="NameMod"> <br>
-          <label class="labs">Credit: </label>>
+          <label class="labs">Credit: </label>
           <input type="text" id="NameMod"> <br>
-          <label class="labs">Balance: </label>>
+          <label class="labs">Balance: </label>
           <input type="text" id="NameMod"> <br>
-          <label class="labs">Date/Time:: </label>>
+          <label class="labs">Date/Time: </label>
           <input type="text" id="NameMod"> <br>
-          <label class="labs">User ID: </label>>
+          <label class="labs">User ID: </label>
           <input type="text" id="NameMod"> <br>
-          <label class="labs">Order: </label>>
+          <label class="labs">Order: </label>
           <input type="text" id="NameMod"> <br>
-          <label class="labs">Statement: </label>>
+          <label class="labs">Statement: </label>
           <input type="text" id="NameMod"> <br>
-          <label class="labs">Comment: </label>>
+          <label class="labs">Comment: </label>
           <input type="text" id="NameMod"> <br>
-        </div>
-        <div class="modal-footer">
+        </fieldset>
+          <div class="modal-footer">
           <button id="AddModBtn" type="button" class="btn btn-primary" onclick="AddStd()">Add New Record</button>
           <button id="UpdateModBtn" type="button" class="btn btn-success" onclick="UpdStd()">Update Record</button>
           <button id="DelModBtn" type="button" class="btn btn-danger" onclick="DelStd()">Delete Record</button>
