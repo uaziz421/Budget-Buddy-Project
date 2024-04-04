@@ -1,311 +1,154 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Chart Of Accounts</title>
-<!--<link href="style.css" rel="stylesheet" type="text/css">-->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<style>
-    .labs{
-        display: inline-block;
-        width: 100px;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chart of Accounts</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
     }
-</style>
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      cursor: pointer; /* Add cursor pointer for hover effect */
+    }
+    .filter-container {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .filter-input {
+      padding: 5px;
+      margin-right: 5px;
+    }
+    .filter-button {
+      padding: 5px 10px;
+      background-color: #ddd;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+  </style>
 </head>
- 
 <body>
-    <div class="container">
-      <h>Search: </h>
-      <input type="text" id="myInput" onkeyup="search_table()" placeholder="Filter Any Column" title="Type in a name">
-        <table class="table table-striped">
-          <thead>
-              <th>Account Name</th>
-              <th>Account Number</th>
-              <th>Account Description</th>
-              <th>Normal Side</th>
-              <th>Account Category</th>
-              <th>Account Subcategory</th>
-              <th>Initial Balance</th>
-              <th>Debit</th>
-              <th>Credit</th>
-              <th>Balance</th>
-              <th>Date/Time Account Added</th>
-              <th>User ID</th>
-              <th>Order</th>
-              <th>Statement</th>
-              <th>Comment</th>
-              <th>Control Center</th>
-          </thead>
-          <tbody id="tbody1">
-            <td><a href="ledger.html" style="display:block;">&nbsp;</a></td>
-          </tbody>
-      </table>
-      <script>
-        function search_table(){
-          // Declare variables
-          var input, filter, table, tr, td, i;
-          input = document.getElementById("search_field_input");
-          filter = input.value.toUpperCase();
-          table = document.getElementById("table_id");
-          tr = table.getElementsByTagName("tr");
- 
-          // Loop through all table rows, and hide those who don't match the search query
-          for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td") ;
-            for(j=0 ; j<td.length ; j++)
-            {
-              let tdata = td[j] ;
-              if (tdata) {
-                if (tdata.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                  tr[i].style.display = "";
-                  break ;
-                } else {
-                  tr[i].style.display = "none";
-                }
-              }
-            }
-          }
-        }
-        </script>
-    </div>
- 
-    <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="FillTBoxes(null)">Add New Account</button>-->
- 
-<!-- Modal -->
-  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalCenterTitle">Control Panel</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <label class="labs">Account Name: </label>>
-          <input type="text" id="NameMod"> <br>
-          <label class="labs">Account Number: </label>>
-          <input type="text" id="NameMod"> <br>
-          <label class="labs">Account Description: </label>>
-          <input type="text" id="NameMod"> <br>
-          <label class="labs">Normal Side: </label>>
-          <input type="text" id="NameMod"> <br>
-          <label class="labs">Account Category: </label>>
-          <input type="text" id="NameMod"> <br>
-          <label class="labs">Account Subcategory: </label>>
-          <input type="text" id="NameMod"> <br>
-          <label class="labs">Initial Balance: </label>>
-          <input type="text" id="NameMod"> <br>
-          <label class="labs">Debit: </label>>
-          <input type="text" id="NameMod"> <br>
-          <label class="labs">Credit: </label>>
-          <input type="text" id="NameMod"> <br>
-          <label class="labs">Balance: </label>>
-          <input type="text" id="NameMod"> <br>
-          <label class="labs">Date/Time:: </label>>
-          <input type="text" id="NameMod"> <br>
-          <label class="labs">User ID: </label>>
-          <input type="text" id="NameMod"> <br>
-          <label class="labs">Order: </label>>
-          <input type="text" id="NameMod"> <br>
-          <label class="labs">Statement: </label>>
-          <input type="text" id="NameMod"> <br>
-          <label class="labs">Comment: </label>>
-          <input type="text" id="NameMod"> <br>
-        </div>
-        <div class="modal-footer">
-          <button id="AddModBtn" type="button" class="btn btn-primary" onclick="AddStd()">Add New Record</button>
-          <button id="UpdateModBtn" type="button" class="btn btn-success" onclick="UpdStd()">Update Record</button>
-          <button id="DelModBtn" type="button" class="btn btn-danger" onclick="DelStd()">Delete Record</button>
-        </div>
-      </div>
+  <input type="button" value="HELP" style="float: right;">
+  <h1>Chart of Accounts</h1>
+
+  <div class="filter-container">
+    <div>
+      <label for="filter-account-name">Search by Account Name:</label>
+      <input type="text" id="filter-account-name" class="filter-input">
+      <button class="filter-button" id="search-button">Search</button>
     </div>
   </div>
- 
-  <script id="MainScript"></script>
- 
-    <script>
-        function selectAllData(){
-            firebase.database().ref('Account').once('value', function (snapshot) {
-                snapshot.forEach(function (childSnapshot){
-                    var accountName = childSnapshot.val().accountName;
-                    var accountNumber = childSnapshot.val().accountNumber;
-                    var accountDescription = childSnapshot.val().accountDescription;
-                    var normalSide = childSnapshot.val().normalSide;
-                    var accountCategory = childSnapshot.val().accountCategory;
-                    var accountSubcategory = childSnapshot.val().accountSubcategory;
-                    var initialBalance = childSnapshot.val().initialBalance;
-                    var debit = childSnapshot.val().debit;
-                    var credit = childSnapshot.val().credit;
-                    var balance = childSnapshot.val().balance;
-                    var dateTime = childSnapshot.val().dateTime;
-                    var userId = childSnapshot.val().userId;
-                    var order = childSnapshot.val().order;
-                    var statement = childSnapshot.val().statement;
-                    var comment = childSnapshot.val().comment;
-                    AddItemToTABLE(accountName, accountNumber, accountDescription, normalSide, accountCategory, accountSubcategory, initialBalance, debit, credit, balance, dateTime, userId, order, statement, comment);
-                });
-            });
-        }
- 
-        var accountNumID = 0;
-        var accountList=[];
- 
-        function AddItemToTABLE(accountName, accountNumber, accountDescription, normalSide, accountCategory, accountSubcategory, initialBalance, debit, credit, balance, dateTime, userId, order, statement, comment){
-            var tbody1 = document.getElementById("tbody1");
-            var trow = document.createElement("tr");
-            var td0 = document.createElement("td");
-            var td1 = document.createElement("td");
-            var td2 = document.createElement("td");
-            var td3 = document.createElement("td");
-            var td4 = document.createElement("td");
-            var td5 = document.createElement("td");
-            var td6 = document.createElement("td");
-            var td7 = document.createElement("td");
-            var td8 = document.createElement("td");
-            var td9 = document.createElement("td");
-            var td10 = document.createElement("td");
-            var td11 = document.createElement("td");
-            var td12 = document.createElement("td");
-            var td13 = document.createElement("td");
-            var td14 = document.createElement("td");
-            var td15 = document.createElement("td");
-            accountList.push([accountName, accountNumber, accountDescription, normalSide, accountCategory, accountSubcategory, initialBalance, debit, credit, balance, dateTime, userId, order, statement, comment]);
-            td0.innerHTML = ++accountNumID;
-            td1.innerHTML = accountName;
-            td2.innerHTML = accountNumber;
-            td3.innerHTML = accountDescription;
-            td4.innerHTML = normalSide;
-            td5.innerHTML = accountCategory;
-            td6.innerHTML = accountSubcategory;
-            td7.innerHTML = initialBalance;
-            td8.innerHTML = debit;
-            td9.innerHTML = credit;
-            td10.innerHTML = balance;
-            td11.innerHTML = dateTime;
-            td12.innerHTML = userId;
-            td13.innerHTML = order;
-            td14.innerHTML = statement;
-            td15.innerHTML = comment;
-            trow.appendChild(td0);
-            trow.appendChild(td1);
-            trow.appendChild(td2);
-            trow.appendChild(td3);
-            trow.appendChild(td4);
-            trow.appendChild(td5);
-            trow.appendChild(td6);
-            trow.appendChild(td7);
-            trow.appendChild(td8);
-            trow.appendChild(td9);
-            trow.appendChild(td10);
-            trow.appendChild(td11);
-            trow.appendChild(td12);
-            trow.appendChild(td13);
-            trow.appendChild(td14);
-            trow.appendChild(td15);
- 
-            var ControlDiv = document.createElement("div");
-            ControlDiv.innerHTML = '<button type="button" class="btn btn-primary my-2" data-toggle="modal" data-target="#exampleModalCenter" onclick="FillTBoxes(null)">Add New Account</button>'
-            ControlDiv.innerHTML += '<button type="button" class="btn btn-primary my-2 ml-2" data-toggle="modal" data-target="#exampleModalCenter" onclick="FillTBoxes('+accountNumID+')">Edit Account</button>'
- 
-            trow.appendChild(ControlDiv);
-            tbody1.appendChild(trow);
-        }
- 
-        var ModAccountName = document.getElementById('AccountNameMod');
-        var ModAccountNumber = document.getElementById('AccountNumberMod');
-        var ModAccountDescription = document.getElementById('AccountDescriptionMod');
-        var ModNormalSide = document.getElementById('NormalSideMod');
-        var ModAccountCategory = document.getElementById('AccountCategoryMod');
-        var ModAccountSubcategory = document.getElementById('AccountSubcategoryMod');
-        var ModInitialBalance = document.getElementById('InitialBalanceMod');
-        var ModDebit = document.getElementById('DebitMod');
-        var ModCredit = document.getElementById('CreditMod');
-        var ModBalance = document.getElementById('BalanceMod');
-        var ModDateTime = document.getElementById('DateTimeMod');
-        var ModUserId = document.getElementById('UserIdMod');
-        var ModOrder = document.getElementById('OrderMod');
-        var ModStatement = document.getElementById('StatementMod');
-        var ModComment = document.getElementById('CommentMod');
- 
-        var BTNmodAdd = document.getElementById('AddModBtn');
-        var BTNmodUpd = document.getElementById('UpdModBtn');
-        var BTNmodDel = document.getElementById('DelModBtn');
- 
-        function FillTBoxes(index){
-            if(index==null){
-                ModAccountName.value = "";
-                ModAccountNumber.value = "";
-                ModAccountDescription.value = "";
-                ModNormalSide.value = "";
-                ModAccountCategory.value = "";
-                ModAccountSubcategory.value = "";
-                ModInitialBalance.value = "";
-                ModDebit.value = "";
-                ModCredit.value = "";
-                ModBalance.value = "";
-                ModDateTime.value = "";
-                ModUserId.value = "";
-                ModOrder.value = "";
-                ModStatement.value = "";
-                ModComment.value = "";
-            }
-            else{
-                --index;
-                ModAccountName.value = accountList[index][0];
-                ModAccountNumber.value = accountList[index][1];
-                ModAccountDescription.value = accountList[index][2];
-                ModNormalSide.value = accountList[index][3];
-                ModAccountCategory.value = accountList[index][4];
-                ModAccountSubcategory.value = accountList[index][5];
-                ModInitialBalance.value = accountList[index][6];
-                ModDebit.value = accountList[index][7];
-                ModCredit.value = accountList[index][8];
-                ModBalance.value = accountList[index][9];
-                ModDateTime.value = accountList[index][10];
-                ModUserId.value = accountList[index][11];
-                ModOrder.value = accountList[index][12];
-                ModStatement.value = accountList[index][13];
-                ModComment.value = accountList[index][14];
-            }
-        }
- 
-    </script>
- 
- 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
- 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
-        import {
-        getDatabase,
-        set,
-        get,
-        update,
-        remove,
-        ref,
-        child,
-      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-      import {
-        getAuth,
-        setPersistence,
-        signInWithEmailAndPassword,
-        browserSessionPersistence,
-        updateProfile,
-      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-analytics.js";
-        const firebaseConfig = {
-            apiKey: "AIzaSyB1zoFJE7XEuWCVvAzpy1gXuHK8A64_kb4",
-            authDomain: "budget-buddy-2-3c6d1.firebaseapp.com",
-            databaseURL: "https://budget-buddy-2-3c6d1-default-rtdb.firebaseio.com",
-            projectId: "budget-buddy-2-3c6d1",
-            storageBucket: "budget-buddy-2-3c6d1.appspot.com",
-            messagingSenderId: "1057789974562",
-            appId: "1:1057789974562:web:6b7d65060475053de2127b"
-        };
- 
-        const app = initializeApp(firebaseConfig);
-    </script>
-  </body>
-</html>
+
+  <table id="chart-of-accounts">
+    <thead>
+      <tr>
+        <th>Account Name</th>
+        <th>Account Number</th>
+        <th>Account Description</th>
+        <th>Normal Side</th>
+        <th>Account Category</th>
+        <th>Account Subcategory</th>
+        <th>Initial Balance</th>
+        <th>Debit</th>
+        <th>Credit</th>
+        <th>Balance</th>
+        <th>Date/Time</th>
+        <th>User ID</th>
+        <th>Order</th>
+        <th>Statement</th>
+        <th>Comment</th>
+      </tr>
+    </thead>
+    <tbody id="chart-of-accounts-data">
+    </tbody>
+  </table>
+
+  <script>
+    const chartData = [
+      {
+        accountName: "Cash",
+        accountNumber: "1001",
+        accountDescription: "Cash on hand and in bank",
+        normalSide: "Debit",
+        accountCategory: "Asset",
+        accountSubcategory: "Current Asset",
+        initialBalance: 10000,
+        debit: 0,
+        credit: 0,
+        balance: 10000,
+        dateTimeAdded: "2024-04-03"
+      },
+      {
+        accountName: "Accounts Receivable",
+        accountNumber: "1100",
+        accountDescription: "Amounts owed by customers for goods or services sold on credit",
+        normalSide: "Debit",
+        accountCategory: "Asset",
+        accountSubcategory: "Current Asset",
+        initialBalance: 5000,
+        debit: 0,
+        credit: 0,
+        balance: 5000,
+        dateTimeAdded: "2024-04-03"
+      },
+      {
+        accountName: "Inventory",
+        accountNumber: "1200",
+        accountDescription: "Goods or services held for sale in the ordinary course of business",
+        normalSide: "Debit",
+        accountCategory: "Asset",
+        accountSubcategory: "Current Asset",
+        initialBalance: 8000,
+        debit: 0,
+        credit: 0,
+        balance: 8000,
+        dateTimeAdded: "2024-04-03"
+      },
+      // ... other account data
+    ];
+
+    const tableBody = document.getElementById("chart-of-accounts-data");
+    const filterInput = document.getElementById("filter-account-name");
+    const searchButton = document.getElementById("search-button");
+
+    function filterAccounts(searchTerm) {
+      const filteredData = chartData.filter(account => account.accountName.toLowerCase().includes(searchTerm.toLowerCase()));
+      tableBody.innerHTML = ""; // Clear existing entries
+
+      for (const account of filteredData) {
+        const tableRow = document.createElement("tr");
+
+        const accountNameCell = document.createElement("td");
+        accountNameCell.textContent = account.accountName;
+        tableRow.appendChild(accountNameCell);
+
+        const accountNumberCell = document.createElement("td");
+        accountNumberCell.textContent = account.accountNumber;
+        tableRow.appendChild(accountNumberCell);
+
+        // Add cells for other account properties (accountDescription, normalSide, etc.)
+        const accountDescriptionCell = document.createElement("td");
+        accountDescriptionCell.textContent = account.accountDescription;
+        tableRow.appendChild(accountDescriptionCell);
+
+        const normalSideCell = document.createElement("td");
+        normalSideCell.textContent = account.normalSide;
+        tableRow.appendChild(normalSideCell);
+
+        // ... Add cells for remaining account properties
+
+        tableBody.appendChild(tableRow);
+      }
+    }
+
+    // Attach event listener to the search button
+    searchButton.addEventListener("click", function() {
+      const searchTerm = filterInput.value;
+      filterAccounts(searchTerm);
+    });
+  </script>
+</body>
