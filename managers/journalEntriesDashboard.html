@@ -1,0 +1,121 @@
+<head>
+    <meta charset="UTF-8">
+    <title>Journal Entries Dashboard</title>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js"></script>
+    <style>
+body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+    
+        }
+
+        h1 {
+            color: #333;
+            
+        }
+
+        button {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .entry-list {
+            list-style-type: none;
+            margin: 20px 0;
+            padding: 0;
+        }
+
+        .entry {
+            background-color: #ffffff;
+            padding: 15px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .entry:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+    </style>
+    </head>
+    <header>
+            <!-- This code displays logo, username -->
+                <a href="dashboard.html"><img src="../Logos/Logo1.jpeg" alt="Logo1" width="150" align="right"></a>
+                <h3 id="displayName" type="text" align="left"></h3>
+                <h3 id="displayUsername" type="text" align="left"></h3>
+          </header>
+    <body>
+      
+    <h1>Journal Entries Dashboard</h1>
+
+<button onclick="loadApprovedEntries()">View Approved Entries</button>
+<button onclick="loadRejectedEntries()">View Rejected Entries</button>
+
+<ul id="entriesList" class="entry-list">
+    <!-- Journal entries will be listed here -->
+</ul>
+    <script>
+      //  web app's Firebase configuration
+      const firebaseConfig = {
+  apiKey: "AIzaSyA3C8jafXUUD2s--XEzzfJfVybXs0ZBJyo",
+  authDomain: "budget-buddy-65565.firebaseapp.com",
+  projectId: "budget-buddy-65565",
+  storageBucket: "budget-buddy-65565.appspot.com",
+  messagingSenderId: "416172669900",
+  appId: "1:416172669900:web:49618f6822c7d660f5fb69",
+  measurementId: "G-W4MRFFH4JV"
+};
+
+      // Initialize Firebase
+      const app = firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+    
+
+    // Firestore: Load entries based on approval status
+    function loadEntries(approved) {
+        document.getElementById('entriesList').innerHTML = ''; // Clear current entries
+        
+        db.collection("journalEntries").where("approved", "==", approved).get()
+            .then((querySnapshot) => {
+                const list = document.getElementById('entriesList');
+                querySnapshot.forEach((doc) => {
+                    const entry = doc.data();
+                    const item = document.createElement('li');
+                    item.classList.add('entry');
+                    item.textContent = `Date: ${entry.date}, Description: ${entry.description}, Amount: ${entry.amount}`;
+                    list.appendChild(item);
+                });
+            })
+            .catch(error => console.error('Failed to load journal entries:', error));
+    }
+
+    function loadApprovedEntries() {
+        loadEntries(true); // Load approved entries
+    }
+
+    function loadRejectedEntries() {
+        loadEntries(false); // Load rejected entries
+    }
+</script>
+</body>
+</html>
