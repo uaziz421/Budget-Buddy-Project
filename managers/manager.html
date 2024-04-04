@@ -1,13 +1,46 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Managers</title>
-<link href="manager.css" rel="stylesheet" type="text/css" />
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Manager Dashboard</title>
+    <link href="../style.css" rel="stylesheet" type="text/css" />
+  </head>
 
-<body>
-	<header id="header"><h1><a href="index.html">Budget Buddy</a></h1></header>
-	<h2>Managers</h2>
-</body>
-</html>
+  <body>
+	 <!-- This code displays logo, username -->
+	<header>
+	<!-- This code displays logo, username -->
+		<a href="../dashboard.html"><img src="../Logos/Logo1.jpeg" alt="Logo1" width="150" align="right"></a>
+		<h3 id="displayName" type="text" align="left"></h3>
+		<h3 id="displayUsername" type="text" align="left"></h3>
+		<input type="date" id="showCal" align="left">
+  	</header>
+	  
+	<div class="subheader-container">
+		<br>
+		<br>
+		<br>
+		
+    <center>
+      <h3 id ="subheaderh3">Welcome to the Administrator Dashboard</h3>
+    </center>
+    <br>
+    <br>
+    <br>
+
+       <center><a href="./createjournalentries.html">
+            <button id ="adminButton">Create Journal Entry</button>
+        </a></center>
+		<br>
+		<br>
+
+        <center><a href="./viewApprovedJournalEntries.html">
+        <button id ="adminButton">View Approved Journal Entries</button>
+        </a></center>
+		<br>
+		<br>
+
+       <center><a href="./viewRejectedJournalEntries.html">
+            <button id ="adminButton">View Rejected Journal Entries</button>
+        </a></center>
+		

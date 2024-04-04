@@ -14,12 +14,24 @@
 		<img src="path" id="userPhoto" alt="UserPhoto" align="right" height="75px" width="75px">
 		<a href="dashboard.html"><img src="Logos/Logo1.jpeg" alt="Logo1" width="300"></a>
 	</header>
-	
+	<br>
+	<br>
 	<div>
-		<input type="submit" name="adminstrators" id="administrators" value="Administrators">
-		<input type="submit" name="managers" id="managers" value="Managers">
-		<input type="submit" name="accountants" id="accountants" value="Accountants">
-	</div>
+		<center><a href="./admin_dashboard.html">
+            <button id ="adminButton">Administrator</button>
+        </a></center>
+		<br>
+		<br>
+
+        <center><a href="managers/manager.html">
+        <button id ="adminButton">Manager</button>
+        </a></center>
+		<br>
+		<br>
+
+       <center><a href="./accountant_dashboard.html">
+            <button id ="adminButton">Accountant</button>
+        </a></center>
 	
 	
 <script type="module">
@@ -78,7 +90,7 @@ const firebaseConfig = {
 		.then((snapshot)=>{
 			if(snapshot.exists()) {
 				if(snapshot.val().Role == "Administrator") {
-					window.location.assign("admin_dashboard.html");
+					window.location.assign("dashboard.html");
 				} else {
 					alert("You do not have access");
 				}
