@@ -11,6 +11,18 @@
         width: 100px;
     }
 
+    #createJournalEntry {
+      margin-bottom: 20px;
+    }
+
+    #journalTable th {
+      padding: 10px;
+    }
+
+    #journalTable td {
+      padding: 10px;
+    }
+
 </style>
 </head>
  
@@ -132,6 +144,8 @@
   </div>
   <!-- <button id="createJournalEntry">Create Journal Entry</button> -->
   <button id="createJournalEntry">Create Journal Entry</button>
+  <button id="approveJournalEntry">Approve Entry</button>
+  <button id="declineJournalEntry">Decline Entry</button>
 
   <div id="journalTable"></div>
  
@@ -536,6 +550,15 @@ const firebaseConfig = {
       
 
     })
+
+   document.getElementById("approveJournalEntry").addEventListener("click", () => {
+    alert("Journal Entry Approved!")
+   })
+
+   document.getElementById("declineJournalEntry").addEventListener("click", () => {
+    prompt("Please enter a reason not approving journal entry")
+   })
+    
         }
  
         var ModAccountName = document.getElementById('AccountNameMod');
