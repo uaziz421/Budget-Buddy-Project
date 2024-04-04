@@ -12,79 +12,149 @@
 	  </div>
 	  <div class="subheader-container">
 		<h2 id="subheaderh2" style="text-align: center;" >
-		  Welcome to Budget Buddy, your favorite accounting web application.
+		  Create New User
 		</h2>
+		<h4 style="text-align: center;">Retrieve user info and approve -OR- Enter new user info and approve</h4>
 	  </div>
 <div id="enterDetails">
-	<label>Username:</label>
-		<input type="text" id="userName">
+	<label>Username:</label><input type="text" id="userName">
+	<input type="submit" name="getInfo" id="getInfo" value="Get Info">
 		<br><br>
 		<br><br>
-	<h3 id="findName" type="text"></h3>
-	<h3 id="findAddress" type="text"></h3>
-	<h3 id="findDOB" type="text"></h3>
-	<h3 id="findEmail" type="text"></h3>
-	<h3 id="findUserName" type="text"></h3>
-	<h3 id="findRole" type="text"></h3>
-		
-<input type="submit" name="getInfo" id="getInfo" value="Get Info">
+	
+	<label>First Name:</label><input type="text" name="First Name" id="firstNameField" />
+	
+	<label>Last Name:</label><input type="text" name="Last Name" id="lastNameField" />
+	
+	<label>Role:</label>
+	<select name="Role" id="roleField">
+    	<option value=""></option>
+		<option value="Administrator">Administrator</option>
+        <option value="Manager">Manager</option>
+        <option value="User">User</option>
+    </select>
+	<br><br>
+	
+	<label>Username:</label><input type="text" name="Username" id="userNameField" readonly="readonly"/>
+	
+	<label>Street Address:</label><input type="text" name="Street Address" id="streetAddressField" />
+	
+	<label>City:</label><input type="text" name="City" id="cityField" />
+	
+	<label>State:</label>
+        <select name="State" id="stateField">
+    		<option value="AL">Alabama</option>
+          	<option value="AK">Alaska</option>
+          	<option value="AZ">Arizona</option>
+          	<option value="AR">Arkansas</option>
+          	<option value="CA">California</option>
+          	<option value="CO">Colorado</option>
+          	<option value="CT">Connecticut</option>
+          	<option value="DE">Delaware</option>
+          	<option value="DC">District Of Columbia</option>
+          	<option value="FL">Florida</option>
+          	<option value="GA">Georgia</option>
+          	<option value="HI">Hawaii</option>
+          	<option value="ID">Idaho</option>
+          	<option value="IL">Illinois</option>
+          	<option value="IN">Indiana</option>
+          	<option value="IA">Iowa</option>
+          	<option value="KS">Kansas</option>
+          	<option value="KY">Kentucky</option>
+          	<option value="LA">Louisiana</option>
+          	<option value="ME">Maine</option>
+          	<option value="MD">Maryland</option>
+          	<option value="MA">Massachusetts</option>
+          	<option value="MI">Michigan</option>
+          	<option value="MN">Minnesota</option>
+          	<option value="MS">Mississippi</option>
+          	<option value="MO">Missouri</option>
+          	<option value="MT">Montana</option>
+          	<option value="NE">Nebraska</option>
+          	<option value="NV">Nevada</option>
+          	<option value="NH">New Hampshire</option>
+          	<option value="NJ">New Jersey</option>
+          	<option value="NM">New Mexico</option>
+          	<option value="NY">New York</option>
+          	<option value="NC">North Carolina</option>
+          	<option value="ND">North Dakota</option>
+          	<option value="OH">Ohio</option>
+          	<option value="OK">Oklahoma</option>
+          	<option value="OR">Oregon</option>
+          	<option value="PA">Pennsylvania</option>
+          	<option value="RI">Rhode Island</option>
+          	<option value="SC">South Carolina</option>
+          	<option value="SD">South Dakota</option>
+          	<option value="TN">Tennessee</option>
+          	<option value="TX">Texas</option>
+          	<option value="UT">Utah</option>
+          	<option value="VT">Vermont</option>
+          	<option value="VA">Virginia</option>
+          	<option value="WA">Washington</option>
+          	<option value="WV">West Virginia</option>
+          	<option value="WI">Wisconsin</option>
+          	<option value="WY">Wyoming</option>
+        </select>
+	<br><br>
+	
+	<label>Zip Code:</label><input type="text" name="Zip" id="zipField" />
+	
+	<label>Date of Birth:</label><input type="date" name="DOB" id="dobField" />
+	<br><br>
+	
+	<label>Email:</label><input type="text" name="Email" id="emailField" />
 	<br><br>
 
 	<input type="submit" name="setPassword" id="setPassword" value="Approve">
 	<input type="submit" name="rejectRequest" id="rejectRequest" value="Reject">
-		<br><br>
+		
 	</div>
 	
 
-	<script type="module">
+<script type="module">
   // Import the functions you need from the SDKs you need
-  		import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  	import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
   // Your web app's Firebase configuration
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-		apiKey: "AIzaSyA3C8jafXUUD2s--XEzzfJfVybXs0ZBJyo",
-		authDomain: "budget-buddy-65565.firebaseapp.com",
-		projectId: "budget-buddy-65565",
-		storageBucket: "budget-buddy-65565.appspot.com",
-		messagingSenderId: "416172669900",
-		appId: "1:416172669900:web:49618f6822c7d660f5fb69",
-		measurementId: "G-W4MRFFH4JV"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyA3C8jafXUUD2s--XEzzfJfVybXs0ZBJyo",
+  authDomain: "budget-buddy-65565.firebaseapp.com",
+  projectId: "budget-buddy-65565",
+  storageBucket: "budget-buddy-65565.appspot.com",
+  messagingSenderId: "416172669900",
+  appId: "1:416172669900:web:49618f6822c7d660f5fb69",
+  measurementId: "G-W4MRFFH4JV"
+};
 
-  // Initialize Firebase
-  	const app = initializeApp(firebaseConfig);
-	
-	import { getDatabase, set, get, update, remove, ref, child} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+  	// Initialize Firebase
+ 	import { getDatabase, set, get, update, remove, ref, child} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 	import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 	
+	const app = initializeApp(firebaseConfig);
 	const db = getDatabase();
-	
 		
-	var findName = document.querySelector("#findName");
-	var findAddress = document.querySelector("#findAddress");
-	var findDOB = document.querySelector("#findDOB");
-	var findEmail = document.querySelector("#findEmail");
-	var findUserName = document.querySelector("#findUserName");
-	var findRole = document.querySelector("#findRole");
-		
-	getInfo.addEventListener("click", GetInfo);
-	setPassword.addEventListener("click", SetPassword);
-
+	//function to retrieve information entered by requestor.
 	function GetInfo() {
 		const dbref = ref(db);
+		
 		get(child(dbref, "People/" + userName.value))
 		.then((snapshot)=>{
 			if(snapshot.exists()) {
-				findName.innerHTML = "Name: " + snapshot.val().FirstName + " " + snapshot.val().LastName;
-				findAddress.innerHTML = "Address: " + snapshot.val().StreetAddress + ", " + snapshot.val().City + ", " + snapshot.val().State + ", " + snapshot.val().ZipCode;
-				findDOB.innerHTML = "Date of Birth: " + snapshot.val().DOB;
-				findEmail.innerHTML = "Email: " + snapshot.val().Email;
-				findUserName.innerHTML = "Requested Username: " + snapshot.val().Username;
-				findRole.innerHTML = "Requested Role: " + snapshot.val().Role;
+				firstNameField.value = snapshot.val().FirstName;
+				lastNameField.value = snapshot.val().LastName;
+				streetAddressField.value = snapshot.val().StreetAddress;
+				cityField.value = snapshot.val().City;
+				stateField.value = snapshot.val().State;
+				zipField.value = snapshot.val().ZipCode;
+				dobField.value = snapshot.val().DOB;
+				emailField.value = snapshot.val().Email;
+				userNameField.value = snapshot.val().Username;
+				roleField.value = snapshot.val().Role;
 			} else {
 				alert("No info found");
 			}
@@ -94,25 +164,55 @@
 		})
 	}
 		
+	//adds user to authentication database
 	function SetPassword() {
 		const dbref = ref(db);
 		const auth = getAuth();
-
-		get(child(dbref, "People/"+userName.value))
+		
+		var firstName = document.querySelector("#firstNameField");
+    	var lastName = document.querySelector("#lastNameField");
+    	var streetAddress = document.querySelector("#streetAddressField");
+    	var city = document.querySelector("#cityField");
+    	var state = document.querySelector("#stateField");
+    	var zip = document.querySelector("#zipField");
+    	var dob = document.querySelector("#dobField");
+    	var email = document.querySelector("#emailField");
+    	var role = document.querySelector("#roleField");
+		
+		//This portion code gets teh user's email and password to pass to the authentication database
+		get(child(dbref, "People/"+userNameField.value))
 		.then((snapshot)=>{
 			let email = snapshot.val().Email;
 			let password = snapshot.val().Password;
 			
+			//This portion of code creates the authentication entry with the user's email and password.
 			createUserWithEmailAndPassword(auth, email, password)
-				.then((userCredential) => {
+			.then((userCredential) => {
     		// Signed up 
-    		const user = userCredential.user;
+    			const user = userCredential.user;
 			// ...
-			alert("User login authorized");
+				alert("User login authorized");
+
+				//This portion of code updates the  user record with administrator entered user information and to make user Active.
+				update(ref(db, "People/" + userNameField.value), {
+					FirstName: firstName.value,
+          			LastName: lastName.value,
+          			StreetAddress: streetAddress.value,
+          			City: city.value,
+          			State: state.value,
+          			ZipCode: zip.value,
+          			DOB: dob.value,
+          			Email: email,
+          			Role: role.value,
+					Active: "Y",
+					OldPassword: "",
+					LoginAttempts: 0,
+					PicLocation: "UserPhotos/"+userName.value+".jpg"
+				})
 			})
   			.catch((error) => {
-    		const errorCode = error.code;
-    		const errorMessage = error.message;
+    			const errorCode = error.code;
+    			const errorMessage = error.message;
     		// ..
   			});
 		})
@@ -120,13 +220,14 @@
    		alert(error);
 		});
 		
+		
+		
+		
 	}
+	
 	
 	getInfo.addEventListener("click", GetInfo);
 	setPassword.addEventListener("click", SetPassword);
-
 </script>
-	
-	
 </body>
 </html>
