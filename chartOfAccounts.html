@@ -10,6 +10,7 @@
         display: inline-block;
         width: 100px;
     }
+
 </style>
 </head>
  
@@ -129,7 +130,10 @@
       </div>
     </div>
   </div>
+  <!-- <button id="createJournalEntry">Create Journal Entry</button> -->
   <button id="createJournalEntry">Create Journal Entry</button>
+
+  <div id="journalTable"></div>
  
   <script id="MainScript"></script>
  
@@ -507,6 +511,31 @@ const firebaseConfig = {
  
             trow.appendChild(ControlDiv);
             tbody1.appendChild(trow);
+
+      // Journal entry shows date, account name, debit, and credit from generated account
+
+    document.getElementById("createJournalEntry").addEventListener("click", () => {
+    let journalTable = document.getElementById('journalTable');
+    let journalEntry = '<table border="2"><tr>';
+  
+    journalEntry += `<th>Date</th>`;
+    journalEntry += `<th>Account Name</th>`;
+    journalEntry += `<th>Credit</th>`;
+    journalEntry += `<th>Debit</th>`;
+    journalEntry += '</tr>';
+    journalEntry += '<tr>';
+    journalEntry += `<td>${dateTime}</td>`;
+    journalEntry += `<td>${accountName}</td>`;
+    journalEntry += `<td>${credit}</td>`;
+    journalEntry += `<td>${debit}</td>`;
+    journalEntry += '</tr>';
+    journalEntry += '</table>';
+    journalTable.innerHTML = journalEntry;
+    document.body.appendChild(journalTable);
+
+      
+
+    })
         }
  
         var ModAccountName = document.getElementById('AccountNameMod');
@@ -571,13 +600,7 @@ const firebaseConfig = {
 
     // create journal entry
     
-    document.getElementById("createJournalEntry").addEventListener("click", () => {
-      let journalEntry = document.createElement("table");
-
-      // get date, account name, debit, and credit id's from generated account
-      // display them in a table or something similar
-
-    })
+  
 
 </script>  
 		
