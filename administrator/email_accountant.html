@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Contact Accountant or Manager</title>
+    <link href="../style.css" rel="stylesheet" type="text/css" />
+  </head>
+
+<body>
+	<header>
+	<!-- This code displays logo, username -->
+		<a href="../dashboard.html"><img src="../Logos/Logo1.jpeg" alt="Logo1" width="150" align="right"></a>
+		<h3 id="displayName" type="text" align="left"></h3>
+		<h3 id="displayUsername" type="text" align="left"></h3>
+		<input type="date" id="showCal" align="left">
+  </header>
+  <br>
+  <br>
+  <div class="subheader-container">
+      <div class="signup-container">
+        <h3 id="subheaderh2">Please Fill Out the Form Below</h3>
+            <form name="SignUpForm" id="SignUpForm">
+                <div class="signup-form">
+                       <label>First Name:</label>
+                       <input type="text" name="First Name" id="firstNameField" required/>
+            
+                    <label>Last Name:</label>
+                    <input type="text" name="Last Name" id="lastNameField" required/>
+            
+                    <label>Email:</label>
+                    <input type="text" name="Email" id="emailField" required/>
+            
+                    <label for="freeform">What would you like to say?</label>
+                    <br>
+                    <textarea id="freeform" name="freeform" rows="4" cols="50"></textarea>
+                </div>
+                <br>
+                <input type="submit" id="sign-in" value="Submit" onclick="mail"/>
+            </form>
