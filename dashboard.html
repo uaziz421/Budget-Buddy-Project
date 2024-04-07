@@ -17,20 +17,20 @@
 	<br>
 	<br>
 	<div>
-		<center><a href="./admin_dashboard.html">
-            <button id ="adminButton">Administrator</button>
+		<center>
+            <button id ="administrators">Administrator</button>
         </a></center>
 		<br>
 		<br>
 
-        <center><a href="managers/manager.html">
-        <button id ="adminButton">Manager</button>
+        <center>
+        <button id ="managers">Manager</button>
         </a></center>
 		<br>
 		<br>
 
-       <center><a href="./accountant_dashboard.html">
-            <button id ="adminButton">Accountant</button>
+       <center>
+            <button id ="accountants">Accountant</button>
         </a></center>
 	
 	
@@ -90,7 +90,7 @@ const firebaseConfig = {
 		.then((snapshot)=>{
 			if(snapshot.exists()) {
 				if(snapshot.val().Role == "Administrator") {
-					window.location.assign("dashboard.html");
+					window.location.assign("admin_dashboard.html");
 				} else {
 					alert("You do not have access");
 				}
@@ -113,7 +113,7 @@ const firebaseConfig = {
 		get(child(dbref, "People/" + user.displayName))
 		.then((snapshot)=>{
 			if(snapshot.exists()) {
-				if(snapshot.val().Role == "Manager") {
+				if(snapshot.val().Role == "Manager" || snapshot.val().Role == "Administrator") {
 					window.location.assign("managers/manager.html");
 				} else {
 					alert("You do not have access");
@@ -137,7 +137,7 @@ const firebaseConfig = {
 		get(child(dbref, "People/" + user.displayName))
 		.then((snapshot)=>{
 			if(snapshot.exists()) {
-				if(snapshot.val().Role == "User") {
+				if(snapshot.val().Role == "User" || snapshot.val().Role == "Manager" || snapshot.val().Role == "Administrator") {
 					window.location.assign("accountant_dashboard.html");
 				} else {
 					alert("You do not have access");
