@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Chart Of Accounts</title>
-<!--<link href="style.css" rel="stylesheet" type="text/css">-->
+<link href="style.css" rel="stylesheet" type="text/css" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <style>
     .labs{
@@ -38,60 +38,108 @@
     <div class="container">
       <h>Search: </h>
       <input type="text" id="myInput" onkeyup="search_table()" placeholder="Filter Any Column" title="Type in a name">
-        <table class="table table-striped">
+        <br><br><br><br>
+		<h2>Asset Accounts</h2>
+		<table class="table table-striped">
           <thead>
-              <th>Account Name</th>
               <th>Account Number</th>
-              <th>Account Description</th>
-              <th>Normal Side</th>
-              <th>Account Category</th>
-              <th>Account Subcategory</th>
-              <th>Initial Balance</th>
-              <th>Debit</th>
-              <th>Credit</th>
-              <th>Balance</th>
-              <th>Date/Time Account Added</th>
-              <th>User ID</th>
-              <th>Order</th>
-              <th>Statement</th>
-              <th>Comment</th>
-              <th>Control Center</th>
+			  <th>Account Name</th>
+              <th>To Increase</th>
+			  <th>Account Description</th>
+			  <th>Account Category</th>
+			  <th>Account Subcategory</th>  
           </thead>
-          <tbody id="tbody1">
-            <td><a href="ledger.html" style="display:block;">&nbsp;</a></td>
+          <tbody id="assetAccounts">
+			  <tr></tr>
           </tbody>
       </table>
-      <script>
-        function search_table(){
-          // Declare variables
-          var input, filter, table, tr, td, i;
-          input = document.getElementById("search_field_input");
-          filter = input.value.toUpperCase();
-          table = document.getElementById("table_id");
-          tr = table.getElementsByTagName("tr");
- 
-          // Loop through all table rows, and hide those who don't match the search query
-          for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td") ;
-            for(j=0 ; j<td.length ; j++)
-            {
-              let tdata = td[j] ;
-              if (tdata) {
-                if (tdata.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                  tr[i].style.display = "";
-                  break ;
-                } else {
-                  tr[i].style.display = "none";
-                }
-              }
-            }
-          }
-        }
-        </script>
     </div>
+
  
-    <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="FillTBoxes(null)">Add New Account</button>-->
- 
+	<div class="container">
+      <h>Search: </h>
+      <input type="text" id="myInput" onkeyup="search_table()" placeholder="Filter Any Column" title="Type in a name">
+        <br><br><br><br>
+		<h2>Liability Accounts</h2>
+		<table class="table table-striped">
+          <thead>
+              <th>Account Number</th>
+			  <th>Account Name</th>
+              <th>To Increase</th>
+			  <th>Account Description</th>
+			  <th>Account Category</th>
+			  <th>Account Subcategory</th>  
+          </thead>
+          <tbody id="liabilityAccounts">
+			  <tr></tr>
+          </tbody>
+      </table>
+    </div>
+	
+	
+	<div class="container">
+      <h>Search: </h>
+      <input type="text" id="myInput" onkeyup="search_table()" placeholder="Filter Any Column" title="Type in a name">
+        <br><br><br><br>
+		<h2>Equity Accounts</h2>
+		<table class="table table-striped">
+          <thead>
+              <th>Account Number</th>
+			  <th>Account Name</th>
+              <th>To Increase</th>
+			  <th>Account Description</th>
+			  <th>Account Category</th>
+			  <th>Account Subcategory</th>  
+          </thead>
+          <tbody id="equityAccounts">
+			  <tr></tr>
+          </tbody>
+      </table>
+    </div>
+	
+	
+	<div class="container">
+      <h>Search: </h>
+      <input type="text" id="myInput" onkeyup="search_table()" placeholder="Filter Any Column" title="Type in a name">
+        <br><br><br><br>
+		<h2>Revenue Accounts</h2>
+		<table class="table table-striped">
+          <thead>
+              <th>Account Number</th>
+			  <th>Account Name</th>
+              <th>To Increase</th>
+			  <th>Account Description</th>
+			  <th>Account Category</th>
+			  <th>Account Subcategory</th>  
+          </thead>
+          <tbody id="revenueAccounts">
+			  <tr></tr>
+          </tbody>
+      </table>
+    </div>
+	
+	
+	<div class="container">
+      <h>Search: </h>
+      <input type="text" id="myInput" onkeyup="search_table()" placeholder="Filter Any Column" title="Type in a name">
+        <br><br><br><br>
+		<h2>Expense Accounts</h2>
+		<table class="table table-striped">
+          <thead>
+              <th>Account Number</th>
+			  <th>Account Name</th>
+              <th>To Increase</th>
+			  <th>Account Description</th>
+			  <th>Account Category</th>
+			  <th>Account Subcategory</th>  
+          </thead>
+          <tbody id="expenseAccounts">
+			  <tr></tr>
+          </tbody>
+      </table>
+    </div>
+	
+	
 <!-- Modal -->
   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -111,27 +159,9 @@
           <input type="text" id="NameMod"> <br>
           <label class="labs">Normal Side: </label>>
           <input type="text" id="NameMod"> <br>
-          <label class="labs">Account Category: </label>>
+			<label class="labs">Account Category: </label>>
           <input type="text" id="NameMod"> <br>
-          <label class="labs">Account Subcategory: </label>>
-          <input type="text" id="NameMod"> <br>
-          <label class="labs">Initial Balance: </label>>
-          <input type="text" id="NameMod"> <br>
-          <label class="labs">Debit: </label>>
-          <input type="text" id="NameMod"> <br>
-          <label class="labs">Credit: </label>>
-          <input type="text" id="NameMod"> <br>
-          <label class="labs">Balance: </label>>
-          <input type="text" id="NameMod"> <br>
-          <label class="labs">Date/Time:: </label>>
-          <input type="text" id="NameMod"> <br>
-          <label class="labs">User ID: </label>>
-          <input type="text" id="NameMod"> <br>
-          <label class="labs">Order: </label>>
-          <input type="text" id="NameMod"> <br>
-          <label class="labs">Statement: </label>>
-          <input type="text" id="NameMod"> <br>
-          <label class="labs">Comment: </label>>
+			<label class="labs">Account Subcategory: </label>>
           <input type="text" id="NameMod"> <br>
         </div>
         <div class="modal-footer">
@@ -142,7 +172,7 @@
       </div>
     </div>
   </div>
-  <!-- <button id="createJournalEntry">Create Journal Entry</button> -->
+
   <button id="createJournalEntry">Create Journal Entry</button>
   <button id="approveJournalEntry">Approve Entry</button>
   <button id="rejectJournalEntry">Reject Entry</button>
@@ -153,170 +183,13 @@
 
   <div id="journalTable"></div>
  
-  <script id="MainScript"></script>
- 
-    <script>
-      
-        // function selectAllData(){
-        //   console.log("Hello")
-        //     firebase.database().ref('Account').once('value', function (snapshot) {
-        //         snapshot.forEach(function (childSnapshot){
-        //             var accountName = childSnapshot.val().accountName;
-        //             var accountNumber = childSnapshot.val().accountNumber;
-        //             var accountDescription = childSnapshot.val().accountDescription;
-        //             var normalSide = childSnapshot.val().normalSide;
-        //             var accountCategory = childSnapshot.val().accountCategory;
-        //             var accountSubcategory = childSnapshot.val().accountSubcategory;
-        //             var initialBalance = childSnapshot.val().initialBalance;
-        //             var debit = childSnapshot.val().debit;
-        //             var credit = childSnapshot.val().credit;
-        //             var balance = childSnapshot.val().balance;
-        //             var dateTime = childSnapshot.val().dateTime;
-        //             var userId = childSnapshot.val().userId;
-        //             var order = childSnapshot.val().order;
-        //             var statement = childSnapshot.val().statement;
-        //             var comment = childSnapshot.val().comment;
-        //             AddItemToTABLE(accountName, accountNumber, accountDescription, normalSide, accountCategory, accountSubcategory, initialBalance, debit, credit, balance, dateTime, userId, order, statement, comment);
-                    
-        //         });
-        //     });
-        // }
- 
-        // var accountNumID = 0;
-        // var accountList=[];
- 
-        // function AddItemToTABLE(accountName, accountNumber, accountDescription, normalSide, accountCategory, accountSubcategory, initialBalance, debit, credit, balance, dateTime, userId, order, statement, comment){
-        //     var tbody1 = document.getElementById("tbody1");
-        //     var trow = document.createElement("tr");
-        //     var td0 = document.createElement("td");
-        //     var td1 = document.createElement("td");
-        //     var td2 = document.createElement("td");
-        //     var td3 = document.createElement("td");
-        //     var td4 = document.createElement("td");
-        //     var td5 = document.createElement("td");
-        //     var td6 = document.createElement("td");
-        //     var td7 = document.createElement("td");
-        //     var td8 = document.createElement("td");
-        //     var td9 = document.createElement("td");
-        //     var td10 = document.createElement("td");
-        //     var td11 = document.createElement("td");
-        //     var td12 = document.createElement("td");
-        //     var td13 = document.createElement("td");
-        //     var td14 = document.createElement("td");
-        //     var td15 = document.createElement("td");
-        //     accountList.push([accountName, accountNumber, accountDescription, normalSide, accountCategory, accountSubcategory, initialBalance, debit, credit, balance, dateTime, userId, order, statement, comment]);
-        //     td0.innerHTML = ++accountNumID;
-        //     td1.innerHTML = accountName;
-        //     td2.innerHTML = accountNumber;
-        //     td3.innerHTML = accountDescription;
-        //     td4.innerHTML = normalSide;
-        //     td5.innerHTML = accountCategory;
-        //     td6.innerHTML = accountSubcategory;
-        //     td7.innerHTML = initialBalance;
-        //     td8.innerHTML = debit;
-        //     td9.innerHTML = credit;
-        //     td10.innerHTML = balance;
-        //     td11.innerHTML = dateTime;
-        //     td12.innerHTML = userId;
-        //     td13.innerHTML = order;
-        //     td14.innerHTML = statement;
-        //     td15.innerHTML = comment;
-        //     trow.appendChild(td0);
-        //     trow.appendChild(td1);
-        //     trow.appendChild(td2);
-        //     trow.appendChild(td3);
-        //     trow.appendChild(td4);
-        //     trow.appendChild(td5);
-        //     trow.appendChild(td6);
-        //     trow.appendChild(td7);
-        //     trow.appendChild(td8);
-        //     trow.appendChild(td9);
-        //     trow.appendChild(td10);
-        //     trow.appendChild(td11);
-        //     trow.appendChild(td12);
-        //     trow.appendChild(td13);
-        //     trow.appendChild(td14);
-        //     trow.appendChild(td15);
- 
-        //     var ControlDiv = document.createElement("div");
-        //     ControlDiv.innerHTML = '<button type="button" class="btn btn-primary my-2" data-toggle="modal" data-target="#exampleModalCenter" onclick="FillTBoxes(null)">Add New Account</button>'
-        //     ControlDiv.innerHTML += '<button type="button" class="btn btn-primary my-2 ml-2" data-toggle="modal" data-target="#exampleModalCenter" onclick="FillTBoxes('+accountNumID+')">Edit Account</button>'
- 
-        //     trow.appendChild(ControlDiv);
-        //     tbody1.appendChild(trow);
-        // }
- 
-        // var ModAccountName = document.getElementById('AccountNameMod');
-        // var ModAccountNumber = document.getElementById('AccountNumberMod');
-        // var ModAccountDescription = document.getElementById('AccountDescriptionMod');
-        // var ModNormalSide = document.getElementById('NormalSideMod');
-        // var ModAccountCategory = document.getElementById('AccountCategoryMod');
-        // var ModAccountSubcategory = document.getElementById('AccountSubcategoryMod');
-        // var ModInitialBalance = document.getElementById('InitialBalanceMod');
-        // var ModDebit = document.getElementById('DebitMod');
-        // var ModCredit = document.getElementById('CreditMod');
-        // var ModBalance = document.getElementById('BalanceMod');
-        // var ModDateTime = document.getElementById('DateTimeMod');
-        // var ModUserId = document.getElementById('UserIdMod');
-        // var ModOrder = document.getElementById('OrderMod');
-        // var ModStatement = document.getElementById('StatementMod');
-        // var ModComment = document.getElementById('CommentMod');
- 
-        // var BTNmodAdd = document.getElementById('AddModBtn');
-        // var BTNmodUpd = document.getElementById('UpdModBtn');
-        // var BTNmodDel = document.getElementById('DelModBtn');
- 
-        // function FillTBoxes(index){
-        //     if(index==null){
-        //         ModAccountName.value = "";
-        //         ModAccountNumber.value = "";
-        //         ModAccountDescription.value = "";
-        //         ModNormalSide.value = "";
-        //         ModAccountCategory.value = "";
-        //         ModAccountSubcategory.value = "";
-        //         ModInitialBalance.value = "";
-        //         ModDebit.value = "";
-        //         ModCredit.value = "";
-        //         ModBalance.value = "";
-        //         ModDateTime.value = "";
-        //         ModUserId.value = "";
-        //         ModOrder.value = "";
-        //         ModStatement.value = "";
-        //         ModComment.value = "";
-        //     }
-        //     else{
-        //         --index;
-        //         ModAccountName.value = accountList[index][0];
-        //         ModAccountNumber.value = accountList[index][1];
-        //         ModAccountDescription.value = accountList[index][2];
-        //         ModNormalSide.value = accountList[index][3];
-        //         ModAccountCategory.value = accountList[index][4];
-        //         ModAccountSubcategory.value = accountList[index][5];
-        //         ModInitialBalance.value = accountList[index][6];
-        //         ModDebit.value = accountList[index][7];
-        //         ModCredit.value = accountList[index][8];
-        //         ModBalance.value = accountList[index][9];
-        //         ModDateTime.value = accountList[index][10];
-        //         ModUserId.value = accountList[index][11];
-        //         ModOrder.value = accountList[index][12];
-        //         ModStatement.value = accountList[index][13];
-        //         ModComment.value = accountList[index][14];
-        //     }
-        // }
-
-        // selectAllData();
- 
-    </script>
- 
- 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
  
 <script type="module">
 	// Import the functions you need from the SDKs you need
 	import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-	import { getDatabase, set, get, update, remove, ref, child } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+	import { getDatabase, set, get, update, remove, ref, child, onValue} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 	import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+	import { serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 	
 
   // TODO: Add SDKs for Firebase products that you want to use
@@ -332,305 +205,194 @@ const firebaseConfig = {
   appId: "1:416172669900:web:49618f6822c7d660f5fb69",
   measurementId: "G-W4MRFFH4JV"
 };
-  // Initialize Firebase
-  	const app = initializeApp(firebaseConfig);
-	const db = getDatabase();
-	const auth = getAuth();
 	
-	//Displays current user username
-	// setTimeout(function(){
-  //       const user = auth.currentUser;
-	// 	const dbref = ref(db);
+	
+// Initialize Firebase
+	const app = initializeApp(firebaseConfig);
+	const db = getDatabase();
+	const dbref = ref(db);
+	const auth = getAuth();
+	const user = auth.currentUser;
+	
+    var accountNumber;
+	var accountName;
+	var normalSide;
+	var accountDesc;
+	var accountCategory;
+	var accountSubcategory;
+	
+	window.onload = GetAccounts();
+
+	function GetAccounts() {
+		const dbref = ref(db);
+		const dbrefAccounts = ref(db, 'Accounts/');
 		
-	// 	get(child(dbref, "People/" + user.displayName))
-	// 	.then((snapshot)=>{
-	// 		if(snapshot.exists()) {
-	// 			displayName.innerHTML = snapshot.val().FirstName + " " + snapshot.val().LastName; //get current user first and last name
-	// 			displayUsername.innerHTML = snapshot.val().Username;
-
-	// 		}
-	// 	})
-	// 	.catch((error)=>{
-	// 		alert(error)
-	// 	})
-  //  	},150); //delay is in milliseconds; delay needed to load page then display name.
-
-
-//////////////////////////////////////////////////////////////////
-
-// This function displays the accounts in the database
-// It's only able to display the first account right now, 
-// will need some work to be able to display all accounts
-
-  function selectAllData(){
-    let accountArray = [];
-          console.log("Hello")
-          get(child(ref(db), 'Accounts')).then((snapshot) => {
-            const accounts = snapshot.val();
-            for(const i in accounts) {
-              // console.log(accounts[i])
-              const accountValues = accounts[i];
-              for(const j in accountValues) {
-                if (accountValues.hasOwnProperty(j)) {
-                  // console.log(accountValues[j]);
-                  accountArray.push(accountValues[j]);
-                }
-              }
-
-              console.log(accountArray);
-            }
-
-
-            snapshot.forEach(function(childSnapshot) {
-
-              let bal = accountArray[0];
-              let category = accountArray[1];
-              let description = accountArray[2];
-              let name = accountArray[3];
-              let number = accountArray[4];
-              let accorder = accountArray[5];
-              let subcategory = accountArray[6];
-              let status = accountArray[7];
-              let addedby = accountArray[8];
-              let accComment = accountArray[9];
-              let creditAmount = accountArray[10];
-              let timeAdded = accountArray[11];
-              let TimeEdited = accountArray[12];
-              let debitamount = accountArray[13];
-              let editedBy = accountArray[14];
-              let intialbal = accountArray[15];
-              let normalside = accountArray[16];
-              let accstatement = accountArray[17];
-
-              // this below is to display the values of the account in the console. 
-
-              // console.log("balance: " + bal);
-              // console.log("category: " + category);
-              // console.log("description: " + description);
-              // console.log("Name: " +name);
-              // console.log("Number: " + number);
-              // console.log(accorder);
-              // console.log(subcategory);
-              // console.log(status);
-              // console.log(addedby);
-              // console.log(accComment);
-              // console.log(creditAmount);
-              // console.log(timeAdded);
-              // console.log(TimeEdited);
-              // console.log("debit amount: " + debitamount);
-              // console.log(editedBy);
-              // console.log(intialbal);
-              // console.log(normalside);
-              // console.log(accstatement);
-
-            ////////////////////////////////////////////
-
-              // assigning the values from the array to variables
-
-              var accountName = name;
-                    var accountNumber = number;
-                    var accountDescription = description;
-                    var normalSide = normalside;
-                    var accountCategory = category;
-                    var accountSubcategory = subcategory;
-                    var initialBalance = intialbal;
-                    var debit = debitamount;
-                    var credit = creditAmount;
-                    var balance = bal;
-                    var dateTime = timeAdded;
-                    var userId = number;
-                    var order = accorder;
-                    var statement = accstatement;
-                    var comment = accComment;
-
-                    // old code for reference
-
-              // var accountName = snapshot.val().accountName;
-              //       var accountNumber = snapshot.val().accountNumber;
-              //       var accountDescription = snapshot.val().accountDescription;
-              //       var normalSide = snapshot.val().normalSide;
-              //       var accountCategory = snapshot.val().accountCategory;
-              //       var accountSubcategory = snapshot.val().accountSubcategory;
-              //       var initialBalance = snapshot.val().initialBalance;
-              //       var debit = snapshot.val().debit;
-              //       var credit = snapshot.val().credit;
-              //       var balance = snapshot.val().balance;
-              //       var dateTime = snapshot.val().dateTime;
-              //       var userId = snapshot.val().userId;
-              //       var order = snapshot.val().order;
-              //       var statement = snapshot.val().statement;
-              //       var comment = snapshot.val().comment;
-                    AddItemToTABLE(accountName, accountNumber, accountDescription, normalSide, accountCategory, accountSubcategory, initialBalance, debit, credit, balance, dateTime, userId, order, statement, comment);
-            })
-          });
-          
-        }
- 
-        var accountNumID = 0;
-        var accountList=[];
- 
-        function AddItemToTABLE(accountName, accountNumber, accountDescription, normalSide, accountCategory, accountSubcategory, initialBalance, debit, credit, balance, dateTime, userId, order, statement, comment){
-            var tbody1 = document.getElementById("tbody1");
-            var trow = document.createElement("tr");
-            var td0 = document.createElement("td");
-            var td1 = document.createElement("td");
-            var td2 = document.createElement("td");
-            var td3 = document.createElement("td");
-            var td4 = document.createElement("td");
-            var td5 = document.createElement("td");
-            var td6 = document.createElement("td");
-            var td7 = document.createElement("td");
-            var td8 = document.createElement("td");
-            var td9 = document.createElement("td");
-            var td10 = document.createElement("td");
-            var td11 = document.createElement("td");
-            var td12 = document.createElement("td");
-            var td13 = document.createElement("td");
-            var td14 = document.createElement("td");
-            var td15 = document.createElement("td");
-            accountList.push([accountName, accountNumber, accountDescription, normalSide, accountCategory, accountSubcategory, initialBalance, debit, credit, balance, dateTime, userId, order, statement, comment]);
-            // td0.innerHTML = ++accountNumID;
-            td0.innerHTML = accountName;
-            td1.innerHTML = accountNumber;
-            td2.innerHTML = accountDescription;
-            td3.innerHTML = normalSide;
-            td4.innerHTML = accountCategory;
-            td5.innerHTML = accountSubcategory;
-            td6.innerHTML = initialBalance;
-            td7.innerHTML = debit;
-            td8.innerHTML = credit;
-            td9.innerHTML = balance;
-            td10.innerHTML = dateTime;
-            td11.innerHTML = userId;
-            td12.innerHTML = order;
-            td13.innerHTML = statement;
-            td14.innerHTML = comment;
-            td15.innerHTML = "";
-            trow.appendChild(td0);
-            trow.appendChild(td1);
-            trow.appendChild(td2);
-            trow.appendChild(td3);
-            trow.appendChild(td4);
-            trow.appendChild(td5);
-            trow.appendChild(td6);
-            trow.appendChild(td7);
-            trow.appendChild(td8);
-            trow.appendChild(td9);
-            trow.appendChild(td10);
-            trow.appendChild(td11);
-            trow.appendChild(td12);
-            trow.appendChild(td13);
-            trow.appendChild(td14);
-            trow.appendChild(td15);
- 
-            var ControlDiv = document.createElement("div");
-            ControlDiv.innerHTML = '<button type="button" class="btn btn-primary my-2" data-toggle="modal" data-target="#exampleModalCenter" onclick="FillTBoxes(null)">Add New Account</button>'
-            ControlDiv.innerHTML += '<button type="button" class="btn btn-primary my-2 ml-2" data-toggle="modal" data-target="#exampleModalCenter" onclick="FillTBoxes('+accountNumID+')">Edit Account</button>'
- 
-            trow.appendChild(ControlDiv);
-            tbody1.appendChild(trow);
-
-      // Journal entry shows date, account name, debit, and credit from generated account
-
-    document.getElementById("createJournalEntry").addEventListener("click", () => {
-    let journalTable = document.getElementById('journalTable');
-    let journalEntry = '<table border="2"><tr>';
-  
-    journalEntry += `<th>Date</th>`;
-    journalEntry += `<th>Account Name</th>`;
-    journalEntry += `<th>Credit</th>`;
-    journalEntry += `<th>Debit</th>`;
-    journalEntry += '</tr>';
-    journalEntry += '<tr>';
-    journalEntry += `<td>${dateTime}</td>`;
-    journalEntry += `<td>${accountName}</td>`;
-    journalEntry += `<td>${credit}</td>`;
-    journalEntry += `<td>${debit}</td>`;
-    journalEntry += '</tr>';
-    journalEntry += '</table>';
-    journalTable.innerHTML = journalEntry;
-    document.body.appendChild(journalTable);
-
-      
-
-    })
-
-   document.getElementById("approveJournalEntry").addEventListener("click", () => {
-    alert("Journal Entry Approved!")
-   })
-
-   document.getElementById("rejectJournalEntry").addEventListener("click", () => {
-    prompt("Please enter a reason for rejecting the journal entry")
-   })
-    
-        }
- 
-        var ModAccountName = document.getElementById('AccountNameMod');
-        var ModAccountNumber = document.getElementById('AccountNumberMod');
-        var ModAccountDescription = document.getElementById('AccountDescriptionMod');
-        var ModNormalSide = document.getElementById('NormalSideMod');
-        var ModAccountCategory = document.getElementById('AccountCategoryMod');
-        var ModAccountSubcategory = document.getElementById('AccountSubcategoryMod');
-        var ModInitialBalance = document.getElementById('InitialBalanceMod');
-        var ModDebit = document.getElementById('DebitMod');
-        var ModCredit = document.getElementById('CreditMod');
-        var ModBalance = document.getElementById('BalanceMod');
-        var ModDateTime = document.getElementById('DateTimeMod');
-        var ModUserId = document.getElementById('UserIdMod');
-        var ModOrder = document.getElementById('OrderMod');
-        var ModStatement = document.getElementById('StatementMod');
-        var ModComment = document.getElementById('CommentMod');
- 
-        var BTNmodAdd = document.getElementById('AddModBtn');
-        var BTNmodUpd = document.getElementById('UpdModBtn');
-        var BTNmodDel = document.getElementById('DelModBtn');
- 
-        function FillTBoxes(index){
-            if(index==null){
-                ModAccountName.value = "";
-                ModAccountNumber.value = "";
-                ModAccountDescription.value = "";
-                ModNormalSide.value = "";
-                ModAccountCategory.value = "";
-                ModAccountSubcategory.value = "";
-                ModInitialBalance.value = "";
-                ModDebit.value = "";
-                ModCredit.value = "";
-                ModBalance.value = "";
-                ModDateTime.value = "";
-                ModUserId.value = "";
-                ModOrder.value = "";
-                ModStatement.value = "";
-                ModComment.value = "";
-            }
-            else{
-                --index;
-                ModAccountName.value = accountList[index][0];
-                ModAccountNumber.value = accountList[index][1];
-                ModAccountDescription.value = accountList[index][2];
-                ModNormalSide.value = accountList[index][3];
-                ModAccountCategory.value = accountList[index][4];
-                ModAccountSubcategory.value = accountList[index][5];
-                ModInitialBalance.value = accountList[index][6];
-                ModDebit.value = accountList[index][7];
-                ModCredit.value = accountList[index][8];
-                ModBalance.value = accountList[index][9];
-                ModDateTime.value = accountList[index][10];
-                ModUserId.value = accountList[index][11];
-                ModOrder.value = accountList[index][12];
-                ModStatement.value = accountList[index][13];
-                ModComment.value = accountList[index][14];
-            }
-        }
-
-        selectAllData();
-
-    // create journal entry
-    
-  
-
-</script>  
+		//This portion of code iterates through the Accounts database to get the required information
+		onValue(dbrefAccounts, (snapshot) => {
+			snapshot.forEach((childSnapshot) => {
+				accountNumber = childSnapshot.val().AccountNumber;
+				accountName = childSnapshot.val().AccountName;
+				normalSide = childSnapshot.val().NormalSide;
+				accountDesc = childSnapshot.val().AccountDesc;
+				accountCategory = childSnapshot.val().AccountCategory;
+				accountSubcategory = childSnapshot.val().AccountSubcategory;
+				if(accountNumber.charAt(0)==1) {
+					AddItemsToAssetTable();
+				}
+				if(accountNumber.charAt(0)==2) {
+					AddItemsToLiabilityTable();
+				}	
+				if(accountNumber.charAt(0)==3) {
+					AddItemsToEquityTable();
+				}	
+				if(accountNumber.charAt(0)==4) {
+					AddItemsToRevenueTable();
+				}	
+				if(accountNumber.charAt(0)==5) {
+					AddItemsToExpenseTable();
+				}	
+			})
+		})
+	}
+	
+	//This function appends the data retrieved from the AcctEdits database to the table
+	function AddItemsToAssetTable() {
+		var tbody = document.getElementById("assetAccounts");
+		var trow = document.createElement("tr");
+		var td1 = document.createElement("td");
+		var td2 = document.createElement("td");
+		var td3 = document.createElement("td");
+		var td4 = document.createElement("td");
+		var td5 = document.createElement("td");
+		var td6 = document.createElement("td");
+		td1.innerHTML = accountNumber;
+		td2.innerHTML = accountName;
+		td3.innerHTML = normalSide;
+		td4.innerHTML = accountDesc;
+		td5.innerHTML = accountCategory;
+		td6.innerHTML = accountSubcategory;
+		trow.appendChild(td1); 
+		trow.appendChild(td2); 
+		trow.appendChild(td3); 
+		trow.appendChild(td4);
+		trow.appendChild(td5); 
+		trow.appendChild(td6); 
+		tbody.appendChild(trow);
+	}
+	
+	function AddItemsToLiabilityTable() {
+		var tbody = document.getElementById("liabilityAccounts");
+		var trow = document.createElement("tr");
+		var td1 = document.createElement("td");
+		var td2 = document.createElement("td");
+		var td3 = document.createElement("td");
+		var td4 = document.createElement("td");
+		var td5 = document.createElement("td");
+		var td6 = document.createElement("td");
+		td1.innerHTML = accountNumber;
+		td2.innerHTML = accountName;
+		td3.innerHTML = normalSide;
+		td4.innerHTML = accountDesc;
+		td5.innerHTML = accountCategory;
+		td6.innerHTML = accountSubcategory;
+		trow.appendChild(td1); 
+		trow.appendChild(td2); 
+		trow.appendChild(td3); 
+		trow.appendChild(td4);
+		trow.appendChild(td5); 
+		trow.appendChild(td6); 
+		tbody.appendChild(trow);
+	}
+	
+	function AddItemsToEquityTable() {
+		var tbody = document.getElementById("equityAccounts");
+		var trow = document.createElement("tr");
+		var td1 = document.createElement("td");
+		var td2 = document.createElement("td");
+		var td3 = document.createElement("td");
+		var td4 = document.createElement("td");
+		var td5 = document.createElement("td");
+		var td6 = document.createElement("td");
+		td1.innerHTML = accountNumber;
+		td2.innerHTML = accountName;
+		td3.innerHTML = normalSide;
+		td4.innerHTML = accountDesc;
+		td5.innerHTML = accountCategory;
+		td6.innerHTML = accountSubcategory;
+		trow.appendChild(td1); 
+		trow.appendChild(td2); 
+		trow.appendChild(td3); 
+		trow.appendChild(td4);
+		trow.appendChild(td5); 
+		trow.appendChild(td6); 
+		tbody.appendChild(trow);
+	}
+	
+	function AddItemsToRevenueTable() {
+		var tbody = document.getElementById("revenueAccounts");
+		var trow = document.createElement("tr");
+		var td1 = document.createElement("td");
+		var td2 = document.createElement("td");
+		var td3 = document.createElement("td");
+		var td4 = document.createElement("td");
+		var td5 = document.createElement("td");
+		var td6 = document.createElement("td");
+		td1.innerHTML = accountNumber;
+		td2.innerHTML = accountName;
+		td3.innerHTML = normalSide;
+		td4.innerHTML = accountDesc;
+		td5.innerHTML = accountCategory;
+		td6.innerHTML = accountSubcategory;
+		trow.appendChild(td1); 
+		trow.appendChild(td2); 
+		trow.appendChild(td3); 
+		trow.appendChild(td4);
+		trow.appendChild(td5); 
+		trow.appendChild(td6); 
+		tbody.appendChild(trow);
+	}
+	
+	function AddItemsToExpenseTable() {
+		var tbody = document.getElementById("expenseAccounts");
+		var trow = document.createElement("tr");
+		var td1 = document.createElement("td");
+		var td2 = document.createElement("td");
+		var td3 = document.createElement("td");
+		var td4 = document.createElement("td");
+		var td5 = document.createElement("td");
+		var td6 = document.createElement("td");
+		td1.innerHTML = accountNumber;
+		td2.innerHTML = accountName;
+		td3.innerHTML = normalSide;
+		td4.innerHTML = accountDesc;
+		td5.innerHTML = accountCategory;
+		td6.innerHTML = accountSubcategory;
+		trow.appendChild(td1); 
+		trow.appendChild(td2); 
+		trow.appendChild(td3); 
+		trow.appendChild(td4);
+		trow.appendChild(td5); 
+		trow.appendChild(td6); 
+		tbody.appendChild(trow);
+	}
+	
+	
+	//Displays current user username and photo
+	setTimeout(function(){
+        const user = auth.currentUser;
+		const dbref = ref(db);
 		
-    </script>
-  </body>
+		get(child(dbref, "People/" + user.displayName))
+		.then((snapshot)=>{
+			if(snapshot.exists()) {
+				displayName.innerHTML = snapshot.val().FirstName + " " + snapshot.val().LastName; //get current user first and last name
+				displayUsername.innerHTML = snapshot.val().Username;
+			}
+		})
+		.catch((error)=>{
+			alert(error)
+		})
+   	},250); //delay is in milliseconds; delay needed to load page then display name.
+</script>
+</body>
 </html>
