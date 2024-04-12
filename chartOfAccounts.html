@@ -46,6 +46,8 @@
 			  <th>Account Name</th>
               <th>To Increase</th>
 			  <th>Account Description</th>
+			  <th>Account Category</th>
+			  <th>Account Subcategory</th>  
           </thead>
           <tbody id="assetAccounts">
 			  <tr></tr>
@@ -65,6 +67,8 @@
 			  <th>Account Name</th>
               <th>To Increase</th>
 			  <th>Account Description</th>
+			  <th>Account Category</th>
+			  <th>Account Subcategory</th>  
           </thead>
           <tbody id="liabilityAccounts">
 			  <tr></tr>
@@ -84,6 +88,8 @@
 			  <th>Account Name</th>
               <th>To Increase</th>
 			  <th>Account Description</th>
+			  <th>Account Category</th>
+			  <th>Account Subcategory</th>  
           </thead>
           <tbody id="equityAccounts">
 			  <tr></tr>
@@ -103,6 +109,8 @@
 			  <th>Account Name</th>
               <th>To Increase</th>
 			  <th>Account Description</th>
+			  <th>Account Category</th>
+			  <th>Account Subcategory</th>  
           </thead>
           <tbody id="revenueAccounts">
 			  <tr></tr>
@@ -122,6 +130,8 @@
 			  <th>Account Name</th>
               <th>To Increase</th>
 			  <th>Account Description</th>
+			  <th>Account Category</th>
+			  <th>Account Subcategory</th>  
           </thead>
           <tbody id="expenseAccounts">
 			  <tr></tr>
@@ -148,6 +158,10 @@
           <label class="labs">Account Description: </label>>
           <input type="text" id="NameMod"> <br>
           <label class="labs">Normal Side: </label>>
+          <input type="text" id="NameMod"> <br>
+			<label class="labs">Account Category: </label>>
+          <input type="text" id="NameMod"> <br>
+			<label class="labs">Account Subcategory: </label>>
           <input type="text" id="NameMod"> <br>
         </div>
         <div class="modal-footer">
@@ -204,6 +218,8 @@ const firebaseConfig = {
 	var accountName;
 	var normalSide;
 	var accountDesc;
+	var accountCategory;
+	var accountSubcategory;
 	
 	window.onload = GetAccounts();
 
@@ -218,6 +234,8 @@ const firebaseConfig = {
 				accountName = childSnapshot.val().AccountName;
 				normalSide = childSnapshot.val().NormalSide;
 				accountDesc = childSnapshot.val().AccountDesc;
+				accountCategory = childSnapshot.val().AccountCategory;
+				accountSubcategory = childSnapshot.val().AccountSubcategory;
 				if(accountNumber.charAt(0)==1) {
 					AddItemsToAssetTable();
 				}
@@ -245,14 +263,20 @@ const firebaseConfig = {
 		var td2 = document.createElement("td");
 		var td3 = document.createElement("td");
 		var td4 = document.createElement("td");
+		var td5 = document.createElement("td");
+		var td6 = document.createElement("td");
 		td1.innerHTML = accountNumber;
 		td2.innerHTML = accountName;
 		td3.innerHTML = normalSide;
 		td4.innerHTML = accountDesc;
+		td5.innerHTML = accountCategory;
+		td6.innerHTML = accountSubcategory;
 		trow.appendChild(td1); 
 		trow.appendChild(td2); 
 		trow.appendChild(td3); 
-		trow.appendChild(td4); 
+		trow.appendChild(td4);
+		trow.appendChild(td5); 
+		trow.appendChild(td6); 
 		tbody.appendChild(trow);
 	}
 	
@@ -263,14 +287,20 @@ const firebaseConfig = {
 		var td2 = document.createElement("td");
 		var td3 = document.createElement("td");
 		var td4 = document.createElement("td");
+		var td5 = document.createElement("td");
+		var td6 = document.createElement("td");
 		td1.innerHTML = accountNumber;
 		td2.innerHTML = accountName;
 		td3.innerHTML = normalSide;
 		td4.innerHTML = accountDesc;
+		td5.innerHTML = accountCategory;
+		td6.innerHTML = accountSubcategory;
 		trow.appendChild(td1); 
 		trow.appendChild(td2); 
 		trow.appendChild(td3); 
-		trow.appendChild(td4); 
+		trow.appendChild(td4);
+		trow.appendChild(td5); 
+		trow.appendChild(td6); 
 		tbody.appendChild(trow);
 	}
 	
@@ -281,14 +311,20 @@ const firebaseConfig = {
 		var td2 = document.createElement("td");
 		var td3 = document.createElement("td");
 		var td4 = document.createElement("td");
+		var td5 = document.createElement("td");
+		var td6 = document.createElement("td");
 		td1.innerHTML = accountNumber;
 		td2.innerHTML = accountName;
 		td3.innerHTML = normalSide;
 		td4.innerHTML = accountDesc;
+		td5.innerHTML = accountCategory;
+		td6.innerHTML = accountSubcategory;
 		trow.appendChild(td1); 
 		trow.appendChild(td2); 
 		trow.appendChild(td3); 
-		trow.appendChild(td4); 
+		trow.appendChild(td4);
+		trow.appendChild(td5); 
+		trow.appendChild(td6); 
 		tbody.appendChild(trow);
 	}
 	
@@ -299,14 +335,20 @@ const firebaseConfig = {
 		var td2 = document.createElement("td");
 		var td3 = document.createElement("td");
 		var td4 = document.createElement("td");
+		var td5 = document.createElement("td");
+		var td6 = document.createElement("td");
 		td1.innerHTML = accountNumber;
 		td2.innerHTML = accountName;
 		td3.innerHTML = normalSide;
 		td4.innerHTML = accountDesc;
+		td5.innerHTML = accountCategory;
+		td6.innerHTML = accountSubcategory;
 		trow.appendChild(td1); 
 		trow.appendChild(td2); 
 		trow.appendChild(td3); 
-		trow.appendChild(td4); 
+		trow.appendChild(td4);
+		trow.appendChild(td5); 
+		trow.appendChild(td6); 
 		tbody.appendChild(trow);
 	}
 	
@@ -317,14 +359,20 @@ const firebaseConfig = {
 		var td2 = document.createElement("td");
 		var td3 = document.createElement("td");
 		var td4 = document.createElement("td");
+		var td5 = document.createElement("td");
+		var td6 = document.createElement("td");
 		td1.innerHTML = accountNumber;
 		td2.innerHTML = accountName;
 		td3.innerHTML = normalSide;
 		td4.innerHTML = accountDesc;
+		td5.innerHTML = accountCategory;
+		td6.innerHTML = accountSubcategory;
 		trow.appendChild(td1); 
 		trow.appendChild(td2); 
 		trow.appendChild(td3); 
-		trow.appendChild(td4); 
+		trow.appendChild(td4);
+		trow.appendChild(td5); 
+		trow.appendChild(td6); 
 		tbody.appendChild(trow);
 	}
 	
