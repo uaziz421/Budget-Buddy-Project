@@ -37,9 +37,10 @@
 	
     <div class="container">
       <h>Search: </h>
-      <input type="text" id="myInput" onkeyup="search_table()" placeholder="Filter Any Column" title="Type in a name">
+      <input type="text" id="myInput" placeholder="Filter Any Column" title="Type in a name">
+		<button id="searchButton" type="button" class="btn btn-primary">Filter Table</button>
+		<button id="clearButton" type="button" class="btn btn-primary">Clear Filter</button>
         <br><br>
-		<h2>Asset Accounts</h2>
 		<table class="table table-striped">
           <thead>
               <th>Account Number</th>
@@ -171,6 +172,51 @@ const firebaseConfig = {
 	}
 	
 	
+	//This function filters table by the search term in myInput
+	function SearchTable() {
+		const dbref = ref(db);
+		const dbrefAccounts = ref(db, 'Accounts/');
+		var searchTerm = document.getElementById("myInput");
+		const table = AccountsTable;
+		
+		//clears the table so only rows matching search term show
+		for(var i = 1;i<table.rows.length;){
+            table.deleteRow(i);
+        }
+		
+		//This portion of code iterates through the Accounts database to get the required information
+		onValue(dbrefAccounts, (snapshot) => {
+			snapshot.forEach((childSnapshot) => {
+				accountNumber = childSnapshot.val().AccountNumber;
+				accountName = childSnapshot.val().AccountName;
+				normalSide = childSnapshot.val().NormalSide;
+				accountDesc = childSnapshot.val().AccountDesc;
+				accountCategory = childSnapshot.val().AccountCategory;
+				accountSubcategory = childSnapshot.val().AccountSubcategory;
+				addedBy = childSnapshot.val().AddedBy;
+				finStatement = childSnapshot.val().Statement;
+				
+				if(searchTerm.value==accountNumber||searchTerm.value==accountName||searchTerm.value==normalSide||searchTerm.value==accountDesc||searchTerm.value==accountCategory||searchTerm.value==accountSubcategory||searchTerm.value==addedBy||searchTerm.value==finStatement) {
+					AddAccountsToTable();
+				}
+			})
+			SortTable();
+		})
+	}
+	
+	
+	//This function clears the filter
+	function ClearFilter() {
+		const table = AccountsTable;
+		myInput.value = "";
+		//clears the table so only rows matching search term show
+		for(var i = 1;i<table.rows.length;){
+            table.deleteRow(i);
+        }
+		GetAccounts();
+	}
+	
+	
 	//This function appends the data retrieved from the Accounts database to the AccountsTable
 	function AddAccountsToTable() {
 		var tbody = document.getElementById("AccountsTable");
@@ -183,7 +229,7 @@ const firebaseConfig = {
 		var td6 = document.createElement("td");
 		var td7 = document.createElement("td");
 		var td8 = document.createElement("td");
-		td1.innerHTML = '<a href=ledger.html?acctNum="'+accountNumber+'">'+accountNumber+'</a>';
+		td1.innerHTML = '<a href=ledger.html?acctNum="'+accountNumber+'">'+accountNumber+'</a>'; //This line inserts the link to the ledger with the accountNumber in url as variable
 		td2.innerHTML = accountName;
 		td3.innerHTML = normalSide;
 		td4.innerHTML = accountDesc;
@@ -257,6 +303,10 @@ const firebaseConfig = {
 			alert(error)
 		})
    	},250); //delay is in milliseconds; delay needed to load page then display name.
+	
+	
+	searchButton.addEventListener("click", SearchTable);
+	clearButton.addEventListener("click", ClearFilter);
 </script>
 </body>
 </html>
