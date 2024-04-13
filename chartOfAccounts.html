@@ -38,7 +38,7 @@
     <div class="container">
       <h>Search: </h>
       <input type="text" id="myInput" onkeyup="search_table()" placeholder="Filter Any Column" title="Type in a name">
-        <br><br><br><br>
+        <br><br>
 		<h2>Asset Accounts</h2>
 		<table class="table table-striped">
           <thead>
@@ -47,93 +47,11 @@
               <th>To Increase</th>
 			  <th>Account Description</th>
 			  <th>Account Category</th>
-			  <th>Account Subcategory</th>  
+			  <th>Account Subcategory</th>
+			  <th>Financial Statement</th>
+			  <th>Created By</th>
           </thead>
-          <tbody id="assetAccounts">
-			  <tr></tr>
-          </tbody>
-      </table>
-    </div>
-
- 
-	<div class="container">
-      <h>Search: </h>
-      <input type="text" id="myInput" onkeyup="search_table()" placeholder="Filter Any Column" title="Type in a name">
-        <br><br><br><br>
-		<h2>Liability Accounts</h2>
-		<table class="table table-striped">
-          <thead>
-              <th>Account Number</th>
-			  <th>Account Name</th>
-              <th>To Increase</th>
-			  <th>Account Description</th>
-			  <th>Account Category</th>
-			  <th>Account Subcategory</th>  
-          </thead>
-          <tbody id="liabilityAccounts">
-			  <tr></tr>
-          </tbody>
-      </table>
-    </div>
-	
-	
-	<div class="container">
-      <h>Search: </h>
-      <input type="text" id="myInput" onkeyup="search_table()" placeholder="Filter Any Column" title="Type in a name">
-        <br><br><br><br>
-		<h2>Equity Accounts</h2>
-		<table class="table table-striped">
-          <thead>
-              <th>Account Number</th>
-			  <th>Account Name</th>
-              <th>To Increase</th>
-			  <th>Account Description</th>
-			  <th>Account Category</th>
-			  <th>Account Subcategory</th>  
-          </thead>
-          <tbody id="equityAccounts">
-			  <tr></tr>
-          </tbody>
-      </table>
-    </div>
-	
-	
-	<div class="container">
-      <h>Search: </h>
-      <input type="text" id="myInput" onkeyup="search_table()" placeholder="Filter Any Column" title="Type in a name">
-        <br><br><br><br>
-		<h2>Revenue Accounts</h2>
-		<table class="table table-striped">
-          <thead>
-              <th>Account Number</th>
-			  <th>Account Name</th>
-              <th>To Increase</th>
-			  <th>Account Description</th>
-			  <th>Account Category</th>
-			  <th>Account Subcategory</th>  
-          </thead>
-          <tbody id="revenueAccounts">
-			  <tr></tr>
-          </tbody>
-      </table>
-    </div>
-	
-	
-	<div class="container">
-      <h>Search: </h>
-      <input type="text" id="myInput" onkeyup="search_table()" placeholder="Filter Any Column" title="Type in a name">
-        <br><br><br><br>
-		<h2>Expense Accounts</h2>
-		<table class="table table-striped">
-          <thead>
-              <th>Account Number</th>
-			  <th>Account Name</th>
-              <th>To Increase</th>
-			  <th>Account Description</th>
-			  <th>Account Category</th>
-			  <th>Account Subcategory</th>  
-          </thead>
-          <tbody id="expenseAccounts">
+          <tbody id="AccountsTable">
 			  <tr></tr>
           </tbody>
       </table>
@@ -159,9 +77,13 @@
           <input type="text" id="NameMod"> <br>
           <label class="labs">Normal Side: </label>>
           <input type="text" id="NameMod"> <br>
-			<label class="labs">Account Category: </label>>
+		  <label class="labs">Account Category: </label>>
           <input type="text" id="NameMod"> <br>
-			<label class="labs">Account Subcategory: </label>>
+		  <label class="labs">Account Subcategory: </label>>
+          <input type="text" id="NameMod"> <br>
+		  <label class="labs">Financial Statement: </label>>
+          <input type="text" id="NameMod"> <br>
+		  <label class="labs">Created By: </label>>
           <input type="text" id="NameMod"> <br>
         </div>
         <div class="modal-footer">
@@ -220,9 +142,13 @@ const firebaseConfig = {
 	var accountDesc;
 	var accountCategory;
 	var accountSubcategory;
+	var addedBy;
+	var finStatement;
 	
 	window.onload = GetAccounts();
 
+	
+	//This function gets the account information and shows in a table sorted by account number.
 	function GetAccounts() {
 		const dbref = ref(db);
 		const dbrefAccounts = ref(db, 'Accounts/');
@@ -236,28 +162,18 @@ const firebaseConfig = {
 				accountDesc = childSnapshot.val().AccountDesc;
 				accountCategory = childSnapshot.val().AccountCategory;
 				accountSubcategory = childSnapshot.val().AccountSubcategory;
-				if(accountNumber.charAt(0)==1) {
-					AddItemsToAssetTable();
-				}
-				if(accountNumber.charAt(0)==2) {
-					AddItemsToLiabilityTable();
-				}	
-				if(accountNumber.charAt(0)==3) {
-					AddItemsToEquityTable();
-				}	
-				if(accountNumber.charAt(0)==4) {
-					AddItemsToRevenueTable();
-				}	
-				if(accountNumber.charAt(0)==5) {
-					AddItemsToExpenseTable();
-				}	
+				addedBy = childSnapshot.val().AddedBy;
+				finStatement = childSnapshot.val().Statement;
+				AddAccountsToTable();
 			})
+			SortTable();
 		})
 	}
 	
-	//This function appends the data retrieved from the AcctEdits database to the table
-	function AddItemsToAssetTable() {
-		var tbody = document.getElementById("assetAccounts");
+	
+	//This function appends the data retrieved from the Accounts database to the AccountsTable
+	function AddAccountsToTable() {
+		var tbody = document.getElementById("AccountsTable");
 		var trow = document.createElement("tr");
 		var td1 = document.createElement("td");
 		var td2 = document.createElement("td");
@@ -265,117 +181,65 @@ const firebaseConfig = {
 		var td4 = document.createElement("td");
 		var td5 = document.createElement("td");
 		var td6 = document.createElement("td");
-		td1.innerHTML = accountNumber;
+		var td7 = document.createElement("td");
+		var td8 = document.createElement("td");
+		td1.innerHTML = '<a href=ledger.html?acctNum="'+accountNumber+'">'+accountNumber+'</a>';
 		td2.innerHTML = accountName;
 		td3.innerHTML = normalSide;
 		td4.innerHTML = accountDesc;
 		td5.innerHTML = accountCategory;
 		td6.innerHTML = accountSubcategory;
+		td7.innerHTML = finStatement;
+		td8.innerHTML = addedBy;
 		trow.appendChild(td1); 
 		trow.appendChild(td2); 
 		trow.appendChild(td3); 
 		trow.appendChild(td4);
 		trow.appendChild(td5); 
-		trow.appendChild(td6); 
+		trow.appendChild(td6);
+		trow.appendChild(td7); 
+		trow.appendChild(td8); 
 		tbody.appendChild(trow);
 	}
 	
-	function AddItemsToLiabilityTable() {
-		var tbody = document.getElementById("liabilityAccounts");
-		var trow = document.createElement("tr");
-		var td1 = document.createElement("td");
-		var td2 = document.createElement("td");
-		var td3 = document.createElement("td");
-		var td4 = document.createElement("td");
-		var td5 = document.createElement("td");
-		var td6 = document.createElement("td");
-		td1.innerHTML = accountNumber;
-		td2.innerHTML = accountName;
-		td3.innerHTML = normalSide;
-		td4.innerHTML = accountDesc;
-		td5.innerHTML = accountCategory;
-		td6.innerHTML = accountSubcategory;
-		trow.appendChild(td1); 
-		trow.appendChild(td2); 
-		trow.appendChild(td3); 
-		trow.appendChild(td4);
-		trow.appendChild(td5); 
-		trow.appendChild(td6); 
-		tbody.appendChild(trow);
-	}
 	
-	function AddItemsToEquityTable() {
-		var tbody = document.getElementById("equityAccounts");
-		var trow = document.createElement("tr");
-		var td1 = document.createElement("td");
-		var td2 = document.createElement("td");
-		var td3 = document.createElement("td");
-		var td4 = document.createElement("td");
-		var td5 = document.createElement("td");
-		var td6 = document.createElement("td");
-		td1.innerHTML = accountNumber;
-		td2.innerHTML = accountName;
-		td3.innerHTML = normalSide;
-		td4.innerHTML = accountDesc;
-		td5.innerHTML = accountCategory;
-		td6.innerHTML = accountSubcategory;
-		trow.appendChild(td1); 
-		trow.appendChild(td2); 
-		trow.appendChild(td3); 
-		trow.appendChild(td4);
-		trow.appendChild(td5); 
-		trow.appendChild(td6); 
-		tbody.appendChild(trow);
-	}
 	
-	function AddItemsToRevenueTable() {
-		var tbody = document.getElementById("revenueAccounts");
-		var trow = document.createElement("tr");
-		var td1 = document.createElement("td");
-		var td2 = document.createElement("td");
-		var td3 = document.createElement("td");
-		var td4 = document.createElement("td");
-		var td5 = document.createElement("td");
-		var td6 = document.createElement("td");
-		td1.innerHTML = accountNumber;
-		td2.innerHTML = accountName;
-		td3.innerHTML = normalSide;
-		td4.innerHTML = accountDesc;
-		td5.innerHTML = accountCategory;
-		td6.innerHTML = accountSubcategory;
-		trow.appendChild(td1); 
-		trow.appendChild(td2); 
-		trow.appendChild(td3); 
-		trow.appendChild(td4);
-		trow.appendChild(td5); 
-		trow.appendChild(td6); 
-		tbody.appendChild(trow);
-	}
+     //This function sorts the Chart of Accounts Table by Account Number
+     function SortTable() {
+     	let table, i, x, y;
+        table = document.getElementById("AccountsTable");
+        let switching = true;
+ 
+        // Run loop until no switching is needed
+        while (switching) {
+        	switching = false;
+        	let rows = table.rows;
+ 
+            // Loop to go through all rows
+            for (i = 1; i < (rows.length - 1); i++) {
+            	var Switch = false;
+ 
+                // Fetch 2 elements that need to be compared
+                x = rows[i].getElementsByTagName("td")[0];
+                y = rows[i + 1].getElementsByTagName("td")[0];
+ 
+                // Check if 2 rows need to be switched
+                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+ 
+                	// If yes, mark Switch as needed and break loop
+                	Switch = true;
+                	break;
+                }
+           	}
+            if (Switch) {
+            	// Function to switch rows and mark switch as completed
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
+      	}
+ 	}
 	
-	function AddItemsToExpenseTable() {
-		var tbody = document.getElementById("expenseAccounts");
-		var trow = document.createElement("tr");
-		var td1 = document.createElement("td");
-		var td2 = document.createElement("td");
-		var td3 = document.createElement("td");
-		var td4 = document.createElement("td");
-		var td5 = document.createElement("td");
-		var td6 = document.createElement("td");
-		td1.innerHTML = accountNumber;
-		td2.innerHTML = accountName;
-		td3.innerHTML = normalSide;
-		td4.innerHTML = accountDesc;
-		td5.innerHTML = accountCategory;
-		td6.innerHTML = accountSubcategory;
-		trow.appendChild(td1); 
-		trow.appendChild(td2); 
-		trow.appendChild(td3); 
-		trow.appendChild(td4);
-		trow.appendChild(td5); 
-		trow.appendChild(td6); 
-		tbody.appendChild(trow);
-	}
-	
+
 	
 	//Displays current user username and photo
 	setTimeout(function(){
