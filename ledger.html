@@ -75,6 +75,15 @@
     </table>
 
     <script>
+		
+		window.onload = GetAccountNumFromURL();
+		
+		function GetAccountNumFromURL() {
+			const queryString = window.location.search;
+			const urlParams = new URLSearchParams(queryString);
+			const accountNumber = urlParams.get('acctNum');
+		}
+		
       const ledgerEntries = [
         {
           date: "2024-04-01",
