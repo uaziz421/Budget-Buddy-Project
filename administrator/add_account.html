@@ -94,8 +94,13 @@
 
       <div class="label-add-account"><label>Comment:</label></div>
       <input type="text" name="Comment" id="comment" />
-      <br />
-      <br />
+
+      <div class="label-add-account"><label>Attach File:</label></div>
+      <input type="file" id="files" multiple /><br /><br />
+      <button id="send">Upload</button>
+      <p id="uploading"></p>
+      <progress value="0" max="100" id="progress"></progress>
+      </div> 
 
       <input
         type="submit"
@@ -163,6 +168,7 @@
       var activeStatus = document.querySelector("#activeStatus");
       var addedBy = "";
       var dateTimeAdded = serverTimestamp();
+      var file = document.querySelector("#files");
 
       //function to add new account
       function CreateAccount() {
@@ -172,6 +178,7 @@
         var addAccount = true;
         var accountNumStart = "";
         var accountNumber;
+        var file;
 
         // This code gets the current username to document who edited the account
         get(child(dbref, "People/" + user.displayName))
@@ -261,6 +268,7 @@
               InitialBalance: initialBalance.value,
               NormalSide: normalSide.value,
               Statement: statement.value,
+              File: file.url,
             })
               .then(() => {
                 alert("Account added");
@@ -305,5 +313,67 @@
 
       addAccount.addEventListener("click", CreateAccount);
     </script>
+
+    
+<script>
+  var files = [];
+  document.getElementById("files").addEventListener("change", function(e) {
+    files = e.target.files;
+    for (let i = 0; i < files.length; i++) {
+      console.log(files[i]);
+    }
+  });
+  
+  document.getElementById("send").addEventListener("click", function() {
+    //checks if files are selected
+    if (files.length != 0) {
+      //Loops through all the selected files
+      for (let i = 0; i < files.length; i++) {
+        //create a storage reference
+        var storage = firebase.storage().ref(files[i].name);
+  
+        //upload file
+        var upload = storage.put(files[i]);
+  
+        //update progress bar
+        upload.on(
+          "state_changed",
+          function progress(snapshot) {
+            var percentage =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            document.getElementById("progress").value = percentage;
+          },
+  
+          function error() {
+            alert("error uploading file");
+          },
+  
+          function complete() {
+            document.getElementById(
+              "uploading"
+            ).innerHTML += `${files[i].name} upoaded <br />`;
+          }
+        );
+      }
+    } else {
+      alert("No file chosen");
+    }
+  });
+  
+  function getFileUrl(filename) {
+    //create a storage reference
+    var storage = firebase.storage().ref(filename);
+  
+    //get file url
+    storage
+      .getDownloadURL()
+      .then(function(url) {
+        console.log(url);
+      })
+      .catch(function(error) {
+        console.log("error encountered");
+      });
+  }
+  </script>
   </body>
 </html>
