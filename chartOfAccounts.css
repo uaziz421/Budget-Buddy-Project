@@ -1,126 +1,129 @@
 table {
-    border-collapse: collapse;
-    width: 100%;
-    margin-bottom: 20px;
-  }
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 20px;
+}
 
-  td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #dddddd;
-  }
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
 
-  .filter-container {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
 
-  .filter-input {
-    padding: 5px;
-    margin-right: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
+.filter-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
 
-  .filter-button {
-    padding: 5px 10px;
-    background-color: #ddd;
-    border: 1px solid #ccc;
-    cursor: pointer;
-    border-radius: 4px;
-  }
+.filter-input {
+  padding: 5px;
+  margin-right: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
 
-  .table-striped tbody tr:nth-child(odd) {
-    background-color: #f9f9f9;
-  }
+.filter-button {
+  padding: 5px 10px;
+  background-color: #ddd;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  border-radius: 4px;
+}
 
-  .container {
-    padding: 10px;
-  }
+.table-striped tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
 
-  h3 {
-    margin-bottom: 15px;
-  }
+.container {
+  padding: 10px;
+}
 
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-  }
+h3 {
+  margin-bottom: 15px;
+}
 
-  header img {
-    width: 150px;
-  }
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
 
-  .modal-content {
-    border-radius: 5px;
-  }
+header img {
+  width: 150px;
+}
 
-  .btn-primary {
-    background-color: #007bff;
-    color: #fff;
-    border-color: #007bff;
-    border-radius: 4px;
-    margin-bottom: 10px;
-  }
+.modal-content {
+  border-radius: 5px;
+}
 
-  .btn-success {
-    background-color: #28a745;
-    color: #fff;
-    border-color: #28a745;
-    border-radius: 4px;
-    margin-bottom: 10px;
-  }
+.btn-primary {
+  background-color: rgb(57, 109, 164);
+  color: #fff;
+  border-color: rgb(57, 109, 164);
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
 
-  .btn-danger {
-    background-color: #dc3545;
-    color: #fff;
-    border-color: #dc3545;
-    border-radius: 4px;
-    margin-bottom: 10px;
-  }
+.btn-success {
+  background-color: #28a745;
+  color: #fff;
+  border-color: #28a745;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
 
-  .control-panel {
-    display: flex;
-    flex-direction: column; /* Added for vertical alignment */
-  }
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+  border-color: #dc3545;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
 
-  .control-panel button {
-    margin-bottom: 10px; /* Added margin for spacing between buttons */
-  }
+.control-panel {
+  display: flex;
+  flex-direction: column; /* Added for vertical alignment */
+}
 
-  .modal-body {
-    display: flex; /* Create a flexbox container for the content */
-    flex-flow: column wrap; /* Align content vertically */
-    width: fit-content;
-  }
+.control-panel button {
+  margin-bottom: 10px; /* Added margin for spacing between buttons */
+}
 
-  .modal-text { /* Style the text elements */
-    margin-right: 5px; /* Spacing between text and input */
-    width: 100px; /* Adjust width as needed */
-  }
+.modal-body {
+  display: flex; /* Create a flexbox container for the content */
+  flex-flow: column wrap; /* Align content vertically */
+  width: fit-content;
+}
 
-  .modal-input { /* Style the input elements */
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 10px; /* Spacing between items */
-  }
+.modal-text {
+  /* Style the text elements */
+  margin-right: 5px; /* Spacing between text and input */
+  width: 100px; /* Adjust width as needed */
+}
 
-  .input-item{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+.modal-input {
+  /* Style the input elements */
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px; /* Spacing between items */
+}
 
-  /*
+.input-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/*
     table {
       border-collapse: collapse;
       width: 100%;
