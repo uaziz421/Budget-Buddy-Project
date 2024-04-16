@@ -27,6 +27,10 @@
       #journalTable td {
         padding: 10px;
       }
+
+      td {
+        cursor: pointer;
+      }
     </style>
   </head>
 
@@ -327,6 +331,9 @@
           let tableData = document.createElement("td");
           tableData.textContent = dataFromAccount[i];
           tableRow.appendChild(tableData);
+          tableData.addEventListener("click", () => {
+            window.location.href = "ledger.html";
+          });
         });
 
         let createEntrybtn = document.createElement("button");
