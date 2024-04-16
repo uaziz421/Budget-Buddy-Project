@@ -89,11 +89,20 @@
           date: "2024-04-01",
           postRef: "JE-001",
           description: "",
-          debit: 100,
+          debit: 1000,
           credit: 0,
-          balance: 100,
+          balance: 1000,
         },
+        { 
+          date: "2024-02-21",
+          postRef: "DE-214",
+          description: "",
+          debit: 0,
+          credit: 4000,
+          balance: 4000,
+        }
       ];
+
 
       const tbody = document.getElementById("ledger-entries");
 
@@ -136,13 +145,12 @@
           const dateCell = document.createElement("td");
           dateCell.textContent = entry.date;
           tableRow.appendChild(dateCell);
-
+          // postref link to the journal entry that created the account
           const postRefCell = document.createElement("td");
-          postRefCell.textContent = entry.postRef;
-
-          postRefCell.addEventListener("click", () =>
-            showJournalEntry(entry.postRef)
-          );
+          const postRefLink = document.createElement("a");
+          postRefLink.href = `/Managers/viewApprovedJournalEntries.html?postRef=${entry.postRef}`;
+          postRefLink.textContent = entry.postRef;
+          postRefCell.appendChild(postRefLink);
           tableRow.appendChild(postRefCell);
 
           const descriptionCell = document.createElement("td");

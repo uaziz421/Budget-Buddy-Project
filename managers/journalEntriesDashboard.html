@@ -68,8 +68,8 @@ body {
       
     <h1>Journal Entries Dashboard</h1>
 
-<button onclick="loadApprovedEntries()">View Approved Entries</button>
-<button onclick="loadRejectedEntries()">View Rejected Entries</button>
+    <button onclick="window.location.href='viewApprovedJournalEntries.html'">View Approved Entries</button>
+    <button onclick="window.location.href='viewRejectedJournalEntries.html'">View Rejected Entries</button>
 
 <ul id="entriesList" class="entry-list">
     <!-- Journal entries will be listed here -->
@@ -107,14 +107,6 @@ body {
                 });
             })
             .catch(error => console.error('Failed to load journal entries:', error));
-    }
-
-    function loadApprovedEntries() {
-        loadEntries(true); // Load approved entries
-    }
-
-    function loadRejectedEntries() {
-        loadEntries(false); // Load rejected entries
     }
 </script>
 </body>
