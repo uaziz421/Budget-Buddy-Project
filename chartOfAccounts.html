@@ -73,6 +73,7 @@
           <th>Account Subcategory</th>
           <th>Financial Statement</th>
           <th>Created By</th>
+		  <th>Change Log</th>
         </thead>
         <tbody id="AccountsTable">
           <tr></tr>
@@ -120,6 +121,8 @@
             <input type="text" id="NameMod" /> <br />
             <label class="labs">Created By: </label>>
             <input type="text" id="NameMod" /> <br />
+			<label class="labs">Change Log: </label>>
+			<input type="text" id="NameMod" /> <br />
           </div>
           <div class="modal-footer">
             <button
@@ -164,6 +167,7 @@
         getDatabase,
         set,
       } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+      import { serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
       const firebaseConfig = {
         apiKey: "AIzaSyA3C8jafXUUD2s--XEzzfJfVybXs0ZBJyo",
@@ -188,6 +192,7 @@
       let finStatement;
       let debit;
       let credit;
+	  let changeLog = serverTimestamp();
 
       window.onload = getAccts();
 
@@ -248,6 +253,7 @@
             finStatement = childSnapshot.val().Statement;
             debit = childSnapshot.val().DebitAmount;
             credit = childSnapshot.val().CreditAmount;
+			change = childSnapshot.val().DateTimeEdited;
 
             if (
               searchTerm.value == accountNumber ||
@@ -257,7 +263,8 @@
               searchTerm.value == accountCategory ||
               searchTerm.value == accountSubcategory ||
               searchTerm.value == addedBy ||
-              searchTerm.value == finStatement
+              searchTerm.value == finStatement ||
+			  searchTerm.value == change
             ) {
               AccountAddToTable();
             }
@@ -327,6 +334,7 @@
           "AccountSubcategory",
           "Statement",
           "AddedBy",
+		  "Change Log"
         ].forEach((i) => {
           let tableData = document.createElement("td");
           tableData.textContent = dataFromAccount[i];
