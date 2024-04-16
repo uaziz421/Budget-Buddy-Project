@@ -3,103 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accounting Ledger</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f5f5f5;
-        }
-
-        .filter-container {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
-        flex-wrap: wrap;
-    }
-
-    .filter-container div {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-    }
-
-    .filter-container label {
-        margin-right: 10px;
-    }
-
-        .filter-input {
-        padding: 5px;
-        margin-right: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        width: 150px;
-      }
-
-        select.filter-input {
-            width: 150px;
-        }
-
-        button {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        input[type="button"] {
-            background-color: #ccc;
-            color: #333;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        input[type="button"]:hover {
-            background-color: #999;
-        }
-
-        .search-button-container {
-            display: flex;
-            align-items: center;
-        }
-
-        .search-button {
-            margin-left: 10px;
-        }
-    </style>
+    <title>Journal Page</title>
+    <link href="journal.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <input type="button" value="HELP" style="float: right;">
-    <h1>Accounting Ledger</h1>
+    <h1>Journal Page</h1>
 
     <div class="filter-container">
         <div>
@@ -110,12 +19,12 @@
         <div class="search-button-container">
             <label for="filter-account">Search by Account Name:</label>
             <input type="text" id="filter-account" class="filter-input">
-            <button class="search-button" onclick="updateLedger()">Search</button>
+            <button class="search-button" onclick="filterAccount()">Search</button>
         </div>
         <div>
           <label for="filter-amount">Search by Amount:</label>
           <input type="number" id="filter-amount" class="filter-input">
-          <button class="search-button" onclick="updateLedgerAmount()">Search</button>
+          <button class="search-button" onclick="filterAmount()">Search</button>
       </div>      
       <div>
         <label for="filter-status">Approval Status:</label>
@@ -125,47 +34,49 @@
             <option value="Approved">Approved</option>
             <option value="Rejected">Rejected</option>
         </select>
-        <button class="search-button" onclick="updateLedgerStatus()">Search</button>
+        <button class="search-button" onclick="filterStatus()">Search</button>
     </div>
     
     </div>
 
     <table>
         <thead>
+            <button onclick="displayForm()">Add Entry</button><br>
+            <div id="entryForm" style="display: none;">
+                <input type="date" id="dateCreated" placeholder="Date Created"><br>
+                <input type="text" id="accountDebited" placeholder="Account Debited"><br>
+                <input type="number" id="debit" placeholder="Debit"><br>
+                <input type="text" id="accountCredited" placeholder="Account Credited"><br>
+                <input type="number" id="credit" placeholder="Credit"><br>
+                <input type="text" id="entryType" placeholder="Entry Type"><br>
+                <input type="file" id="file"><br>
+                <select id="status">
+                    <option value="Pending">Pending</option>
+                    <option value="Approved">Approved</option>
+                    <option value="Rejected">Rejected</option>
+                </select><br>
+                <textarea id="comments" placeholder="Comments"></textarea><br>
+                <button onclick="addEntry()">Submit</button><br>
+            </div>
             <tr>
-                <th>Date</th>
-                <th>Post Ref</th>
-                <th>Description</th>
+                <th>Date Created</th>
+                <th>Account Debited</th>
                 <th>Debit</th>
+                <th>Account Credited</th>
                 <th>Credit</th>
-                <th>Balance</th>
-                <th>Approval Status</th>
+                <th>Entry Type</th>
+                <th>File</th>
+                <th>Status</th>
+                <th>Comments</th>
             </tr>
         </thead>
         <tbody id="ledger-entries">
-          <tr>
-            <td>2024-04-15</td>
-            <td>J123</td>
-            <td>Payment received</td>
-            <td>$500</td>
-            <td></td>
-            <td>$500</td>
-            <td class="sample-data">Approved</td>
-        </tr>
-        <tr>
-            <td>2024-04-14</td>
-            <td>J122</td>
-            <td>Office supplies</td>
-            <td></td>
-            <td>$100</td>
-            <td>$400</td>
-            <td class="sample-data">Pending</td>
-        </tr>
+            
         </tbody>
     </table>
 
     <script>
-      function updateLedger() {
+      function filterAccount() {
           var inputDate = document.getElementById('filter-date').value;
           var inputAccount = document.getElementById('filter-account').value.toLowerCase();
           var inputAmount = document.getElementById('filter-amount').value;
@@ -192,7 +103,7 @@
           }
       }
 
-    function updateLedgerAmount() {
+    function filterAmount() {
         var inputAmount = document.getElementById('filter-amount').value;
 
         var ledgerEntries = document.getElementById('ledger-entries').children;
@@ -210,7 +121,7 @@
         }
     }
 
-    function updateLedgerStatus() {
+    function filterStatus() {
         var inputStatus = document.getElementById('filter-status').value;
 
         var ledgerEntries = document.getElementById('ledger-entries').children;
@@ -245,6 +156,54 @@
                     tr[i].style.display = "none";
                 }
             }       
+        }
+    }
+
+    function displayForm() {
+        document.getElementById('entryForm').style.display = 'block';
+    }
+
+    function addEntry() {
+        document.getElementById('entryForm').style.display = 'none';
+
+        var table = document.getElementById("ledger-entries");
+        var row = table.insertRow();
+
+        var dateCreated = document.getElementById("dateCreated").value;
+        var accountDebited = document.getElementById("accountDebited").value;
+        var debit = document.getElementById("debit").value;
+        var accountCredited = document.getElementById("accountCredited").value;
+        var credit = document.getElementById("credit").value;
+        var entryType = document.getElementById("entryType").value;
+        var file = document.getElementById("file").value;
+        var status = document.getElementById("status").value;
+        var comments = document.getElementById("comments").value;
+
+        // Add the form inputs to the new row
+        row.insertCell(0).innerHTML = dateCreated;
+        row.insertCell(1).innerHTML = accountDebited;
+        row.insertCell(2).innerHTML = debit;
+        row.insertCell(3).innerHTML = accountCredited;
+        row.insertCell(4).innerHTML = credit;
+        row.insertCell(5).innerHTML = entryType;
+        row.insertCell(6).innerHTML = file;
+        row.insertCell(7).innerHTML = status;
+        row.insertCell(8).innerHTML = comments;
+
+        // Clear the form inputs
+        document.getElementById("dateCreated").value = "";
+        document.getElementById("accountDebited").value = "";
+        document.getElementById("debit").value = "";
+        document.getElementById("accountCredited").value = "";
+        document.getElementById("credit").value = "";
+        document.getElementById("entryType").value = "";
+        document.getElementById("file").value = "";
+        document.getElementById("status").value = "";
+        document.getElementById("comments").value = "";
+
+        if (!dateCreated.value || !accountDebited.value || !debit.value || !accountCredited.value || !credit.value || !entryType.value || !file.value || !status.value || !comments.value) {
+            alert('Please fill out all fields before submitting.');
+            return false;
         }
     }
 
