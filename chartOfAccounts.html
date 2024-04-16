@@ -28,7 +28,6 @@
  
 <body>
 	<header>
-	<!-- This code displays logo, username -->
 		<a href="dashboard.html"><img src="Logos/Logo1.jpeg" alt="Logo1" width="150" align="right"></a>
 		<h3 id="displayName" type="text" align="left"></h3>
 		<h3 id="displayUsername" type="text" align="left"></h3>
@@ -40,7 +39,9 @@
       <input type="text" id="myInput" placeholder="Filter Any Column" title="Type in a name">
 		<button id="searchButton" type="button" class="btn btn-primary">Filter Table</button>
 		<button id="clearButton" type="button" class="btn btn-primary">Clear Filter</button>
-        <br><br>
+		<a href="administrator/email_accountant.html">
+			<button type="button" class="btn btn-primary">Email Admin</button>
+		</a>
 		<table class="table table-striped">
           <thead>
               <th>Account Number</th>
@@ -100,9 +101,6 @@
   <button id="approveJournalEntry">Approve Entry</button>
   <button id="rejectJournalEntry">Reject Entry</button>
   <br>
-  <a href="administrator/email_accountant.html">
-    <button id ="adminButton">Contact User</button>
-  </a>
 
   <div id="journalTable"></div>
  
@@ -307,6 +305,7 @@ const firebaseConfig = {
 	
 	searchButton.addEventListener("click", SearchTable);
 	clearButton.addEventListener("click", ClearFilter);
+
 </script>
 </body>
 </html>
