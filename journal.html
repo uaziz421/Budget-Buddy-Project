@@ -14,17 +14,17 @@
         <div>
             <label for="filter-date">Filter by Date:</label>
             <input type="date" id="filter-date" class="filter-input">
-            <button class="search-button" onclick="filterByDate()">Search</button>
+            <button id="FilterByDateButton" class="search-button">Search</button>
         </div>
         <div class="search-button-container">
             <label for="filter-account">Search by Account Name:</label>
             <input type="text" id="filter-account" class="filter-input">
-            <button class="search-button" onclick="filterAccount()">Search</button>
+            <button id="SearchByAccountNameButton" class="search-button">Search</button>
         </div>
         <div>
           <label for="filter-amount">Search by Amount:</label>
           <input type="number" id="filter-amount" class="filter-input">
-          <button class="search-button" onclick="filterAmount()">Search</button>
+          <button id="SearchByAmountButton" class="search-button">Search</button>
       </div>      
       <div>
         <label for="filter-status">Approval Status:</label>
@@ -34,14 +34,14 @@
             <option value="Approved">Approved</option>
             <option value="Rejected">Rejected</option>
         </select>
-        <button class="search-button" onclick="filterStatus()">Search</button>
+        <button id="ApprovalStatusButton" class="search-button">Search</button>
     </div>
     
     </div>
 
     <table>
         <thead>
-            <button onclick="displayForm()">Add Entry</button><br>
+            <button id="AddEntryButton">Add Entry</button><br>
             <div id="entryForm" style="display: none;">
                 <input type="date" id="dateCreated" placeholder="Date Created"><br>
                 <input type="text" id="accountDebited" placeholder="Account Debited"><br>
@@ -56,7 +56,7 @@
                     <option value="Rejected">Rejected</option>
                 </select><br>
                 <textarea id="comments" placeholder="Comments"></textarea><br>
-                <button onclick="addEntry()">Submit</button><br>
+                <button id="SubmitEntryFormButton">Submit</button><br>
             </div>
             <tr>
                 <th>Date Created</th>
@@ -75,7 +75,28 @@
         </tbody>
     </table>
 
-    <script>
+	
+	
+  <script type="module">
+//import and initialization of the firebase database app
+	import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+	import { getDatabase, set, get, update, remove, ref, child, onValue} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+	import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+	import { serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA3C8jafXUUD2s--XEzzfJfVybXs0ZBJyo",
+  authDomain: "budget-buddy-65565.firebaseapp.com",
+  projectId: "budget-buddy-65565",
+  storageBucket: "budget-buddy-65565.appspot.com",
+  messagingSenderId: "416172669900",
+  appId: "1:416172669900:web:49618f6822c7d660f5fb69",
+  measurementId: "G-W4MRFFH4JV"
+};
+const app = initializeApp(firebaseConfig);
+		
+		
+		
       function filterAccount() {
           var inputDate = document.getElementById('filter-date').value;
           var inputAccount = document.getElementById('filter-account').value.toLowerCase();
@@ -164,6 +185,9 @@
     }
 
     function addEntry() {
+		const db = getDatabase(); //constants for database access
+		const dbref = ref(db); //constants for database access
+		
         document.getElementById('entryForm').style.display = 'none';
 
         var table = document.getElementById("ledger-entries");
@@ -178,6 +202,7 @@
         var file = document.getElementById("file").value;
         var status = document.getElementById("status").value;
         var comments = document.getElementById("comments").value;
+		var entryID = 0; //Journal database entries key
 
         // Add the form inputs to the new row
         row.insertCell(0).innerHTML = dateCreated;
@@ -200,14 +225,52 @@
         document.getElementById("file").value = "";
         document.getElementById("status").value = "";
         document.getElementById("comments").value = "";
+		
+		//This following portion of code gets a key value to use for the Journal data entry addition. The entry key value is stored in another firebase database
+		get(child(dbref, "EntryKey/" + "EntryNo"))
+          .then((snapshot) => {
+			   entryID = snapshot.val().EntryID;
+			   var entryIDUpdate = entryID+1;
+			   update(ref(db, "EntryKey/" + "EntryNo"), {
+				EntryID: entryIDUpdate
+			})
+          })
+		
+		
+		//This portion of code puts the journal information into the Journal database
+		setTimeout(function(){
+			set(ref(db, "Journal/" + entryID), {
+				DateCreated: dateCreated,
+				AccountDebited: accountDebited,
+				Debit: debit,
+				AccountCredited: accountCredited,
+				Credit: credit,
+				EntryType: entryType,
+				File: file,
+				Status: status,
+				Comments: comments
+			})
+		},250)
+
 
         if (!dateCreated.value || !accountDebited.value || !debit.value || !accountCredited.value || !credit.value || !entryType.value || !file.value || !status.value || !comments.value) {
             alert('Please fill out all fields before submitting.');
             return false;
         }
+
     }
 
+		
+		//Event listeners for all page buttons
+		AddEntryButton.addEventListener("click", displayForm);
+		FilterByDateButton.addEventListener("click", filterByDate);
+		ApprovalStatusButton.addEventListener("click", filterStatus);
+		SearchByAccountNameButton.addEventListener("click", filterAccount);
+		SearchByAmountButton.addEventListener("click", filterAmount);
+		SubmitEntryFormButton.addEventListener("click", addEntry);
+		
   </script>
+	
 </body>
 
 </html>
