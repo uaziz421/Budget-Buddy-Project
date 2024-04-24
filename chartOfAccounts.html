@@ -192,7 +192,7 @@
       let finStatement;
       let debit;
       let credit;
-	  let changeLog = serverTimestamp();
+	  let dateTimeAdded;
 
       window.onload = getAccts();
 
@@ -253,7 +253,7 @@
             finStatement = childSnapshot.val().Statement;
             debit = childSnapshot.val().DebitAmount;
             credit = childSnapshot.val().CreditAmount;
-			change = childSnapshot.val().DateTimeEdited;
+			      dateTimeAdded = serverTimestamp();
 
             if (
               searchTerm.value == accountNumber ||
@@ -264,7 +264,7 @@
               searchTerm.value == accountSubcategory ||
               searchTerm.value == addedBy ||
               searchTerm.value == finStatement ||
-			  searchTerm.value == change
+			  searchTerm.value == dateTimeAdded 
             ) {
               AccountAddToTable();
             }
@@ -334,7 +334,7 @@
           "AccountSubcategory",
           "Statement",
           "AddedBy",
-		  "Change Log"
+		  "DateTimeEdited"
         ].forEach((i) => {
           let tableData = document.createElement("td");
           tableData.textContent = dataFromAccount[i];
@@ -353,10 +353,17 @@
           };
         })(dataFromAccount);
 
+        // button to view logs for file. Need to create function that pulls before and after logs of each account
+        let viewLogbtn = document.createElement("button");
+        viewLogbtn.className = "btn btn-primary btn-sm";
+        viewLogbtn.textContent = "View Logs";
+
+
         let tableDataBtn = document.createElement("td");
         tableBody.appendChild(tableRow);
         tableDataBtn.appendChild(createEntrybtn);
         tableRow.appendChild(tableDataBtn);
+        tableRow.appendChild(viewLogbtn);
       }
 
       setTimeout(function () {
