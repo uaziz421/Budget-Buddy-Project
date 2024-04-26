@@ -1,55 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Accounting Ledger</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
 
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-        }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+      }
 
-        th {
-            background-color: #f5f5f5;
-        }
+      th {
+        background-color: #f5f5f5;
+      }
 
-        .filter-container {
+      .filter-container {
         display: flex;
         justify-content: space-between;
         margin-bottom: 20px;
         flex-wrap: wrap;
-    }
+      }
 
-    .filter-container div {
+      .filter-container div {
         display: flex;
         align-items: center;
         margin-bottom: 10px;
-    }
+      }
 
-    .filter-container label {
+      .filter-container label {
         margin-right: 10px;
-    }
+      }
 
-        .filter-input {
+      .filter-input {
         padding: 5px;
         margin-right: 10px;
         border: 1px solid #ccc;
@@ -57,92 +58,102 @@
         width: 150px;
       }
 
-        select.filter-input {
-            width: 150px;
-        }
+      select.filter-input {
+        width: 150px;
+      }
 
-        button {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+      button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
 
-        button:hover {
-            background-color: #0056b3;
-        }
+      button:hover {
+        background-color: #0056b3;
+      }
 
-        input[type="button"] {
-            background-color: #ccc;
-            color: #333;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+      input[type="button"] {
+        background-color: #ccc;
+        color: #333;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
 
-        input[type="button"]:hover {
-            background-color: #999;
-        }
+      input[type="button"]:hover {
+        background-color: #999;
+      }
 
-        .search-button-container {
-            display: flex;
-            align-items: center;
-        }
+      .search-button-container {
+        display: flex;
+        align-items: center;
+      }
 
-        .search-button {
-            margin-left: 10px;
-        }
+      .search-button {
+        margin-left: 10px;
+      }
     </style>
-</head>
-<body>
-    <input type="button" value="HELP" style="float: right;">
+  </head>
+  <body>
+    <input type="button" value="HELP" style="float: right" />
     <h1>Accounting Ledger</h1>
 
     <div class="filter-container">
-        <div>
-            <label for="filter-date">Filter by Date:</label>
-            <input type="date" id="filter-date" class="filter-input">
-            <button class="search-button" onclick="filterByDate()">Search</button>
-        </div>
-        <div class="search-button-container">
-            <label for="filter-account">Search by Account Name:</label>
-            <input type="text" id="filter-account" class="filter-input">
-            <button class="search-button" onclick="updateLedger()">Search</button>
-        </div>
-        <div>
-          <label for="filter-amount">Search by Amount:</label>
-          <input type="number" id="filter-amount" class="filter-input">
-          <button class="search-button" onclick="updateLedgerAmount()">Search</button>
-      </div>      
+      <div>
+        <label for="filter-date">Filter by Date:</label>
+        <input type="date" id="filter-date" class="filter-input" />
+        <button class="search-button" onclick="filterByDate()">Search</button>
+      </div>
+      <div class="search-button-container">
+        <label for="filter-account">Search by Account Name:</label>
+        <input type="text" id="filter-account" class="filter-input" />
+        <button class="search-button" onclick="updateLedger()">Search</button>
+      </div>
+      <div>
+        <label for="filter-amount">Search by Amount:</label>
+        <input type="number" id="filter-amount" class="filter-input" />
+        <button class="search-button" onclick="updateLedgerAmount()">
+          Search
+        </button>
+      </div>
       <div>
         <label for="filter-status">Approval Status:</label>
         <select id="filter-status" class="filter-input">
-            <option value="">All</option>
-            <option value="Pending">Pending</option>
-            <option value="Approved">Approved</option>
-            <option value="Rejected">Rejected</option>
+          <option value="">All</option>
+          <option value="Pending">Pending</option>
+          <option value="Approved">Approved</option>
+          <option value="Rejected">Rejected</option>
         </select>
-        <button class="search-button" onclick="updateLedgerStatus()">Search</button>
-    </div>
-    
+        <button class="search-button" onclick="updateLedgerStatus()">
+          Search
+        </button>
+      </div>
     </div>
 
     <table>
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Post Ref</th>
-                <th>Description</th>
-                <th>Debit</th>
-                <th>Credit</th>
-                <th>Balance</th>
-                <th>Approval Status</th>
-            </tr>
-        </thead>
-        <tbody id="ledger-entries">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Post Ref</th>
+          <th>Description</th>
+          <th>Debit</th>
+          <th>Credit</th>
+          <th>Balance</th>
+          <th>Approval Status</th>
+        </tr>
+      </thead>
+      <tbody id="entriesFromJournal">
+        <tr></tr>
+        <tr onclick="goToChartOfAccounts()">
+          <td>JE-001</td>
+        </tr>
+      </tbody>
+
+      <!-- <tbody id="ledger-entries">
           <tr>
             <td>2024-04-15</td>
             <td>J123</td>
@@ -161,94 +172,182 @@
             <td>$400</td>
             <td class="sample-data">Pending</td>
         </tr>
-        </tbody>
+        </tbody> -->
     </table>
 
-    <script>
+    <script type="module">
+      ///////////////////////////////////////////////
+
+      // filter functionality code
+
       function updateLedger() {
-          var inputDate = document.getElementById('filter-date').value;
-          var inputAccount = document.getElementById('filter-account').value.toLowerCase();
-          var inputAmount = document.getElementById('filter-amount').value;
-          var inputStatus = document.getElementById('filter-status').value;
-  
-          var ledgerEntries = document.getElementById('ledger-entries').children;
-  
-          for (var i = 0; i < ledgerEntries.length; i++) {
-              var columns = ledgerEntries[i].children;
-  
-              var date = columns[0].innerText;
-              var account = columns[1].innerText.toLowerCase();
-              var amount = columns[3].innerText || columns[4].innerText;
-              var status = columns[6].innerText;
-  
-              if ((inputDate && !date.includes(inputDate)) ||
-                  (inputAccount && !account.includes(inputAccount)) ||
-                  (inputAmount && !amount.includes(inputAmount)) ||
-                  (inputStatus && status !== inputStatus)) {
-                  ledgerEntries[i].style.display = 'none';
-              } else {
-                  ledgerEntries[i].style.display = '';
-              }
+        console.log("hello");
+        var inputDate = document.getElementById("filter-date").value;
+        var inputAccount = document
+          .getElementById("filter-account")
+          .value.toLowerCase();
+        var inputAmount = document.getElementById("filter-amount").value;
+        var inputStatus = document.getElementById("filter-status").value;
+
+        var ledgerEntries =
+          document.getElementById("entriesFromJournal").children;
+
+        for (var i = 0; i < ledgerEntries.length; i++) {
+          var columns = ledgerEntries[i].children;
+
+          var date = columns[0].innerText;
+          var account = columns[1].innerText.toLowerCase();
+          var amount = columns[3].innerText || columns[4].innerText;
+          var status = columns[6].innerText;
+
+          if (
+            (inputDate && !date.includes(inputDate)) ||
+            (inputAccount && !account.includes(inputAccount)) ||
+            (inputAmount && !amount.includes(inputAmount)) ||
+            (inputStatus && status !== inputStatus)
+          ) {
+            ledgerEntries[i].style.display = "none";
+          } else {
+            ledgerEntries[i].style.display = "";
           }
+        }
       }
 
-    function updateLedgerAmount() {
-        var inputAmount = document.getElementById('filter-amount').value;
+      function updateLedgerAmount() {
+        var inputAmount = document.getElementById("filter-amount").value;
 
-        var ledgerEntries = document.getElementById('ledger-entries').children;
-
-        for (var i = 0; i < ledgerEntries.length; i++) {
-            var columns = ledgerEntries[i].children;
-
-            var amount = columns[3].innerText || columns[4].innerText;
-
-            if (inputAmount && !amount.includes(inputAmount)) {
-                ledgerEntries[i].style.display = 'none';
-            } else {
-                ledgerEntries[i].style.display = '';
-            }
-        }
-    }
-
-    function updateLedgerStatus() {
-        var inputStatus = document.getElementById('filter-status').value;
-
-        var ledgerEntries = document.getElementById('ledger-entries').children;
+        var ledgerEntries =
+          document.getElementById("entriesFromJournal").children;
 
         for (var i = 0; i < ledgerEntries.length; i++) {
-            var columns = ledgerEntries[i].children;
+          var columns = ledgerEntries[i].children;
 
-            var status = columns[6].innerText;
+          var amount = columns[3].innerText || columns[4].innerText;
 
-            if (inputStatus && status !== inputStatus) {
-                ledgerEntries[i].style.display = 'none';
-            } else {
-                ledgerEntries[i].style.display = '';
-            }
+          if (inputAmount && !amount.includes(inputAmount)) {
+            ledgerEntries[i].style.display = "none";
+          } else {
+            ledgerEntries[i].style.display = "";
+          }
         }
-    }
+      }
 
-    function filterByDate() {
+      function updateLedgerStatus() {
+        var inputStatus = document.getElementById("filter-status").value;
+
+        var ledgerEntries =
+          document.getElementById("entriesFromJournal").children;
+
+        for (var i = 0; i < ledgerEntries.length; i++) {
+          var columns = ledgerEntries[i].children;
+
+          var status = columns[6].innerText;
+
+          if (inputStatus && status !== inputStatus) {
+            ledgerEntries[i].style.display = "none";
+          } else {
+            ledgerEntries[i].style.display = "";
+          }
+        }
+      }
+
+      function filterByDate() {
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("filter-date");
         filter = input.value;
-        table = document.getElementById("ledger-entries");
+        table = document.getElementById("entriesFromJournal");
         tr = table.getElementsByTagName("tr");
 
         for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[0];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }       
+          td = tr[i].getElementsByTagName("td")[0];
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }
         }
-    }
+      }
 
-  </script>
-</body>
+      /////////////////////////////////////////
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import {
+        ref,
+        onValue,
+        getDatabase,
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
+      const firebaseConfig = {
+        apiKey: "AIzaSyA3C8jafXUUD2s--XEzzfJfVybXs0ZBJyo",
+        authDomain: "budget-buddy-65565.firebaseapp.com",
+        projectId: "budget-buddy-65565",
+        storageBucket: "budget-buddy-65565.appspot.com",
+        messagingSenderId: "416172669900",
+        appId: "1:416172669900:web:49618f6822c7d660f5fb69",
+        measurementId: "G-W4MRFFH4JV",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app);
+
+      window.onload = () => {
+        GetJournalEntries();
+      };
+
+      function BalanceCalculation(deb, cred) {
+        const creditAmount = parseFloat(cred) || 0;
+        const debitAmount = parseFloat(deb) || 0;
+
+        return (debitAmount - creditAmount).toFixed(2);
+      }
+
+      function GetJournalEntries() {
+        const journalref = ref(db, "journalEntries");
+        onValue(
+          journalref,
+          (snapshot) => {
+            const tableBody = document.getElementById("entriesFromJournal");
+            const journalentries = snapshot.val();
+            tableBody.innerHTML = "";
+
+            if (journalentries) {
+              Object.keys(journalentries).forEach((data) => {
+                const tableRow = document.createElement("tr");
+                const journalentry = journalentries[data];
+
+                tableRow.innerHTML = `
+                    <td>${journalentry.date || ""}</td>
+                    <td>${journalentry.postRef || ""}</td>
+                    <td>${journalentry.description || ""}</td>
+                    <td>${
+                      journalentry.debit
+                        ? parseFloat(journalentry.debit).toFixed(2)
+                        : "0"
+                    }</td>
+                    <td>${
+                      journalentry.credit
+                        ? parseFloat(journalentry.credit).toFixed(2)
+                        : "0"
+                    }</td>
+                    <td>${BalanceCalculation(
+                      journalentry.debit,
+                      journalentry.credit
+                    )}</td>
+                    <td>${journalentry.approvalStatus || "Pending"}</td>
+                `;
+                tableBody.appendChild(tableRow);
+              });
+            } else {
+              alert("There are no journal entries found.");
+            }
+          },
+          (err) => {
+            console.error(err);
+          }
+        );
+      }
+    </script>
+  </body>
 </html>
