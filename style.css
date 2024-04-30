@@ -268,7 +268,7 @@ label {
 }
 
 #debitprogress:after {
-  content: '80%';
+  content: "80%";
   display: block;
   background: rgb(0, 255, 4);
   width: 80%;
@@ -278,12 +278,20 @@ label {
 }
 
 #creditprogress:after {
-  content: '60%';
+  content: "60%";
   display: block;
   background: rgb(224, 239, 19);
   width: 60%;
   height: 100%;
   border-radius: 9px;
   text-align: center;
-  
+}
+
+.viewAccountLabel {
+  margin-top: 10px;
+  margin-bottom: -8px;
+}
+
+.accountViewContainer {
+  margin-bottom: 10px;
 }
