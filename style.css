@@ -295,3 +295,25 @@ label {
 .accountViewContainer {
   margin-bottom: 10px;
 }
+
+#getAccountName {
+  background-color: rgb(57, 109, 164);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  border: none;
+  margin-top: 14px;
+}
+
+#getAccountNumber {
+  background-color: rgb(57, 109, 164);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  border: none;
+  margin-top: 14px;
+}
