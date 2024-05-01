@@ -32,6 +32,32 @@
         padding: 10px;
       }
 
+      #clearButton {
+        background-color: rgb(57, 109, 164);
+        color: #fff;
+        border-color: rgb(57, 109, 164);
+        border-radius: 4px;
+      }
+
+      #searchButton {
+        background-color: rgb(57, 109, 164);
+        color: #fff;
+        border-color: rgb(57, 109, 164);
+        border-radius: 4px;
+      }
+
+      #adminButton {
+        background-color: rgb(57, 109, 164);
+        color: #fff;
+        border-color: rgb(57, 109, 164);
+        border-radius: 4px;
+      }
+
+      .btn {
+        background-color: rgb(57, 109, 164);
+        border-color: rgb(57, 109, 164);
+      }
+
       td {
         cursor: pointer;
       }
@@ -468,14 +494,14 @@
           .then((snapshot) => {
             if (snapshot.exists()) {
               displayName.innerHTML =
-                snapshot.val().FirstName + " " + snapshot.val().LastName; //get current user first and last name
+                snapshot.val().FirstName + " " + snapshot.val().LastName;
               displayUsername.innerHTML = snapshot.val().Username;
             }
           })
           .catch((error) => {
             alert(error);
           });
-      }, 250); //delay is in milliseconds; delay needed to load page then display name.
+      }, 250);
 
       searchButton.addEventListener("click", TableSearch);
       clearButton.addEventListener("click", ClearFilter);
