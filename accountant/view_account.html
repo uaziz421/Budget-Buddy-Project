@@ -1,248 +1,436 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8" />
     <title>View Account</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="../style.css" rel="stylesheet" type="text/css" />
   </head>
 
-<body>
-	<header>
-	<!-- This code displays logo, username -->
-		<a href="dashboard.html"><img src="../Logos/Logo1.jpeg" alt="Logo1" width="150" align="right"></a>
-		<h3 id="displayName" type="text" align="left"></h3>
-		<h3 id="displayUsername" type="text" align="left"></h3>
-		<input type="date" id="showCal" align="left">
-  </header>
-	<br><br>
-	<label>Enter Account NAME to View:</label>
-    <input type="text" name="Account Name Search" id="accountNameSearchField" />        
-	<input type="submit" name="Get Account" id="getAccountName" value="Get Account Info" />
-	<h4> ------OR------</h4>
-	<label>Enter Account NUMBER to Views:</label>
-    <input type="text" name="Account Number Search" id="accountNumSearchField" />        
-	<input type="submit" name="Get Account" id="getAccountNumber" value="Get Account Info" />
-	
-    <div>
-      <br>
-		<h3>View Account</h3>
-        <label>Account Name:</label>
-        <input type="text" name="Account Name" id="accountNameField" readonly="readonly" />
-		<br>
-
-        <label>Account Number:</label>
-        <input type="number" name="Account Number" id="accountNumberField" readonly="readonly" />
-		<br>
-		
-		<label>Account Order:</label>
-		<input type="number" name="Account Order" id="accountOrderField" readonly="readonly"/>
-		<br>
-		
-        <label>Account Description:</label>
-        <input type="text" name="Account Description" id="accountDescField"  readonly="readonly"/>
-		<br>
-
-        <label>Normal Side:</label>
-		<input type="text" name="Normal Side" id="normalSideField" readonly="readonly" />
-		<br>
-		
-        <label>Account Category:</label>
-		<input type="text" name="Account Category" id="accountCategoryField" readonly="readonly" />
-		<br>
-		
-        <label>Account Subcategory:</label>
-		<input type="text" name="Account Subcategory" id="accountSubcategoryField" readonly="readonly" />
-		<br>
-
-		
-		<label>Initial Balance:</label>
-        <input type="number" name="Initial Balance" id="initialBalanceField" readonly="readonly" />
-		<br>
-		
-		<label>Debit Amount:</label>
-        <input type="number" name="Debit" id="debitAmountField" readonly="readonly" />
-		<br>
-		
-		<label>Credit Amount:</label>
-        <input type="number" name="Credit" id="creditAmountField" readonly="readonly" />
-		<br>
-		
-		<label>Account Balance:</label>
-        <input type="number" name="Balance" id="accountBalanceField" readonly="readonly" />
-		<br>
-		
-        <label>Date and Time Account Added:</label>
-        <input type="text" name="Date and Time Added" id="dateTimeAcctAddedField"  readonly="readonly"/>
-		<br>
-		
-		<label>Added by User:</label>
-        <input type="text" name="User Name" id="addedByField" readonly="readonly" />
-		<br>
-		  
-		<label>Date and Time Account Last Edited:</label>
-        <input type="text" name="Date and Time Added" id="dateTimeAcctEditedField" readonly="readonly" />
-		<br>
-		
-		<label>Account Last Edited By:</label>
-        <input type="text" name="Date and Time Added" id="editedByField" readonly="readonly" />
-		<br>
-		
-		<label>Statement:</label>
-		<input type="text" name="Statement" id="statementField" readonly="readonly" />
-		<br>
-
-        <label>Active:</label>
-		<input type="text" name="Active" id="activeStatusField" readonly="readonly" />
-		<br>
-		
-		<label>Comment:</label>
-        <input type="text" name="Comment" id="commentField" readonly="readonly" />
-			
-		<br>
-		<br>
-		<br>
-		
-		<h4><a href="../accountant_dashboard.html">Return to Accountant Dashboard</a></h4>
+  <body>
+    <header>
+      <!-- This code displays logo, username -->
+      <a href="dashboard.html"
+        ><img src="../Logos/Logo1.jpeg" alt="Logo1" width="150" align="right"
+      /></a>
+      <h3 id="displayName" type="text" align="left"></h3>
+      <h3 id="displayUsername" type="text" align="left"></h3>
+      <input type="date" id="showCal" align="left" />
+    </header>
+    <br /><br />
+    <div class="viewAccount">
+      <div class="accountViewContainer">
+        <label>Enter Account NAME to View:</label>
+      </div>
     </div>
-	
+    <input type="text" name="Account Name Search" id="accountNameSearchField" />
+    <br />
+    <input
+      type="submit"
+      name="Get Account"
+      id="getAccountName"
+      value="Get Account Info"
+    />
+    <h4>------OR------</h4>
+    <div class="viewAccount">
+      <div class="viewAccountLabel">
+        <label>Enter Account NUMBER to Views:</label>
+      </div>
+      <br />
+      <input
+        type="text"
+        name="Account Number Search"
+        id="accountNumSearchField"
+      />
+      <br />
+      <input
+        type="submit"
+        name="Get Account"
+        id="getAccountNumber"
+        value="Get Account Info"
+      />
+    </div>
 
-<script type="module">
-  // Import the functions you need from the SDKs you need
-	import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-	import { getDatabase, set, get, update, remove, ref, child, onValue} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-	import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-	import { serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+    <div class="viewAccount">
+      <br />
+      <h3>View Account</h3>
+      <br />
+      <div class="viewAccountLabel">
+        <label>Account Name:</label>
+      </div>
+      <br />
 
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+      <input
+        type="text"
+        name="Account Name"
+        id="accountNameField"
+        readonly="readonly"
+      />
+      <br />
+      <br />
+      <div class="viewAccountLabel">
+        <label>Account Number:</label>
+      </div>
+      <br />
+      <input
+        type="number"
+        name="Account Number"
+        id="accountNumberField"
+        readonly="readonly"
+      />
+      <br />
+      <br />
+      <div class="viewAccountLabel">
+        <label>Account Order:</label>
+      </div>
+      <br />
+      <input
+        type="number"
+        name="Account Order"
+        id="accountOrderField"
+        readonly="readonly"
+      />
+      <br />
+      <br />
+      <div class="viewAccountLabel">
+        <label>Account Description:</label>
+      </div>
+      <br />
+      <input
+        type="text"
+        name="Account Description"
+        id="accountDescField"
+        readonly="readonly"
+      />
+      <br />
+      <br />
+      <div class="viewAccountLabel">
+        <label>Normal Side:</label>
+      </div>
+      <br />
+      <input
+        type="text"
+        name="Normal Side"
+        id="normalSideField"
+        readonly="readonly"
+      />
+      <br />
+      <br />
+      <div class="viewAccountLabel">
+        <label>Account Category:</label>
+      </div>
+      <br />
+      <input
+        type="text"
+        name="Account Category"
+        id="accountCategoryField"
+        readonly="readonly"
+      />
+      <br />
+      <br />
+      <div class="viewAccountLabel">
+        <label>Account Subcategory:</label>
+      </div>
+      <br />
+      <input
+        type="text"
+        name="Account Subcategory"
+        id="accountSubcategoryField"
+        readonly="readonly"
+      />
+      <br />
+      <br />
+      <div class="viewAccountLabel">
+        <label>Initial Balance:</label>
+      </div>
+      <br />
+      <input
+        type="number"
+        name="Initial Balance"
+        id="initialBalanceField"
+        readonly="readonly"
+      />
+      <br />
+      <br />
+      <div class="viewAccountLabel">
+        <label>Debit Amount:</label>
+      </div>
+      <br />
+      <input
+        type="number"
+        name="Debit"
+        id="debitAmountField"
+        readonly="readonly"
+      />
+      <br />
+      <br />
+      <div class="viewAccountLabel">
+        <label>Credit Amount:</label>
+      </div>
+      <br />
+      <input
+        type="number"
+        name="Credit"
+        id="creditAmountField"
+        readonly="readonly"
+      />
+      <br />
+      <br />
+      <div class="viewAccountLabel">
+        <label>Account Balance:</label>
+      </div>
+      <br />
+      <input
+        type="number"
+        name="Balance"
+        id="accountBalanceField"
+        readonly="readonly"
+      />
+      <br />
+      <br />
+      <div class="viewAccountLabel">
+        <label>Date and Time Account Added:</label>
+      </div>
+      <br />
+      <input
+        type="text"
+        name="Date and Time Added"
+        id="dateTimeAcctAddedField"
+        readonly="readonly"
+      />
+      <br />
+      <br />
+      <div class="viewAccountLabel">
+        <label>Added by User:</label>
+      </div>
+      <br />
+      <input
+        type="text"
+        name="User Name"
+        id="addedByField"
+        readonly="readonly"
+      />
+      <br />
+      <br />
+      <div class="viewAccountLabel">
+        <label>Date and Time Account Last Edited:</label>
+      </div>
+      <br />
+      <input
+        type="text"
+        name="Date and Time Added"
+        id="dateTimeAcctEditedField"
+        readonly="readonly"
+      />
+      <br />
+      <br />
+      <div class="viewAccountLabel">
+        <label>Account Last Edited By:</label>
+      </div>
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyA3C8jafXUUD2s--XEzzfJfVybXs0ZBJyo",
-  authDomain: "budget-buddy-65565.firebaseapp.com",
-  projectId: "budget-buddy-65565",
-  storageBucket: "budget-buddy-65565.appspot.com",
-  messagingSenderId: "416172669900",
-  appId: "1:416172669900:web:49618f6822c7d660f5fb69",
-  measurementId: "G-W4MRFFH4JV"
-};
+      <br />
+      <input
+        type="text"
+        name="Date and Time Added"
+        id="editedByField"
+        readonly="readonly"
+      />
+      <br />
+      <br />
+      <div class="viewAccountLabel">
+        <label>Statement:</label>
+      </div>
 
-  	// Initialize Firebase
-	const app = initializeApp(firebaseConfig);
-	const db = getDatabase();
-	const dbref = ref(db);
-	const auth = getAuth();
-	const user = auth.currentUser;
-			
-	var accountNameSearch = document.querySelector("#accountNameSearchField"); //gets account info to edit
-	
-	
-	//This function gets and displays the account info to display (Search by Account Name)
-	function GetAccountName() {
-		const dbref = ref(db);
-		
-		//This portion of code displays the account information
-		get(child(dbref, "Accounts/" + accountNameSearch.value))
-		.then ((snapshot)=>{
-			if(snapshot.exists()) {
-				//Check status of account. If not active, do not show to accountant/user
-				if(snapshot.val().ActiveStatus=="N") {
-					alert("Account is not active")
-				} else {
-					accountNameField.value = snapshot.val().AccountName;
-					accountNumberField.value = snapshot.val().AccountNumber;
-					accountDescField.value = snapshot.val().AccountDesc;
-					normalSideField.value = snapshot.val().NormalSide;
-					accountCategoryField.value = snapshot.val().AccountCategory;
-					accountSubcategoryField.value = snapshot.val().AccountSubcategory;
-					initialBalanceField.value = snapshot.val().InitialBalance;
-					debitAmountField.value = snapshot.val().DebitAmount;
-					creditAmountField.value = snapshot.val().CreditAmount;
-					accountBalanceField.value = snapshot.val().AccountBalance;
-					dateTimeAcctAddedField.value = snapshot.val().DateTimeAdded;
-					addedByField.value = snapshot.val().AddedBy;
-					dateTimeAcctEditedField.value = snapshot.val().DateTimeEdited;
-					editedByField.value = snapshot.val().EditedBy;
-					accountOrderField.value = snapshot.val().AccountOrder;
-					statementField.value = snapshot.val().Statement;
-					activeStatusField.value = snapshot.val().ActiveStatus;
-					commentField.value = snapshot.val().Comment;
-				}
-			}
-		})
-	}
-	
-	//This function gets and displays the account info to display (Search by Account Number)
-	function GetAccountNumber() {
-		const dbref = ref(db);
-		const dbrefAccounts = ref(db, 'Accounts/');
-		var retAccountName = "";
-		
-		//This portion searches each account record to find the desired account
-		onValue(dbrefAccounts, (snapshot) => {
-			snapshot.forEach((childSnapshot) => {
-				if(accountNumSearchField.value == childSnapshot.val().AccountNumber) {
-					retAccountName = childSnapshot.val().AccountName;
-					return;
-				}
-			})
-		})
-		
-		//This portion of code displays the account information
-		setTimeout(function(){	
-			get(child(dbref, "Accounts/" + retAccountName))
-			.then ((snapshot)=>{
-				if(snapshot.exists()) {
-				//Check status of account. If not active, do not show to accountant/user
-					if(snapshot.val().ActiveStatus=="N") {
-						alert("Account is not active")
-					} else {
-						accountNameField.value = snapshot.val().AccountName;
-						accountNumberField.value = snapshot.val().AccountNumber;
-						accountDescField.value = snapshot.val().AccountDesc;
-						normalSideField.value = snapshot.val().NormalSide;
-						accountCategoryField.value = snapshot.val().AccountCategory;
-						accountSubcategoryField.value = snapshot.val().AccountSubcategory;
-						initialBalanceField.value = snapshot.val().InitialBalance;
-						debitAmountField.value = snapshot.val().DebitAmount;
-						creditAmountField.value = snapshot.val().CreditAmount;
-						accountBalanceField.value = snapshot.val().AccountBalance;
-						dateTimeAcctAddedField.value = snapshot.val().DateTimeAdded;
-						addedByField.value = snapshot.val().AddedBy;
-						dateTimeAcctEditedField.value = snapshot.val().DateTimeEdited;
-						editedByField.value = snapshot.val().EditedBy;
-						accountOrderField.value = snapshot.val().AccountOrder;
-						statementField.value = snapshot.val().Statement;
-						activeStatusField.value = snapshot.val().ActiveStatus;
-						commentField.value = snapshot.val().Comment;
-					}
-				}
-			})
-		},150)
-	}
-	
-	
-	//Displays current user username and photo
-	setTimeout(function(){
+      <br />
+      <input
+        type="text"
+        name="Statement"
+        id="statementField"
+        readonly="readonly"
+      />
+      <br />
+      <br />
+      <div class="viewAccountLabel">
+        <label>Active:</label>
+      </div>
+
+      <br />
+      <input
+        type="text"
+        name="Active"
+        id="activeStatusField"
+        readonly="readonly"
+      />
+      <br />
+      <br />
+      <div class="viewAccountLabel">
+        <label>Comment:</label>
+      </div>
+
+      <br />
+      <input type="text" name="Comment" id="commentField" readonly="readonly" />
+
+      <br />
+      <br />
+      <br />
+
+      <h4>
+        <a href="../accountant_dashboard.html"
+          >Return to Accountant Dashboard</a
+        >
+      </h4>
+    </div>
+
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import {
+        getDatabase,
+        set,
+        get,
+        update,
+        remove,
+        ref,
+        child,
+        onValue,
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+      import {
+        getAuth,
+        createUserWithEmailAndPassword,
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+      import { serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyA3C8jafXUUD2s--XEzzfJfVybXs0ZBJyo",
+        authDomain: "budget-buddy-65565.firebaseapp.com",
+        projectId: "budget-buddy-65565",
+        storageBucket: "budget-buddy-65565.appspot.com",
+        messagingSenderId: "416172669900",
+        appId: "1:416172669900:web:49618f6822c7d660f5fb69",
+        measurementId: "G-W4MRFFH4JV",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase();
+      const dbref = ref(db);
+      const auth = getAuth();
+      const user = auth.currentUser;
+
+      var accountNameSearch = document.querySelector("#accountNameSearchField"); //gets account info to edit
+
+      //This function gets and displays the account info to display (Search by Account Name)
+      function GetAccountName() {
+        const dbref = ref(db);
+
+        //This portion of code displays the account information
+        get(child(dbref, "Accounts/" + accountNameSearch.value)).then(
+          (snapshot) => {
+            if (snapshot.exists()) {
+              //Check status of account. If not active, do not show to accountant/user
+              if (snapshot.val().ActiveStatus == "N") {
+                alert("Account is not active");
+              } else {
+                accountNameField.value = snapshot.val().AccountName;
+                accountNumberField.value = snapshot.val().AccountNumber;
+                accountDescField.value = snapshot.val().AccountDesc;
+                normalSideField.value = snapshot.val().NormalSide;
+                accountCategoryField.value = snapshot.val().AccountCategory;
+                accountSubcategoryField.value =
+                  snapshot.val().AccountSubcategory;
+                initialBalanceField.value = snapshot.val().InitialBalance;
+                debitAmountField.value = snapshot.val().DebitAmount;
+                creditAmountField.value = snapshot.val().CreditAmount;
+                accountBalanceField.value = snapshot.val().AccountBalance;
+                dateTimeAcctAddedField.value = snapshot.val().DateTimeAdded;
+                addedByField.value = snapshot.val().AddedBy;
+                dateTimeAcctEditedField.value = snapshot.val().DateTimeEdited;
+                editedByField.value = snapshot.val().EditedBy;
+                accountOrderField.value = snapshot.val().AccountOrder;
+                statementField.value = snapshot.val().Statement;
+                activeStatusField.value = snapshot.val().ActiveStatus;
+                commentField.value = snapshot.val().Comment;
+              }
+            }
+          }
+        );
+      }
+
+      //This function gets and displays the account info to display (Search by Account Number)
+      function GetAccountNumber() {
+        const dbref = ref(db);
+        const dbrefAccounts = ref(db, "Accounts/");
+        var retAccountName = "";
+
+        //This portion searches each account record to find the desired account
+        onValue(dbrefAccounts, (snapshot) => {
+          snapshot.forEach((childSnapshot) => {
+            if (
+              accountNumSearchField.value == childSnapshot.val().AccountNumber
+            ) {
+              retAccountName = childSnapshot.val().AccountName;
+              return;
+            }
+          });
+        });
+
+        //This portion of code displays the account information
+        setTimeout(function () {
+          get(child(dbref, "Accounts/" + retAccountName)).then((snapshot) => {
+            if (snapshot.exists()) {
+              //Check status of account. If not active, do not show to accountant/user
+              if (snapshot.val().ActiveStatus == "N") {
+                alert("Account is not active");
+              } else {
+                accountNameField.value = snapshot.val().AccountName;
+                accountNumberField.value = snapshot.val().AccountNumber;
+                accountDescField.value = snapshot.val().AccountDesc;
+                normalSideField.value = snapshot.val().NormalSide;
+                accountCategoryField.value = snapshot.val().AccountCategory;
+                accountSubcategoryField.value =
+                  snapshot.val().AccountSubcategory;
+                initialBalanceField.value = snapshot.val().InitialBalance;
+                debitAmountField.value = snapshot.val().DebitAmount;
+                creditAmountField.value = snapshot.val().CreditAmount;
+                accountBalanceField.value = snapshot.val().AccountBalance;
+                dateTimeAcctAddedField.value = snapshot.val().DateTimeAdded;
+                addedByField.value = snapshot.val().AddedBy;
+                dateTimeAcctEditedField.value = snapshot.val().DateTimeEdited;
+                editedByField.value = snapshot.val().EditedBy;
+                accountOrderField.value = snapshot.val().AccountOrder;
+                statementField.value = snapshot.val().Statement;
+                activeStatusField.value = snapshot.val().ActiveStatus;
+                commentField.value = snapshot.val().Comment;
+              }
+            }
+          });
+        }, 150);
+      }
+
+      //Displays current user username and photo
+      setTimeout(function () {
         const user = auth.currentUser;
-		const dbref = ref(db);
-		
-		get(child(dbref, "People/" + user.displayName))
-		.then((snapshot)=>{
-			if(snapshot.exists()) {
-				displayName.innerHTML = snapshot.val().FirstName + " " + snapshot.val().LastName; //get current user first and last name
-				displayUsername.innerHTML = snapshot.val().Username;
+        const dbref = ref(db);
 
-			}
-		})
-		.catch((error)=>{
-			alert(error)
-		})
-   	},250); //delay is in milliseconds; delay needed to load page then display name.
-		
-	getAccountName.addEventListener("click", GetAccountName);
-	getAccountNumber.addEventListener("click", GetAccountNumber);
-</script>	
-</body>
+        get(child(dbref, "People/" + user.displayName))
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              displayName.innerHTML =
+                snapshot.val().FirstName + " " + snapshot.val().LastName; //get current user first and last name
+              displayUsername.innerHTML = snapshot.val().Username;
+            }
+          })
+          .catch((error) => {
+            alert(error);
+          });
+      }, 250); //delay is in milliseconds; delay needed to load page then display name.
+
+      getAccountName.addEventListener("click", GetAccountName);
+      getAccountNumber.addEventListener("click", GetAccountNumber);
+    </script>
+  </body>
 </html>

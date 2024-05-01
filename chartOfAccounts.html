@@ -11,6 +11,10 @@
       crossorigin="anonymous"
     />
     <style>
+      body {
+        background-color: rgb(248, 248, 248);
+      }
+
       .labs {
         display: inline-block;
         width: 100px;
@@ -26,6 +30,32 @@
 
       #journalTable td {
         padding: 10px;
+      }
+
+      #clearButton {
+        background-color: rgb(57, 109, 164);
+        color: #fff;
+        border-color: rgb(57, 109, 164);
+        border-radius: 4px;
+      }
+
+      #searchButton {
+        background-color: rgb(57, 109, 164);
+        color: #fff;
+        border-color: rgb(57, 109, 164);
+        border-radius: 4px;
+      }
+
+      #adminButton {
+        background-color: rgb(57, 109, 164);
+        color: #fff;
+        border-color: rgb(57, 109, 164);
+        border-radius: 4px;
+      }
+
+      .btn {
+        background-color: rgb(57, 109, 164);
+        border-color: rgb(57, 109, 164);
       }
 
       td {
@@ -73,7 +103,7 @@
           <th>Account Subcategory</th>
           <th>Financial Statement</th>
           <th>Created By</th>
-		  <th>Change Log</th>
+          <th>Change Log</th>
         </thead>
         <tbody id="AccountsTable">
           <tr></tr>
@@ -121,8 +151,8 @@
             <input type="text" id="NameMod" /> <br />
             <label class="labs">Created By: </label>>
             <input type="text" id="NameMod" /> <br />
-			<label class="labs">Change Log: </label>>
-			<input type="text" id="NameMod" /> <br />
+            <label class="labs">Change Log: </label>>
+            <input type="text" id="NameMod" /> <br />
           </div>
           <div class="modal-footer">
             <button
@@ -192,7 +222,7 @@
       let finStatement;
       let debit;
       let credit;
-	  let dateTimeAdded;
+      let dateTimeAdded;
 
       window.onload = getAccts();
 
@@ -253,7 +283,7 @@
             finStatement = childSnapshot.val().Statement;
             debit = childSnapshot.val().DebitAmount;
             credit = childSnapshot.val().CreditAmount;
-			      dateTimeAdded = serverTimestamp();
+            dateTimeAdded = serverTimestamp();
 
             if (
               searchTerm.value == accountNumber ||
@@ -264,7 +294,7 @@
               searchTerm.value == accountSubcategory ||
               searchTerm.value == addedBy ||
               searchTerm.value == finStatement ||
-			  searchTerm.value == dateTimeAdded 
+              searchTerm.value == dateTimeAdded
             ) {
               AccountAddToTable();
             }
@@ -295,7 +325,7 @@
             console.error(err);
           });
       }
-    // Defines varibales for log page for accounts
+      // Defines varibales for log page for accounts
       // let AfterAccountBalance;
       // let AfterAccountCategory;
       // let AfterAccountDesc;
@@ -424,7 +454,7 @@
           "AccountSubcategory",
           "Statement",
           "AddedBy",
-		  "DateTimeEdited"
+          "DateTimeEdited",
         ].forEach((i) => {
           let tableData = document.createElement("td");
           tableData.textContent = dataFromAccount[i];
@@ -447,10 +477,7 @@
         let viewLogbtn = document.createElement("button");
         viewLogbtn.className = "btn btn-primary btn-sm";
         viewLogbtn.textContent = "View Logs";
-        viewLogbtn.onclick = function(){
-          
-        }
-
+        viewLogbtn.onclick = function () {};
 
         let tableDataBtn = document.createElement("td");
         tableBody.appendChild(tableRow);
@@ -467,22 +494,22 @@
           .then((snapshot) => {
             if (snapshot.exists()) {
               displayName.innerHTML =
-                snapshot.val().FirstName + " " + snapshot.val().LastName; //get current user first and last name
+                snapshot.val().FirstName + " " + snapshot.val().LastName;
               displayUsername.innerHTML = snapshot.val().Username;
             }
           })
           .catch((error) => {
             alert(error);
           });
-      }, 250); //delay is in milliseconds; delay needed to load page then display name.
+      }, 250);
 
       searchButton.addEventListener("click", TableSearch);
       clearButton.addEventListener("click", ClearFilter);
     </script>
   </body>
   <form>
-	<input type = "button" value = "Print" onclick = "window.print()" />
- </form>
- <br>
- <input type = "button" value = "Save as PDF" onclick = "window.print()"/>
+    <input type="button" value="Print" onclick="window.print()" />
+  </form>
+  <br />
+  <input type="button" value="Save as PDF" onclick="window.print()" />
 </html>
