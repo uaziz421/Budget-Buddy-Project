@@ -7,86 +7,97 @@
   </head>
 
   <body>
-	<input type="button" value="HELP" style="float: right;">
-	 <!-- This code displays logo, username -->
-	<header>
-	<!-- This code displays logo, username -->
-		<a href="dashboard.html"><img src="Logos/Logo1.jpeg" alt="Logo1" width="150" align="right"></a>
-		<h3 id="displayName" type="text" align="left"></h3>
-		<h3 id="displayUsername" type="text" align="left"></h3>
-		<input type="date" id="showCal" align="left">
-  	</header>
-	  
-	<div class="subheader-container">
-		<br>
-		<br>
-		<br>
-		
-    <center>
-      <h3 id ="subheaderh3">Welcome to the Accountant Dashboard</h3>
-    </center>
-    <br>
-    <br>
-    <br>
+    <input type="button" value="HELP" style="float: right" />
+    <!-- This code displays logo, username -->
+    <header>
+      <!-- This code displays logo, username -->
+      <a href="dashboard.html"
+        ><img src="Logos/Logo1.jpeg" alt="Logo1" width="150" align="right"
+      /></a>
+      <h3 id="displayName" type="text" align="left"></h3>
+      <h3 id="displayUsername" type="text" align="left"></h3>
+      <input type="date" id="showCal" align="left" />
+    </header>
 
-		
-		<center><a href="accountant/view_account.html">
-            <button id ="adminButton">View Accounts</button>
-        </a></center>
-		<br>
-		<center><a href="chartOfAccounts.html">
-        	<button id ="adminButton">View Chart of Accounts</button>
-        </a></center>
-		<br>
-		<center><a href="administrator/contact_administrator.html">
-			<button id ="adminButton">Contact an Administrator</button>
-		</a></center>
-	  
-	</div>
-	  
-<script type="module">
-	// Import the functions you need from the SDKs you need
-	import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-	import { getDatabase, set, get, update, remove, ref, child } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-	import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-	
+    <div class="subheader-container">
+      <br />
+      <br />
+      <br />
 
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+      <center>
+        <h3 id="subheaderh3">Welcome to the Accountant Dashboard</h3>
+      </center>
+      <br />
+      <br />
+      <br />
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyA3C8jafXUUD2s--XEzzfJfVybXs0ZBJyo",
-  authDomain: "budget-buddy-65565.firebaseapp.com",
-  projectId: "budget-buddy-65565",
-  storageBucket: "budget-buddy-65565.appspot.com",
-  messagingSenderId: "416172669900",
-  appId: "1:416172669900:web:49618f6822c7d660f5fb69",
-  measurementId: "G-W4MRFFH4JV"
-};
-  // Initialize Firebase
-  	const app = initializeApp(firebaseConfig);
-	const db = getDatabase();
-	const auth = getAuth();
-	
-	//Displays current user username
-	setTimeout(function(){
+      <center>
+        <a href="accountant/view_account.html">
+          <button id="adminButton">View Accounts</button>
+        </a>
+      </center>
+      <br />
+      <center>
+        <a href="chartOfAccounts.html">
+          <button id="adminButton">View Chart of Accounts</button>
+        </a>
+      </center>
+      <br />
+      <center>
+        <a href="administrator/contact_administrator.html">
+          <button id="adminButton">Contact an Administrator</button>
+        </a>
+      </center>
+    </div>
+
+    <script type="module">
+      // Firebase Imports
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import {
+        getDatabase,
+        set,
+        get,
+        update,
+        remove,
+        ref,
+        child,
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+      import {
+        getAuth,
+        createUserWithEmailAndPassword,
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyA3C8jafXUUD2s--XEzzfJfVybXs0ZBJyo",
+        authDomain: "budget-buddy-65565.firebaseapp.com",
+        projectId: "budget-buddy-65565",
+        storageBucket: "budget-buddy-65565.appspot.com",
+        messagingSenderId: "416172669900",
+        appId: "1:416172669900:web:49618f6822c7d660f5fb69",
+        measurementId: "G-W4MRFFH4JV",
+      };
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase();
+      const auth = getAuth();
+
+      //Displays current user username
+      setTimeout(function () {
         const user = auth.currentUser;
-		const dbref = ref(db);
-		
-		get(child(dbref, "People/" + user.displayName))
-		.then((snapshot)=>{
-			if(snapshot.exists()) {
-				displayName.innerHTML = snapshot.val().FirstName + " " + snapshot.val().LastName; //get current user first and last name
-				displayUsername.innerHTML = snapshot.val().Username;
+        const dbref = ref(db);
 
-			}
-		})
-		.catch((error)=>{
-			alert(error)
-		})
-   	},150); //delay is in milliseconds; delay needed to load page then display name.
-</script>  
-</body>
+        get(child(dbref, "People/" + user.displayName))
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              displayName.innerHTML =
+                snapshot.val().FirstName + " " + snapshot.val().LastName;
+              displayUsername.innerHTML = snapshot.val().Username;
+            }
+          })
+          .catch((error) => {
+            alert(error);
+          });
+      }, 150);
+    </script>
+  </body>
 </html>

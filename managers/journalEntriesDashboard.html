@@ -93,7 +93,7 @@ body {
 
     // Firestore: Load entries based on approval status
     function loadEntries(approved) {
-        document.getElementById('entriesList').innerHTML = ''; // Clear current entries
+        document.getElementById('entriesList').innerHTML = '';
         
         db.collection("journalEntries").where("approved", "==", approved).get()
             .then((querySnapshot) => {

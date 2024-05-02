@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8" />
@@ -6,257 +6,264 @@
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
 
-<body>
-	<header>
-	<!-- This code displays logo, username -->
-		<a href="dashboard.html"><img src="../Logos/Logo1.jpeg" alt="Logo1" width="150" align="right"></a>
-		<h3 id="displayName" type="text" align="left"></h3>
-		<h3 id="displayUsername" type="text" align="left"></h3>
-		<input type="date" id="showCal" align="left">
-  </header>
+  <body>
+    <header>
+      <!-- This code displays logo, username -->
+      <a href="dashboard.html"
+        ><img src="../Logos/Logo1.jpeg" alt="Logo1" width="150" align="right"
+      /></a>
+      <h3 id="displayName" type="text" align="left"></h3>
+      <h3 id="displayUsername" type="text" align="left"></h3>
+      <input type="date" id="showCal" align="left" />
+    </header>
 
-	<!-- This code creates the table to show the account editing history -->
-	<table>
-		<thead>
-			<th>Transaction ID</th>
-			<th>Account Name</th>
-			<th>Acccount Number</th>
-			<th>Account Description</th>
-			<th>Account Category</th>
-			<th>Account Subcategory</th>
-			<th>Account Added By</th>
-			<th>Initial Balance Before</th>
-			<th>Initial Balance After</th>
-			<th>Account Normal Side</th>
-			<th>Account Balance Before</th>
-			<th>Account Balance After</th>
-			<th>Credit Before</th>
-			<th>Credit After</th>
-			<th>Debit Before</th>
-			<th>Debit After</th>
-			<th>Active Status Before</th>
-			<th>Active Status After</th>
-			<th>Statement Before</th>
-			<th>Statement After</th>
-			<th>Comment Before</th>
-			<th>Comment After</th>
-			<th>Edited By Before</th>
-			<th>Edited By After</th>
-		</thead>
-		<tbody id="editTable">
-			<tr></tr>
-		</tbody>
-	</table>
-	<h4><a href="../admin_dashboard.html">Return to Administrator Dashboard</a></h4>
-	
+    <!-- creates the table to show the account editing history -->
+    <table>
+      <thead>
+        <th>Transaction ID</th>
+        <th>Account Name</th>
+        <th>Acccount Number</th>
+        <th>Account Description</th>
+        <th>Account Category</th>
+        <th>Account Subcategory</th>
+        <th>Account Added By</th>
+        <th>Initial Balance Before</th>
+        <th>Initial Balance After</th>
+        <th>Account Normal Side</th>
+        <th>Account Balance Before</th>
+        <th>Account Balance After</th>
+        <th>Credit Before</th>
+        <th>Credit After</th>
+        <th>Debit Before</th>
+        <th>Debit After</th>
+        <th>Active Status Before</th>
+        <th>Active Status After</th>
+        <th>Statement Before</th>
+        <th>Statement After</th>
+        <th>Comment Before</th>
+        <th>Comment After</th>
+        <th>Edited By Before</th>
+        <th>Edited By After</th>
+      </thead>
+      <tbody id="editTable">
+        <tr></tr>
+      </tbody>
+    </table>
+    <h4>
+      <a href="../admin_dashboard.html">Return to Administrator Dashboard</a>
+    </h4>
 
-<script type="module">
-  // Import the functions you need from the SDKs you need
-	import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-	import { getDatabase, set, get, update, remove, ref, child, onValue} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-	import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-	import { serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+    <script type="module">
+      // Firebase Imports
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import {
+        getDatabase,
+        set,
+        get,
+        update,
+        remove,
+        ref,
+        child,
+        onValue,
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+      import {
+        getAuth,
+        createUserWithEmailAndPassword,
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+      import { serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+      const firebaseConfig = {
+        apiKey: "AIzaSyA3C8jafXUUD2s--XEzzfJfVybXs0ZBJyo",
+        authDomain: "budget-buddy-65565.firebaseapp.com",
+        projectId: "budget-buddy-65565",
+        storageBucket: "budget-buddy-65565.appspot.com",
+        messagingSenderId: "416172669900",
+        appId: "1:416172669900:web:49618f6822c7d660f5fb69",
+        measurementId: "G-W4MRFFH4JV",
+      };
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyA3C8jafXUUD2s--XEzzfJfVybXs0ZBJyo",
-  authDomain: "budget-buddy-65565.firebaseapp.com",
-  projectId: "budget-buddy-65565",
-  storageBucket: "budget-buddy-65565.appspot.com",
-  messagingSenderId: "416172669900",
-  appId: "1:416172669900:web:49618f6822c7d660f5fb69",
-  measurementId: "G-W4MRFFH4JV"
-};
-	
-  	// Initialize Firebase
-	const app = initializeApp(firebaseConfig);
-	const db = getDatabase();
-	const dbref = ref(db);
-	const auth = getAuth();
-	const user = auth.currentUser;
-	
-	var accountNumber;
-	var transID;
-	var accountName;
-	var accountDesc;
-	var accountCategory;
-	var accountSubcategory;
-	var addedBy;
-	var initialBalanceB;
-	var initialBalanceA;
-	var normalSideB;
-	var normalSideA;
-	var accountBalanceB;
-	var accountBalanceA;
-	var creditB;
-	var creditA;
-	var debitB;
-	var debitA;
-	var activeStatusB;
-	var activeStatusA;
-	var statementB;
-	var statementA;
-	var commentB;
-	var commentA;
-	var editedByB;
-	var editedByA;
-	
-	
-	window.onload = GetAccountEditInfo(); //run function when window completed loading
-	
-	
-	//This function iterates through the AcctEdits database and finds the transactions for the specified account
-	function GetAccountEditInfo() {
-		const dbref = ref(db);
-		const dbrefAccounts = ref(db, 'AcctEdits/');
-		
-		GetAccountNumber();
-		
-		//This portion of code iterates through the AcctEdits database to get the required information
-		onValue(dbrefAccounts, (snapshot) => {
-			snapshot.forEach((childSnapshot) => {
-				if(accountNumber == childSnapshot.val().AfterAccountNumber) {
-					transID = childSnapshot.val().AfterDateTimeEdited;
-					accountName = childSnapshot.val().AfterAccountName;
-					accountDesc = childSnapshot.val().AfterAccountDesc;
-					accountCategory = childSnapshot.val().AfterAccountCategory;
-					accountSubcategory = childSnapshot.val().AfterAccountSubcategory;
-					addedBy = childSnapshot.val().BeforeAddedBy;
-					initialBalanceB = childSnapshot.val().BeforeIntialBalance;
-					initialBalanceA = childSnapshot.val().AfterInitialBalance;
-					normalSideB = childSnapshot.val().BeforeNormalSide;
-					normalSideA = childSnapshot.val().AfterNormalSide;
-					accountBalanceB = childSnapshot.val().BeforeAccountBalance;
-					accountBalanceA = childSnapshot.val().AfterAccountBalance;
-					creditB = childSnapshot.val().BeforeCreditAmount;
-					creditA = childSnapshot.val().AfterCreditAmount;
-					debitB = childSnapshot.val().BeforeDebitAmount;
-					debitA = childSnapshot.val().AfterDebitAmount;
-					activeStatusB = childSnapshot.val().BeforeActiveStatus;
-					activeStatusA = childSnapshot.val().AfterActiveStatus;
-					statementB = childSnapshot.val().BeforeStatement;
-					statementA = childSnapshot.val().AfterStatement;
-					commentB = childSnapshot.val().BeforeComment;
-					commentA = childSnapshot.val().AfterComment;
-					editedByB = childSnapshot.val().BeforeEditedBy;
-					editedByA = childSnapshot.val().AfterEditedBy;
+      // Firebase Initialization
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase();
+      const dbref = ref(db);
+      const auth = getAuth();
+      const user = auth.currentUser;
 
-					AddItemsToTable();
-				} 
-			})
-		})
-	}
-	
-	
-	//This function appends the data retrieved from the AcctEdits database to the table
-	function AddItemsToTable() {
-		var tbody = document.getElementById("editTable");
-		var trow = document.createElement("tr");
-		var td1 = document.createElement("td");
-		var td2 = document.createElement("td");
-		var td3 = document.createElement("td");
-		var td4 = document.createElement("td");
-		var td5 = document.createElement("td");
-		var td6 = document.createElement("td");
-		var td7 = document.createElement("td");
-		var td8 = document.createElement("td");
-		var td9 = document.createElement("td");
-		var td10 = document.createElement("td");
-		var td11 = document.createElement("td");
-		var td12 = document.createElement("td");
-		var td13 = document.createElement("td");
-		var td14 = document.createElement("td");
-		var td15 = document.createElement("td");
-		var td16 = document.createElement("td");
-		var td17 = document.createElement("td");
-		var td18 = document.createElement("td");
-		var td19 = document.createElement("td");
-		var td20 = document.createElement("td");
-		var td21 = document.createElement("td");
-		var td22 = document.createElement("td");
-		var td23 = document.createElement("td");
-		var td24 = document.createElement("td");
-		var td25 = document.createElement("td");
-		td1.innerHTML = transID;
-		td2.innerHTML = accountNumber;
-		td3.innerHTML = accountName;
-		td4.innerHTML = accountDesc;
-		td5.innerHTML = accountCategory;
-		td6.innerHTML = accountSubcategory;
-		td7.innerHTML = addedBy;
-		td8.innerHTML = initialBalanceB;
-		td9.innerHTML = initialBalanceA;
-		td10.innerHTML = normalSideB;
-		td11.innerHTML = normalSideA;
-		td12.innerHTML = accountBalanceB;
-		td13.innerHTML = accountBalanceA;
-		td14.innerHTML	= creditB;
-		td15.innerHTML = creditA;
-		td16.innerHTML = debitB;
-		td17.innerHTML = debitA;
-		td18.innerHTML = activeStatusB;
-		td19.innerHTML = activeStatusA;
-		td20.innerHTML = statementB;
-		td21.innerHTML = statementA;
-		td22.innerHTML = commentB;
-		td23.innerHTML = commentA;
-		td24.innerHTML = editedByB;
-		td25.innerHTML = editedByA;
-		trow.appendChild(td1); 
-		trow.appendChild(td2); 
-		trow.appendChild(td3); 
-		trow.appendChild(td4); 
-		trow.appendChild(td5); 
-		trow.appendChild(td6); 
-		trow.appendChild(td7); 
-		trow.appendChild(td8); 
-		trow.appendChild(td9); 
-		trow.appendChild(td10); 
-		trow.appendChild(td11); 
-		trow.appendChild(td12); 
-		trow.appendChild(td13); 
-		trow.appendChild(td14); 
-		trow.appendChild(td15); 
-		trow.appendChild(td16); 
-		trow.appendChild(td17); 
-		trow.appendChild(td18); 
-		trow.appendChild(td19); 
-		trow.appendChild(td20); 
-		trow.appendChild(td21); 
-		trow.appendChild(td22); 
-		trow.appendChild(td23); 
-		trow.appendChild(td24); 
-		trow.appendChild(td25);
-		tbody.appendChild(trow);
-	}
-	
-	
-	//This function retrieves the account number of the account requested on the edit_account page
-	function GetAccountNumber() {
-		accountNumber = localStorage.getItem("storeAccount");
-	}
-	
-	
-	//Displays current user username and photo
-	setTimeout(function(){
+      var accountNumber;
+      var transID;
+      var accountName;
+      var accountDesc;
+      var accountCategory;
+      var accountSubcategory;
+      var addedBy;
+      var initialBalanceB;
+      var initialBalanceA;
+      var normalSideB;
+      var normalSideA;
+      var accountBalanceB;
+      var accountBalanceA;
+      var creditB;
+      var creditA;
+      var debitB;
+      var debitA;
+      var activeStatusB;
+      var activeStatusA;
+      var statementB;
+      var statementA;
+      var commentB;
+      var commentA;
+      var editedByB;
+      var editedByA;
+
+      // This will run the function once the window is done loading
+      window.onload = GetAccountEditInfo();
+
+      // Iterates through the AcctEdits database and finds the transactions for the user's specified account
+      function GetAccountEditInfo() {
+        const dbref = ref(db);
+        const dbrefAccounts = ref(db, "AcctEdits/");
+
+        GetAccountNumber();
+
+        //This portion of code iterates through the AcctEdits database to get the required information
+        onValue(dbrefAccounts, (snapshot) => {
+          snapshot.forEach((childSnapshot) => {
+            if (accountNumber == childSnapshot.val().AfterAccountNumber) {
+              transID = childSnapshot.val().AfterDateTimeEdited;
+              accountName = childSnapshot.val().AfterAccountName;
+              accountDesc = childSnapshot.val().AfterAccountDesc;
+              accountCategory = childSnapshot.val().AfterAccountCategory;
+              accountSubcategory = childSnapshot.val().AfterAccountSubcategory;
+              addedBy = childSnapshot.val().BeforeAddedBy;
+              initialBalanceB = childSnapshot.val().BeforeIntialBalance;
+              initialBalanceA = childSnapshot.val().AfterInitialBalance;
+              normalSideB = childSnapshot.val().BeforeNormalSide;
+              normalSideA = childSnapshot.val().AfterNormalSide;
+              accountBalanceB = childSnapshot.val().BeforeAccountBalance;
+              accountBalanceA = childSnapshot.val().AfterAccountBalance;
+              creditB = childSnapshot.val().BeforeCreditAmount;
+              creditA = childSnapshot.val().AfterCreditAmount;
+              debitB = childSnapshot.val().BeforeDebitAmount;
+              debitA = childSnapshot.val().AfterDebitAmount;
+              activeStatusB = childSnapshot.val().BeforeActiveStatus;
+              activeStatusA = childSnapshot.val().AfterActiveStatus;
+              statementB = childSnapshot.val().BeforeStatement;
+              statementA = childSnapshot.val().AfterStatement;
+              commentB = childSnapshot.val().BeforeComment;
+              commentA = childSnapshot.val().AfterComment;
+              editedByB = childSnapshot.val().BeforeEditedBy;
+              editedByA = childSnapshot.val().AfterEditedBy;
+
+              AddItemsToTable();
+            }
+          });
+        });
+      }
+
+      //This function appends the data retrieved from the AcctEdits database to the table
+      function AddItemsToTable() {
+        var tbody = document.getElementById("editTable");
+        var trow = document.createElement("tr");
+        var td1 = document.createElement("td");
+        var td2 = document.createElement("td");
+        var td3 = document.createElement("td");
+        var td4 = document.createElement("td");
+        var td5 = document.createElement("td");
+        var td6 = document.createElement("td");
+        var td7 = document.createElement("td");
+        var td8 = document.createElement("td");
+        var td9 = document.createElement("td");
+        var td10 = document.createElement("td");
+        var td11 = document.createElement("td");
+        var td12 = document.createElement("td");
+        var td13 = document.createElement("td");
+        var td14 = document.createElement("td");
+        var td15 = document.createElement("td");
+        var td16 = document.createElement("td");
+        var td17 = document.createElement("td");
+        var td18 = document.createElement("td");
+        var td19 = document.createElement("td");
+        var td20 = document.createElement("td");
+        var td21 = document.createElement("td");
+        var td22 = document.createElement("td");
+        var td23 = document.createElement("td");
+        var td24 = document.createElement("td");
+        var td25 = document.createElement("td");
+        td1.innerHTML = transID;
+        td2.innerHTML = accountNumber;
+        td3.innerHTML = accountName;
+        td4.innerHTML = accountDesc;
+        td5.innerHTML = accountCategory;
+        td6.innerHTML = accountSubcategory;
+        td7.innerHTML = addedBy;
+        td8.innerHTML = initialBalanceB;
+        td9.innerHTML = initialBalanceA;
+        td10.innerHTML = normalSideB;
+        td11.innerHTML = normalSideA;
+        td12.innerHTML = accountBalanceB;
+        td13.innerHTML = accountBalanceA;
+        td14.innerHTML = creditB;
+        td15.innerHTML = creditA;
+        td16.innerHTML = debitB;
+        td17.innerHTML = debitA;
+        td18.innerHTML = activeStatusB;
+        td19.innerHTML = activeStatusA;
+        td20.innerHTML = statementB;
+        td21.innerHTML = statementA;
+        td22.innerHTML = commentB;
+        td23.innerHTML = commentA;
+        td24.innerHTML = editedByB;
+        td25.innerHTML = editedByA;
+        trow.appendChild(td1);
+        trow.appendChild(td2);
+        trow.appendChild(td3);
+        trow.appendChild(td4);
+        trow.appendChild(td5);
+        trow.appendChild(td6);
+        trow.appendChild(td7);
+        trow.appendChild(td8);
+        trow.appendChild(td9);
+        trow.appendChild(td10);
+        trow.appendChild(td11);
+        trow.appendChild(td12);
+        trow.appendChild(td13);
+        trow.appendChild(td14);
+        trow.appendChild(td15);
+        trow.appendChild(td16);
+        trow.appendChild(td17);
+        trow.appendChild(td18);
+        trow.appendChild(td19);
+        trow.appendChild(td20);
+        trow.appendChild(td21);
+        trow.appendChild(td22);
+        trow.appendChild(td23);
+        trow.appendChild(td24);
+        trow.appendChild(td25);
+        tbody.appendChild(trow);
+      }
+
+      //This function retrieves the account number of the account requested on the edit_account page
+      function GetAccountNumber() {
+        accountNumber = localStorage.getItem("storeAccount");
+      }
+
+      //This will display the current user's username and photo
+      setTimeout(function () {
         const user = auth.currentUser;
-		const dbref = ref(db);
-		
-		get(child(dbref, "People/" + user.displayName))
-		.then((snapshot)=>{
-			if(snapshot.exists()) {
-				displayName.innerHTML = snapshot.val().FirstName + " " + snapshot.val().LastName; //get current user first and last name
-				displayUsername.innerHTML = snapshot.val().Username;
-			}
-		})
-		.catch((error)=>{
-			alert(error)
-		})
-   	},250); //delay is in milliseconds; delay needed to load page then display name.
-</script>	
-</body>
+        const dbref = ref(db);
+
+        get(child(dbref, "People/" + user.displayName))
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              displayName.innerHTML =
+                snapshot.val().FirstName + " " + snapshot.val().LastName;
+              displayUsername.innerHTML = snapshot.val().Username;
+            }
+          })
+          .catch((error) => {
+            alert(error);
+          });
+      }, 250);
+    </script>
+  </body>
 </html>

@@ -109,7 +109,7 @@
     </div>
 
     <script type="module">
-      // Import the functions you need from the SDKs you need
+      // Firebase Imports
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
       import {
         getDatabase,
@@ -127,11 +127,6 @@
       } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
       import { serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-      // TODO: Add SDKs for Firebase products that you want to use
-      // https://firebase.google.com/docs/web/setup#available-libraries
-
-      // Your web app's Firebase configuration
-      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
       const firebaseConfig = {
         apiKey: "AIzaSyA3C8jafXUUD2s--XEzzfJfVybXs0ZBJyo",
         authDomain: "budget-buddy-65565.firebaseapp.com",
@@ -142,7 +137,7 @@
         measurementId: "G-W4MRFFH4JV",
       };
 
-      // Initialize Firebase
+      // Firebase Initialization
       const app = initializeApp(firebaseConfig);
       const db = getDatabase();
       const dbref = ref(db);
@@ -164,7 +159,7 @@
       var addedBy = "";
       var dateTimeAdded = serverTimestamp();
 
-      //function to add new account
+      //This function will add a new account
       function CreateAccount() {
         const dbref = ref(db);
         const auth = getAuth();
@@ -184,7 +179,6 @@
             errorContainer.textContent = error;
             errorContainer.style.color = "red";
             document.body.appendChild(errorContainer);
-            // alert(error);
           });
 
         //This code constructs the account number based on Account Category and order number entered.
@@ -272,7 +266,6 @@
                 errorContainer.textContent = error;
                 errorContainer.style.color = "red";
                 document.body.appendChild(errorContainer);
-                // alert(error);
               });
           } else {
             alert("Account name or number already exists");
@@ -280,7 +273,7 @@
         }, 250);
       }
 
-      //Displays current user username and photo
+      // Displays current user username and photo
       setTimeout(function () {
         const user = auth.currentUser;
         const dbref = ref(db);
@@ -299,9 +292,8 @@
             errorContainer.textContent = error;
             errorContainer.style.color = "red";
             document.body.appendChild(errorContainer);
-            // alert(error);
           });
-      }, 250); //delay is in milliseconds; delay needed to load page then display name.
+      }, 250);
 
       addAccount.addEventListener("click", CreateAccount);
     </script>
