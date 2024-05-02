@@ -1,145 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Adjusting Journal Page</title>
     <link href="journal.css" rel="stylesheet" type="text/css" />
-</head>
-<body>
-    <input type="button" value="HELP" style="float: right;">
+  </head>
+  <body>
+    <input type="button" value="HELP" style="float: right" />
     <h1>Adjusting Journal Page</h1>
 
     <div class="filter-container">
-        <div>
-            <label for="filter-date">Filter by Date:</label>
-            <input type="date" id="filter-date" class="filter-input">
-            <button class="search-button" onclick="filterByDate()">Search</button>
-        </div>
-        <div class="search-button-container">
-            <label for="filter-account">Search by Account Name:</label>
-            <input type="text" id="filter-account" class="filter-input">
-            <button class="search-button" onclick="filterAccountName()">Search</button>
-        </div>
-        <div>
-          <label for="filter-amount">Search by Amount:</label>
-          <input type="number" id="filter-amount" class="filter-input">
-          <button class="search-button" onclick="filterAmount()">Search</button>
-      </div>      
+      <div>
+        <label for="filter-date">Filter by Date:</label>
+        <input type="date" id="filter-date" class="filter-input" />
+        <button class="search-button" onclick="filterByDate()">Search</button>
+      </div>
+      <div class="search-button-container">
+        <label for="filter-account">Search by Account Name:</label>
+        <input type="text" id="filter-account" class="filter-input" />
+        <button class="search-button" onclick="filterAccountName()">
+          Search
+        </button>
+      </div>
+      <div>
+        <label for="filter-amount">Search by Amount:</label>
+        <input type="number" id="filter-amount" class="filter-input" />
+        <button class="search-button" onclick="filterAmount()">Search</button>
+      </div>
       <div>
         <label for="filter-status">Approval Status:</label>
         <select id="filter-status" class="filter-input">
-            <option value="">All</option>
-            <option value="Pending">Pending</option>
-            <option value="Approved">Approved</option>
-            <option value="Rejected">Rejected</option>
+          <option value="">All</option>
+          <option value="Pending">Pending</option>
+          <option value="Approved">Approved</option>
+          <option value="Rejected">Rejected</option>
         </select>
-        <button class="search-button" onclick="updateLedgerStatus()">Search</button>
-    </div>
-    
+        <button class="search-button" onclick="updateLedgerStatus()">
+          Search
+        </button>
+      </div>
     </div>
 
     <table>
-        <thead>
-            <button onclick="displayForm()">Add Entry</button>
-            <div id="entryForm" style="display: none;">
-                <input type="date" id="dateCreated" placeholder="Date Created"><br>
-                <input type="text" id="accountDebited" placeholder="Account Debited"><br>
-                <input type="number" id="debit" placeholder="Debit"><br>
-                <input type="text" id="accountCredited" placeholder="Account Credited"><br>
-                <input type="number" id="credit" placeholder="Credit"><br>
-                <input type="text" id="entryType" placeholder="Entry Type"><br>
-                <input type="file" id="file"><br>
-                <select id="status" placeholder="Status">
-                    <option value="Pending">Pending</option>
-                    <option value="Approved">Approved</option>
-                    <option value="Rejected">Rejected</option>
-                </select><br>
-                <textarea id="comments" placeholder="Comments"></textarea><br>
-                <button onclick="addEntry()">Submit</button><br>
-            </div>
-            <tr>
-                <th>Date Created</th>
-                <th>Account Debited</th>
-                <th>Debit</th>
-                <th>Account Credited</th>
-                <th>Credit</th>
-                <th>Entry Type</th>
-                <th>File</th>
-                <th>Status</th>
-                <th>Comments</th>
-            </tr>
-        </thead>
-        <tbody id="ledger-entries">
-            
-        </tbody>
+      <thead>
+        <button onclick="displayForm()">Add Entry</button>
+        <div id="entryForm" style="display: none">
+          <input
+            type="date"
+            id="dateCreated"
+            placeholder="Date Created"
+          /><br />
+          <input
+            type="text"
+            id="accountDebited"
+            placeholder="Account Debited"
+          /><br />
+          <input type="number" id="debit" placeholder="Debit" /><br />
+          <input
+            type="text"
+            id="accountCredited"
+            placeholder="Account Credited"
+          /><br />
+          <input type="number" id="credit" placeholder="Credit" /><br />
+          <input type="text" id="entryType" placeholder="Entry Type" /><br />
+          <input type="file" id="file" /><br />
+          <select id="status" placeholder="Status">
+            <option value="Pending">Pending</option>
+            <option value="Approved">Approved</option>
+            <option value="Rejected">Rejected</option></select
+          ><br />
+          <textarea id="comments" placeholder="Comments"></textarea><br />
+          <button onclick="addEntry()">Submit</button><br />
+        </div>
+        <tr>
+          <th>Date Created</th>
+          <th>Account Debited</th>
+          <th>Debit</th>
+          <th>Account Credited</th>
+          <th>Credit</th>
+          <th>Entry Type</th>
+          <th>File</th>
+          <th>Status</th>
+          <th>Comments</th>
+        </tr>
+      </thead>
+      <tbody id="ledger-entries"></tbody>
     </table>
 
     <script>
+      // Function that filters by account name
       function filterAccountName() {
-          var inputDate = document.getElementById('filter-date').value;
-          var inputAccount = document.getElementById('filter-account').value.toLowerCase();
-          var inputAmount = document.getElementById('filter-amount').value;
-          var inputStatus = document.getElementById('filter-status').value;
-  
-          var ledgerEntries = document.getElementById('ledger-entries').children;
-  
-          for (var i = 0; i < ledgerEntries.length; i++) {
-              var columns = ledgerEntries[i].children;
-  
-              var date = columns[0].innerText;
-              var account = columns[1].innerText.toLowerCase();
-              var amount = columns[3].innerText || columns[4].innerText;
-              var status = columns[6].innerText;
-  
-              if ((inputDate && !date.includes(inputDate)) ||
-                  (inputAccount && !account.includes(inputAccount)) ||
-                  (inputAmount && !amount.includes(inputAmount)) ||
-                  (inputStatus && status !== inputStatus)) {
-                  ledgerEntries[i].style.display = 'none';
-              } else {
-                  ledgerEntries[i].style.display = '';
-              }
+        var inputDate = document.getElementById("filter-date").value;
+        var inputAccount = document
+          .getElementById("filter-account")
+          .value.toLowerCase();
+        var inputAmount = document.getElementById("filter-amount").value;
+        var inputStatus = document.getElementById("filter-status").value;
+
+        var ledgerEntries = document.getElementById("ledger-entries").children;
+
+        for (var i = 0; i < ledgerEntries.length; i++) {
+          var columns = ledgerEntries[i].children;
+
+          var date = columns[0].innerText;
+          var account = columns[1].innerText.toLowerCase();
+          var amount = columns[3].innerText || columns[4].innerText;
+          var status = columns[6].innerText;
+
+          if (
+            (inputDate && !date.includes(inputDate)) ||
+            (inputAccount && !account.includes(inputAccount)) ||
+            (inputAmount && !amount.includes(inputAmount)) ||
+            (inputStatus && status !== inputStatus)
+          ) {
+            ledgerEntries[i].style.display = "none";
+          } else {
+            ledgerEntries[i].style.display = "";
           }
+        }
       }
 
-    function filterAmount() {
-        var inputAmount = document.getElementById('filter-amount').value;
+      // Function that filters by amount
+      function filterAmount() {
+        var inputAmount = document.getElementById("filter-amount").value;
 
-        var ledgerEntries = document.getElementById('ledger-entries').children;
-
-        for (var i = 0; i < ledgerEntries.length; i++) {
-            var columns = ledgerEntries[i].children;
-
-            var amount = columns[3].innerText || columns[4].innerText;
-
-            if (inputAmount && !amount.includes(inputAmount)) {
-                ledgerEntries[i].style.display = 'none';
-            } else {
-                ledgerEntries[i].style.display = '';
-            }
-        }
-    }
-
-    function updateLedgerStatus() {
-        var inputStatus = document.getElementById('filter-status').value;
-
-        var ledgerEntries = document.getElementById('ledger-entries').children;
+        var ledgerEntries = document.getElementById("ledger-entries").children;
 
         for (var i = 0; i < ledgerEntries.length; i++) {
-            var columns = ledgerEntries[i].children;
+          var columns = ledgerEntries[i].children;
 
-            var status = columns[6].innerText;
+          var amount = columns[3].innerText || columns[4].innerText;
 
-            if (inputStatus && status !== inputStatus) {
-                ledgerEntries[i].style.display = 'none';
-            } else {
-                ledgerEntries[i].style.display = '';
-            }
+          if (inputAmount && !amount.includes(inputAmount)) {
+            ledgerEntries[i].style.display = "none";
+          } else {
+            ledgerEntries[i].style.display = "";
+          }
         }
-    }
+      }
 
-    function filterByDate() {
+      function updateLedgerStatus() {
+        var inputStatus = document.getElementById("filter-status").value;
+
+        var ledgerEntries = document.getElementById("ledger-entries").children;
+
+        for (var i = 0; i < ledgerEntries.length; i++) {
+          var columns = ledgerEntries[i].children;
+
+          var status = columns[6].innerText;
+
+          if (inputStatus && status !== inputStatus) {
+            ledgerEntries[i].style.display = "none";
+          } else {
+            ledgerEntries[i].style.display = "";
+          }
+        }
+      }
+
+      // Function that filters by date
+      function filterByDate() {
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("filter-date");
         filter = input.value;
@@ -147,24 +167,24 @@
         tr = table.getElementsByTagName("tr");
 
         for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[0];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }       
+          td = tr[i].getElementsByTagName("td")[0];
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }
         }
-    }
+      }
 
-    function displayForm() {
-        document.getElementById('entryForm').style.display = 'block';
-    }
+      function displayForm() {
+        document.getElementById("entryForm").style.display = "block";
+      }
 
-    function addEntry() {
-        document.getElementById('entryForm').style.display = 'none';
+      function addEntry() {
+        document.getElementById("entryForm").style.display = "none";
 
         var table = document.getElementById("ledger-entries");
         var row = table.insertRow();
@@ -201,13 +221,21 @@
         document.getElementById("status").value = "";
         document.getElementById("comments").value = "";
 
-        if (!dateCreated.value || !accountDebited.value || !debit.value || !accountCredited.value || !credit.value || !entryType.value || !file.value || !status.value || !comments.value) {
-            alert('Please fill out all fields before submitting.');
-            return false;
+        if (
+          !dateCreated.value ||
+          !accountDebited.value ||
+          !debit.value ||
+          !accountCredited.value ||
+          !credit.value ||
+          !entryType.value ||
+          !file.value ||
+          !status.value ||
+          !comments.value
+        ) {
+          alert("Please fill out all fields before submitting.");
+          return false;
         }
-    }
-
-  </script>
-</body>
-
+      }
+    </script>
+  </body>
 </html>

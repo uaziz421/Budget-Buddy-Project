@@ -1,166 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Journal Page</title>
     <link href="journal.css" rel="stylesheet" type="text/css" />
-</head>
-<body>
-    <input type="button" value="HELP" style="float: right;">
+  </head>
+  <body>
+    <input type="button" value="HELP" style="float: right" />
     <h1>Journal Page</h1>
 
     <div class="filter-container">
-        <div>
-            <label for="filter-date">Filter by Date:</label>
-            <input type="date" id="filter-date" class="filter-input">
-            <button id="FilterByDateButton" class="search-button">Search</button>
-        </div>
-        <div class="search-button-container">
-            <label for="filter-account">Search by Account Name:</label>
-            <input type="text" id="filter-account" class="filter-input">
-            <button id="SearchByAccountNameButton" class="search-button">Search</button>
-        </div>
-        <div>
-          <label for="filter-amount">Search by Amount:</label>
-          <input type="number" id="filter-amount" class="filter-input">
-          <button id="SearchByAmountButton" class="search-button">Search</button>
-      </div>      
+      <div>
+        <label for="filter-date">Filter by Date:</label>
+        <input type="date" id="filter-date" class="filter-input" />
+        <button id="FilterByDateButton" class="search-button">Search</button>
+      </div>
+      <div class="search-button-container">
+        <label for="filter-account">Search by Account Name:</label>
+        <input type="text" id="filter-account" class="filter-input" />
+        <button id="SearchByAccountNameButton" class="search-button">
+          Search
+        </button>
+      </div>
+      <div>
+        <label for="filter-amount">Search by Amount:</label>
+        <input type="number" id="filter-amount" class="filter-input" />
+        <button id="SearchByAmountButton" class="search-button">Search</button>
+      </div>
       <div>
         <label for="filter-status">Approval Status:</label>
         <select id="filter-status" class="filter-input">
-            <option value="">All</option>
-            <option value="Pending">Pending</option>
-            <option value="Approved">Approved</option>
-            <option value="Rejected">Rejected</option>
+          <option value="">All</option>
+          <option value="Pending">Pending</option>
+          <option value="Approved">Approved</option>
+          <option value="Rejected">Rejected</option>
         </select>
         <button id="ApprovalStatusButton" class="search-button">Search</button>
-    </div>
-    
+      </div>
     </div>
 
     <table>
-        <thead>
-            <button id="AddEntryButton">Add Entry</button><br>
-            <div id="entryForm" style="display: none;">
-                <input type="date" id="dateCreated" placeholder="Date Created"><br>
-                <input type="text" id="accountDebited" placeholder="Account Debited"><br>
-                <input type="number" id="debit" placeholder="Debit"><br>
-                <input type="text" id="accountCredited" placeholder="Account Credited"><br>
-                <input type="number" id="credit" placeholder="Credit"><br>
-                <input type="text" id="entryType" placeholder="Entry Type"><br>
-                <input type="file" id="file"><br>
-                <select id="status">
-                    <option value="Pending">Pending</option>
-                    <option value="Approved">Approved</option>
-                    <option value="Rejected">Rejected</option>
-                </select><br>
-                <textarea id="comments" placeholder="Comments"></textarea><br>
-                <button id="SubmitEntryFormButton">Submit</button><br>
-            </div>
-            <tr>
-                <th>Date Created</th>
-                <th>Account Debited</th>
-                <th>Debit</th>
-                <th>Account Credited</th>
-                <th>Credit</th>
-                <th>Entry Type</th>
-                <th>File</th>
-                <th>Status</th>
-                <th>Comments</th>
-            </tr>
-        </thead>
-        <tbody id="ledger-entries">
-            
-        </tbody>
+      <thead>
+        <button id="AddEntryButton">Add Entry</button
+        ><br />
+        <div id="entryForm" style="display: none">
+          <input
+            type="date"
+            id="dateCreated"
+            placeholder="Date Created"
+          /><br />
+          <input
+            type="text"
+            id="accountDebited"
+            placeholder="Account Debited"
+          /><br />
+          <input type="number" id="debit" placeholder="Debit" /><br />
+          <input
+            type="text"
+            id="accountCredited"
+            placeholder="Account Credited"
+          /><br />
+          <input type="number" id="credit" placeholder="Credit" /><br />
+          <input type="text" id="entryType" placeholder="Entry Type" /><br />
+          <input type="file" id="file" /><br />
+          <select id="status">
+            <option value="Pending">Pending</option>
+            <option value="Approved">Approved</option>
+            <option value="Rejected">Rejected</option></select
+          ><br />
+          <textarea id="comments" placeholder="Comments"></textarea><br />
+          <button id="SubmitEntryFormButton">Submit</button><br />
+        </div>
+        <tr>
+          <th>Date Created</th>
+          <th>Account Debited</th>
+          <th>Debit</th>
+          <th>Account Credited</th>
+          <th>Credit</th>
+          <th>Entry Type</th>
+          <th>File</th>
+          <th>Status</th>
+          <th>Comments</th>
+        </tr>
+      </thead>
+      <tbody id="ledger-entries"></tbody>
     </table>
 
-	
-	
-  <script type="module">
-//import and initialization of the firebase database app
-	import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-	import { getDatabase, set, get, update, remove, ref, child, onValue} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-	import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-	import { serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+    <script type="module">
+      //import and initialization of the firebase database app
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import {
+        getDatabase,
+        set,
+        get,
+        update,
+        remove,
+        ref,
+        child,
+        onValue,
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+      import {
+        getAuth,
+        createUserWithEmailAndPassword,
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+      import { serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyA3C8jafXUUD2s--XEzzfJfVybXs0ZBJyo",
-  authDomain: "budget-buddy-65565.firebaseapp.com",
-  projectId: "budget-buddy-65565",
-  storageBucket: "budget-buddy-65565.appspot.com",
-  messagingSenderId: "416172669900",
-  appId: "1:416172669900:web:49618f6822c7d660f5fb69",
-  measurementId: "G-W4MRFFH4JV"
-};
-const app = initializeApp(firebaseConfig);
-		
-		
-		
+      const firebaseConfig = {
+        apiKey: "AIzaSyA3C8jafXUUD2s--XEzzfJfVybXs0ZBJyo",
+        authDomain: "budget-buddy-65565.firebaseapp.com",
+        projectId: "budget-buddy-65565",
+        storageBucket: "budget-buddy-65565.appspot.com",
+        messagingSenderId: "416172669900",
+        appId: "1:416172669900:web:49618f6822c7d660f5fb69",
+        measurementId: "G-W4MRFFH4JV",
+      };
+      const app = initializeApp(firebaseConfig);
+
       function filterAccount() {
-          var inputDate = document.getElementById('filter-date').value;
-          var inputAccount = document.getElementById('filter-account').value.toLowerCase();
-          var inputAmount = document.getElementById('filter-amount').value;
-          var inputStatus = document.getElementById('filter-status').value;
-  
-          var ledgerEntries = document.getElementById('ledger-entries').children;
-  
-          for (var i = 0; i < ledgerEntries.length; i++) {
-              var columns = ledgerEntries[i].children;
-  
-              var date = columns[0].innerText;
-              var account = columns[1].innerText.toLowerCase();
-              var amount = columns[3].innerText || columns[4].innerText;
-              var status = columns[6].innerText;
-  
-              if ((inputDate && !date.includes(inputDate)) ||
-                  (inputAccount && !account.includes(inputAccount)) ||
-                  (inputAmount && !amount.includes(inputAmount)) ||
-                  (inputStatus && status !== inputStatus)) {
-                  ledgerEntries[i].style.display = 'none';
-              } else {
-                  ledgerEntries[i].style.display = '';
-              }
+        var inputDate = document.getElementById("filter-date").value;
+        var inputAccount = document
+          .getElementById("filter-account")
+          .value.toLowerCase();
+        var inputAmount = document.getElementById("filter-amount").value;
+        var inputStatus = document.getElementById("filter-status").value;
+
+        var ledgerEntries = document.getElementById("ledger-entries").children;
+
+        for (var i = 0; i < ledgerEntries.length; i++) {
+          var columns = ledgerEntries[i].children;
+
+          var date = columns[0].innerText;
+          var account = columns[1].innerText.toLowerCase();
+          var amount = columns[3].innerText || columns[4].innerText;
+          var status = columns[6].innerText;
+
+          if (
+            (inputDate && !date.includes(inputDate)) ||
+            (inputAccount && !account.includes(inputAccount)) ||
+            (inputAmount && !amount.includes(inputAmount)) ||
+            (inputStatus && status !== inputStatus)
+          ) {
+            ledgerEntries[i].style.display = "none";
+          } else {
+            ledgerEntries[i].style.display = "";
           }
+        }
       }
 
-    function filterAmount() {
-        var inputAmount = document.getElementById('filter-amount').value;
+      function filterAmount() {
+        var inputAmount = document.getElementById("filter-amount").value;
 
-        var ledgerEntries = document.getElementById('ledger-entries').children;
-
-        for (var i = 0; i < ledgerEntries.length; i++) {
-            var columns = ledgerEntries[i].children;
-
-            var amount = columns[3].innerText || columns[4].innerText;
-
-            if (inputAmount && !amount.includes(inputAmount)) {
-                ledgerEntries[i].style.display = 'none';
-            } else {
-                ledgerEntries[i].style.display = '';
-            }
-        }
-    }
-
-    function filterStatus() {
-        var inputStatus = document.getElementById('filter-status').value;
-
-        var ledgerEntries = document.getElementById('ledger-entries').children;
+        var ledgerEntries = document.getElementById("ledger-entries").children;
 
         for (var i = 0; i < ledgerEntries.length; i++) {
-            var columns = ledgerEntries[i].children;
+          var columns = ledgerEntries[i].children;
 
-            var status = columns[6].innerText;
+          var amount = columns[3].innerText || columns[4].innerText;
 
-            if (inputStatus && status !== inputStatus) {
-                ledgerEntries[i].style.display = 'none';
-            } else {
-                ledgerEntries[i].style.display = '';
-            }
+          if (inputAmount && !amount.includes(inputAmount)) {
+            ledgerEntries[i].style.display = "none";
+          } else {
+            ledgerEntries[i].style.display = "";
+          }
         }
-    }
+      }
 
-    function filterByDate() {
+      function filterStatus() {
+        var inputStatus = document.getElementById("filter-status").value;
+
+        var ledgerEntries = document.getElementById("ledger-entries").children;
+
+        for (var i = 0; i < ledgerEntries.length; i++) {
+          var columns = ledgerEntries[i].children;
+
+          var status = columns[6].innerText;
+
+          if (inputStatus && status !== inputStatus) {
+            ledgerEntries[i].style.display = "none";
+          } else {
+            ledgerEntries[i].style.display = "";
+          }
+        }
+      }
+
+      function filterByDate() {
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("filter-date");
         filter = input.value;
@@ -168,27 +192,27 @@ const app = initializeApp(firebaseConfig);
         tr = table.getElementsByTagName("tr");
 
         for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[0];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }       
+          td = tr[i].getElementsByTagName("td")[0];
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }
         }
-    }
+      }
 
-    function displayForm() {
-        document.getElementById('entryForm').style.display = 'block';
-    }
+      function displayForm() {
+        document.getElementById("entryForm").style.display = "block";
+      }
 
-    function addEntry() {
-		const db = getDatabase(); //constants for database access
-		const dbref = ref(db); //constants for database access
-		
-        document.getElementById('entryForm').style.display = 'none';
+      function addEntry() {
+        const db = getDatabase();
+        const dbref = ref(db);
+
+        document.getElementById("entryForm").style.display = "none";
 
         var table = document.getElementById("ledger-entries");
         var row = table.insertRow();
@@ -202,7 +226,7 @@ const app = initializeApp(firebaseConfig);
         var file = document.getElementById("file").value;
         var status = document.getElementById("status").value;
         var comments = document.getElementById("comments").value;
-		var entryID = 0; //Journal database entries key
+        var entryID = 0;
 
         // Add the form inputs to the new row
         row.insertCell(0).innerHTML = dateCreated;
@@ -225,52 +249,54 @@ const app = initializeApp(firebaseConfig);
         document.getElementById("file").value = "";
         document.getElementById("status").value = "";
         document.getElementById("comments").value = "";
-		
-		//This following portion of code gets a key value to use for the Journal data entry addition. The entry key value is stored in another firebase database
-		get(child(dbref, "EntryKey/" + "EntryNo"))
-          .then((snapshot) => {
-			   entryID = snapshot.val().EntryID;
-			   var entryIDUpdate = entryID+1;
-			   update(ref(db, "EntryKey/" + "EntryNo"), {
-				EntryID: entryIDUpdate
-			})
-          })
-		
-		
-		//This portion of code puts the journal information into the Journal database
-		setTimeout(function(){
-			set(ref(db, "Journal/" + entryID), {
-				DateCreated: dateCreated,
-				AccountDebited: accountDebited,
-				Debit: debit,
-				AccountCredited: accountCredited,
-				Credit: credit,
-				EntryType: entryType,
-				File: file,
-				Status: status,
-				Comments: comments
-			})
-		},250)
 
+        //This following portion of code gets a key value to use for the Journal data entry addition. The entry key value is stored in another firebase database
+        get(child(dbref, "EntryKey/" + "EntryNo")).then((snapshot) => {
+          entryID = snapshot.val().EntryID;
+          var entryIDUpdate = entryID + 1;
+          update(ref(db, "EntryKey/" + "EntryNo"), {
+            EntryID: entryIDUpdate,
+          });
+        });
 
-        if (!dateCreated.value || !accountDebited.value || !debit.value || !accountCredited.value || !credit.value || !entryType.value || !file.value || !status.value || !comments.value) {
-            alert('Please fill out all fields before submitting.');
-            return false;
+        //This portion of code puts the journal information into the Journal database
+        setTimeout(function () {
+          set(ref(db, "Journal/" + entryID), {
+            DateCreated: dateCreated,
+            AccountDebited: accountDebited,
+            Debit: debit,
+            AccountCredited: accountCredited,
+            Credit: credit,
+            EntryType: entryType,
+            File: file,
+            Status: status,
+            Comments: comments,
+          });
+        }, 250);
+
+        if (
+          !dateCreated.value ||
+          !accountDebited.value ||
+          !debit.value ||
+          !accountCredited.value ||
+          !credit.value ||
+          !entryType.value ||
+          !file.value ||
+          !status.value ||
+          !comments.value
+        ) {
+          alert("Please fill out all fields before submitting.");
+          return false;
         }
+      }
 
-    }
-
-		
-		//Event listeners for all page buttons
-		AddEntryButton.addEventListener("click", displayForm);
-		FilterByDateButton.addEventListener("click", filterByDate);
-		ApprovalStatusButton.addEventListener("click", filterStatus);
-		SearchByAccountNameButton.addEventListener("click", filterAccount);
-		SearchByAmountButton.addEventListener("click", filterAmount);
-		SubmitEntryFormButton.addEventListener("click", addEntry);
-		
-  </script>
-	
-</body>
-
+      //Event listeners for all page buttons
+      AddEntryButton.addEventListener("click", displayForm);
+      FilterByDateButton.addEventListener("click", filterByDate);
+      ApprovalStatusButton.addEventListener("click", filterStatus);
+      SearchByAccountNameButton.addEventListener("click", filterAccount);
+      SearchByAmountButton.addEventListener("click", filterAmount);
+      SubmitEntryFormButton.addEventListener("click", addEntry);
+    </script>
+  </body>
 </html>

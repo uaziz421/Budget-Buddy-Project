@@ -8,7 +8,8 @@
 
 <body>
 	<input type="button" value="HELP" style="float: right;">
-	<!-- This code displays logo, username, and user photo -->
+	
+	<!-- This displays user's logo, username, and photo -->
 	<header id="header">
 		<h3 id="displayUsername" type="text" align="right"></h3>
 		<div class="dashboardLogo">
@@ -38,17 +39,11 @@
 	
 	
 <script type="module">
-	  // Import the functions you need from the SDKs you need
+	  // Firebase Imports 
   		import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 		import { getDatabase, set, get, update, remove, ref, child } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 		import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 	
-
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyA3C8jafXUUD2s--XEzzfJfVybXs0ZBJyo",
   authDomain: "budget-buddy-65565.firebaseapp.com",
@@ -59,12 +54,12 @@ const firebaseConfig = {
   measurementId: "G-W4MRFFH4JV"
 };
 	
-  	// Initialize Firebase
+  	// Firebase Initialization
   	const app = initializeApp(firebaseConfig);
 	const db = getDatabase();
 	const auth = getAuth();
 	
-	//Displays current user username and photo
+	// This displays the current user's photo and username
 	setTimeout(function(){
         const user = auth.currentUser;
 		const dbref = ref(db);
@@ -72,18 +67,18 @@ const firebaseConfig = {
 		get(child(dbref, "People/" + user.displayName))
 		.then((snapshot)=>{
 			if(snapshot.exists()) {
-				displayUsername.innerHTML = "Current User: " + snapshot.val().Username; //get current user username
-				const retUserPhoto = document.getElementById("userPhoto"); //get photo data to update
-				retUserPhoto.src = snapshot.val().PicLocation; //update photo src information
+				displayUsername.innerHTML = "Current User: " + snapshot.val().Username; 
+				const retUserPhoto = document.getElementById("userPhoto");
+				retUserPhoto.src = snapshot.val().PicLocation;
 			}
 		})
 		.catch((error)=>{
 			alert(error)
 		})
-   	},150); //delay is in milliseconds; delay needed to load page then display name.
+   	},150);
 	
 	
-	//Checks if the current user is an administrator; if administrator go to administrator page
+	// This checks if the current user is an administrator; if administrator go to administrator page
 	function CheckRoleAdmin() {
 		const user = auth.currentUser;
 		var username = user.displayName;
@@ -107,7 +102,7 @@ const firebaseConfig = {
 	}
 	
 	
-	//Checks if the current user is a manager; if manager go to manager page
+	// This checks if the current user is a manager; if manager than it goes to the manager page
 	function CheckRoleMan() {
 		const user = auth.currentUser;
 		var username = user.displayName;
@@ -131,7 +126,7 @@ const firebaseConfig = {
 	}
 	
 	
-	//Checks if the current user is an accountant; if accountant go to accountant page
+	// This checks if the current user is an accountant; if accountant then it goes to the accountant page
 	function CheckRoleAcct() {
 		const user = auth.currentUser;
 		var username = user.displayName;

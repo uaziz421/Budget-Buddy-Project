@@ -152,34 +152,10 @@
           <td>JE-001</td>
         </tr>
       </tbody>
-
-      <!-- <tbody id="ledger-entries">
-          <tr>
-            <td>2024-04-15</td>
-            <td>J123</td>
-            <td>Payment received</td>
-            <td>$500</td>
-            <td></td>
-            <td>$500</td>
-            <td class="sample-data">Approved</td>
-        </tr>
-        <tr>
-            <td>2024-04-14</td>
-            <td>J122</td>
-            <td>Office supplies</td>
-            <td></td>
-            <td>$100</td>
-            <td>$400</td>
-            <td class="sample-data">Pending</td>
-        </tr>
-        </tbody> -->
     </table>
 
     <script type="module">
-      ///////////////////////////////////////////////
-
-      // filter functionality code
-
+      // This will update ledger
       function updateLedger() {
         console.log("hello");
         var inputDate = document.getElementById("filter-date").value;
@@ -213,6 +189,7 @@
         }
       }
 
+      // update ledger amount
       function updateLedgerAmount() {
         var inputAmount = document.getElementById("filter-amount").value;
 
@@ -232,6 +209,7 @@
         }
       }
 
+      //update ledger status
       function updateLedgerStatus() {
         var inputStatus = document.getElementById("filter-status").value;
 
@@ -251,6 +229,7 @@
         }
       }
 
+      // This function will filter by date
       function filterByDate() {
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("filter-date");
@@ -271,7 +250,7 @@
         }
       }
 
-      /////////////////////////////////////////
+      // Firebase Imports
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
       import {
         ref,
@@ -303,6 +282,7 @@
         return (debitAmount - creditAmount).toFixed(2);
       }
 
+      // Function that gets journal entries from the database
       function GetJournalEntries() {
         const journalref = ref(db, "journalEntries");
         onValue(
